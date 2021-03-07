@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="in_app_rate_us_dialogue_action_button">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_marginTop">@dimen/rate_button_text_size</item>
+        <item name="android:textSize">@dimen/rate_button_text_size</item>
+        <item name="textAllCaps">false</item>
+    </style>
+
+    <style name="in_app_rate_us_dialogue_no_action" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginBottom">16dp</item>
+        <item name="android:textColor">?attr/colorPrimary</item>
+        <item name="android:textSize">@dimen/rate_button_no_action_text_size</item>
+        <item name="android:textStyle">normal</item>
+
+    </style>
+
+    <style name="MyTheme" parent="Theme.MaterialComponents">
+        <item name="bottomSheetDialogTheme">@style/BottomSheet</item>
+    </style>
+
+    <style name="BottomSheet" parent="Theme.MaterialComponents.Light.BottomSheetDialog">
+        <item name="android:windowIsFloating">false</item>
+        <item name="elevationOverlayEnabled">false</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">?colorSurface</item>
+        <item name="colorPrimary">?colorPrimary</item>
+        <item name="android:navigationBarDividerColor" tools:targetApi="o_mr1">?android:colorBackground</item>
+    </style>
+
+    <style name="AppBottomSheetDialogThemeRate" parent="Theme.MaterialComponents.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/AppModalStyle</item>
+        <item name="colorPrimary">#0984AA</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:backgroundDimAmount">0.2</item>
+        <item name="android:colorBackground">@android:color/white</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">?colorSurface</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
+    </style>
+
+
+    <style name="AppModalStyle" parent="Widget.MaterialComponents.BottomSheet">
+        <item name="behavior_peekHeight">250dp</item>
+        <item name="shapeAppearanceOverlay">@style/RateCut</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="RatingBar" parent="Theme.AppCompat">
+        <item name="android:progressBackgroundTint">@android:color/white</item>
+        <item name="colorControlNormal">?colorOnPrimary</item>
+        <item name="colorControlActivated">@color/ad_yellow</item>
+    </style>
+
+    <style name="RateCut">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">16dp</item>
+        <item name="cornerSizeTopLeft">16dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+    </style>
+
+    <style name="SheetRateDialog">
+        <item name="android:windowCloseOnTouchOutside">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:colorBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.2</item>
+
+    </style>
+
+
+
+</resources>

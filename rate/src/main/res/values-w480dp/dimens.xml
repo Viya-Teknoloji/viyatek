@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="rate_button_text_size">24sp</dimen>
+    <dimen name="rate_button_no_action_text_size">18sp</dimen>
+    <dimen name="rate_dialog_margin">24dp</dimen>
+    <dimen name="rate_title_text_size">30sp</dimen>
+</resources>
