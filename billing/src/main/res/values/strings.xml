@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="weekly_subscription_type">weekly</string>
+    <string name="monthly_subscription_type">monthly</string>
+    <string name="yearly_subscription_type">yearly</string>
+
+    <string name="viyatek_subscription_check">https://0tg0ktrj7h.execute-api.us-west-2.amazonaws.com/live/getbytoken?token=%1$s&amp;packageName=%2$s</string>
+    <string name="viyatek_subscription_validation">https://0tg0ktrj7h.execute-api.us-west-2.amazonaws.com/live/validatetoken?token=%1$s&amp;subscriptionId=%2$s&amp;packageName=%3$s</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="viyatek_subscription_validation_end_point">https://0tg0ktrj7h.execute-api.us-west-2.amazonaws.com/live/subscriptions-validatetoken-v2</string>
+    <string name="viyatek_subscription_check_endpoint">https://0tg0ktrj7h.execute-api.us-west-2.amazonaws.com/live/subscriptions-getbytoken-v2</string>
+
+    <string name="privacy_policy_url" translatable="false">https://viyatek.io/privacy/</string>
+    <string name="terms_of_use_url" translatable="false">https://viyatek.io/terms/</string>
+
+    <string name="lifetime_motto">Pay once use forever</string>
+    <string name="cancel_anytime">Cancel anytime</string>
+
+    <string name="save_50">SAVE %1$s</string>
+    <string name="stand_alone_save_string_pay_once">SAVE %1$s, just <s>%2$s</s> %3$s</string>
+    <string name="stand_alone_save_string">SAVE %1$s, just <strike>%2$s</strike> %3$s/%4$s</string>
+    <string name="stand_alone_save_string_custom_time">SAVE %1$s, just <s>%2$s</s> %3$s/%4$d %5$s</string>
+
+    <string name="yearly_plan_price">Just %1$s/year</string>
+    <string name="monthly_plan_price">Just %1$s/month</string>
+    <string name="life_time_plan_price">Just %1$s</string>
+
+    <string name="plan_price_without_free_trial">Just %1$s/%2$s</string>
+    <string name="plan_price_with_free_trial">Try %1$s-days free, then %2$s/%3$s</string>
+    <string name="plan_price_with_free_trial_custom_time">Try %1$s-days free, then %2$s/%3$d %4$s</string>
+    <string name="plan_price_without_free_trial_custom_time">Just %1$s/%2$d %3$s</string>
+
+    <string name="start_subscription_button">Upgrade to Premium</string>
+    <string name="premium_title">UPGRADE TO PREMIUM</string>
+    <string name="start_my_free_trial_button">Start My Free Trial</string>
+    <string name="premium_below_button_info">3 days free, then just %1$s/%2$s \n Cancel Anytime</string>
+    <string name="premium_plan_button_info">Just %1$s \n Forever </string>
+    <string name="premium_below_button_info_non_free_trial">%1$s/%2$s \n Cancel Anytime</string>
+
+    <string name="access_to_all_features">Access to All Features</string>
+    <string name="unlock_premium">UNLOCK PREMIUM</string>
+
+    <string name="thousands_of_new_facts_articles"><![CDATA[Thousands of New Facts & Articles]]></string>
+
+    <string name="backup_premium_text">Backup your bookmarks and seen facts.</string>
+    <string name="close_premium_sale_page">Close Premium Sale Page</string>
+    <string name="regularly_updated_content">Regularly Updated Content</string>
+
+    <string name="premium_cond_1">Thousands of handpicked quotes</string>
+    <string name="premium_cond_2">Unlock All Premium Themes</string>
+    <string name="premium_cond_3">Ad Free Experience</string>
+    <string name="premium_cond_4">Remove Watermark</string>
+
+    <string name="select_plan_text">Select your plan to start your 3-day trial or lifetime purchase</string>
+    <string name="select_plan_text_new_premium">Try %1$s-days free, then %2$s/year</string>
+    <string name="select_plan_text_non_free">Select a plan to start your subscription or lifetime purchase</string>
+
+    <string name="premium_sale_page_background">Premium Sale Page Background</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="terms_of_use">Terms of Use</string>
+    <string name="divider">|</string>
+    <string name="see_other_subscription_plans">See other subscription plans</string>
+    <string name="subscribe_now">SUBSCRIBE NOW</string>
+    <string name="pay_once">Pay once</string>
+    <string name="campaign_photo">Campaign Photo</string>
+    <string name="special_offer">Special Offer</string>
+
+    <string name="verification_problem">An error occurred while validating your purchase. Your membership will start automatically if you have successfully paid</string>
+    <string name="verification_success">Your subscription is successfully verified</string>
+    <string name="dialogue_image">Dialogue Image</string>
+    <string name="progress">Please Wait.\n\n We are verifying your purchase</string>
+    <string name="restore_purchase">Restore Purchase</string>
+
+
+</resources>

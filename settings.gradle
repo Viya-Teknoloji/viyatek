@@ -1,3 +1,11 @@
 rootProject.name = "Libraries"
 include ':app'
 include ':rate'
+include ':helper'
+include ':preferences'
+include ':mopub'
+include ':lockscreen'
+include ':firebase'
+include ':billing'
+include ':app_update'
+include ':libraries'
