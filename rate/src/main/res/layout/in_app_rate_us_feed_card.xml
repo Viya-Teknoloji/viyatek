@@ -3,12 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/rate_us_constraint"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <View
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:alpha=".5"
         android:background="@drawable/line_scrim"
         app:layout_constraintEnd_toEndOf="parent"
@@ -19,7 +20,7 @@
     <View
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="8dp"
         android:alpha=".5"
         android:background="@drawable/line_scrim"
         app:layout_constraintBottom_toTopOf="@+id/rate_us_card"

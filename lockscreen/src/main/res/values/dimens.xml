@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="selected_number_text_size">50sp</dimen>
+    <dimen name="lock_screen_informative_text_size">18sp</dimen>
+    <dimen name="fragment_title_text_size">24sp</dimen>
+    <dimen name="number_horizontal_padding">24dp</dimen>
+    <dimen name="number_vertical_padding">12dp</dimen>
+    <dimen name="number_picker_text_size">30sp</dimen>
+    <dimen name="grid_layout_option_margin">16dp</dimen>
+</resources>

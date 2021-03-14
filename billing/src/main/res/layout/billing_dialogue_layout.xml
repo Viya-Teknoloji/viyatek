@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/special_offer_vertical_margin"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <Button
+                android:id="@+id/action_button"
+                style="@style/dialog_button"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/dialog_button_vertical_margin"
+                android:text="@android:string/ok"
+                android:textSize="@dimen/premium_pack"
+                app:layout_constraintBottom_toTopOf="@+id/no_action_button"
+                app:layout_constraintDimensionRatio="w,1:5"
+                app:layout_constraintEnd_toEndOf="@+id/dialogue_text"
+                app:layout_constraintStart_toStartOf="@+id/dialogue_text"
+                app:layout_constraintTop_toBottomOf="@+id/dialogue_text"
+                app:layout_constraintVertical_bias="0.5"
+                app:layout_constraintWidth_percent=".9" />
+
+            <Button
+                android:id="@+id/no_action_button"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginBottom="16dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="5:1"
+                app:layout_constraintEnd_toEndOf="@+id/action_button"
+                app:layout_constraintStart_toStartOf="@+id/action_button"
+                tools:text="Button" />
+
+            <ImageView
+                android:id="@+id/dialogue_image"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:contentDescription="@string/dialogue_image"
+                android:scaleType="centerCrop"
+                android:src="@drawable/verification_success_img"
+                app:layout_constraintDimensionRatio="5:3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/dialogue_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dialog_button_vertical_margin"
+                android:gravity="center"
+                android:text="@string/verification_success"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="@dimen/premium_pack"
+                app:layout_constraintEnd_toEndOf="@+id/dialogue_image"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/dialogue_image"
+                app:layout_constraintWidth_percent=".9" />
+
+            <ImageButton
+                android:id="@+id/dialogue_close_icon"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@null"
+                android:contentDescription="@string/close_premium_sale_page"
+                android:scaleType="centerCrop"
+                app:layout_constraintDimensionRatio="w,1:1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent=".075"
+                app:srcCompat="@drawable/exit" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

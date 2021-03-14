@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:background="@drawable/default_bg">
+
+
+    <ImageView
+        android:id="@+id/sale_bg"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:contentDescription="@string/premium_sale_page_background"
+        android:scaleType="centerCrop"
+        android:src="@drawable/default_bg"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/default_bg" />
+
+    <include
+        android:id="@+id/sale_button_group"
+        layout="@layout/premium_button_group"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:fontFamily="@font/proximanovasemibold"
+        android:text="@string/unlock_premium"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/premium_title"
+        app:layout_constraintStart_toStartOf="@+id/close_activity_button"
+        app:layout_constraintTop_toBottomOf="@+id/close_activity_button" />
+
+    <View
+        android:id="@+id/view8"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/white"
+        app:layout_constraintEnd_toEndOf="@+id/textView3"
+        app:layout_constraintStart_toStartOf="@+id/textView3"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+    <ImageView
+        android:id="@+id/close_activity_button"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:contentDescription="@string/close_premium_sale_page"
+        android:cropToPadding="true"
+        android:src="@drawable/exit"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent=".075" />
+
+    <ScrollView
+        android:id="@+id/scrollView4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/sale_button_group"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/close_activity_button"
+        app:layout_constraintTop_toBottomOf="@+id/view8">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@+id/plan_price"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/premium_conditions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/oval_bg"
+                    android:backgroundTint="@android:color/white"
+                    android:drawablePadding="8dp"
+                    android:fontFamily="@font/proximanovasemibold"
+                    android:gravity="center"
+                    android:paddingStart="8dp"
+                    android:paddingTop="4dp"
+                    android:paddingEnd="12dp"
+                    android:paddingBottom="4dp"
+                    android:text="@string/access_to_all_features"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/special_offer_title_text"
+                    app:drawableStartCompat="@drawable/check"
+                    app:drawableTint="@android:color/black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/premium_conditions2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:drawableStart="@drawable/check"
+                    android:drawablePadding="8dp"
+                    android:fontFamily="@font/proximanovasemibold"
+                    android:gravity="center|start"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="0dp"
+                    android:text="@string/premium_cond_1"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/special_offer_title_text"
+                    app:drawableTint="@android:color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/premium_conditions"
+                    app:layout_constraintTop_toBottomOf="@+id/premium_conditions" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/premium_conditions3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:drawableStart="@drawable/check"
+                    android:drawablePadding="8dp"
+                    android:fontFamily="@font/proximanovasemibold"
+                    android:gravity="center|start"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="0dp"
+                    android:text="@string/premium_cond_2"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/special_offer_title_text"
+                    app:drawableTint="@android:color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/premium_conditions"
+                    app:layout_constraintTop_toBottomOf="@+id/premium_conditions2" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/premium_conditions4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:drawableStart="@drawable/check"
+                    android:drawablePadding="8dp"
+                    android:fontFamily="@font/proximanovasemibold"
+                    android:gravity="center|start"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="0dp"
+                    android:text="@string/premium_cond_3"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/special_offer_title_text"
+                    app:drawableTint="@android:color/white"
+                    app:layout_constraintEnd_toEndOf="@+id/premium_conditions2"
+                    app:layout_constraintStart_toStartOf="@+id/premium_conditions"
+                    app:layout_constraintTop_toBottomOf="@+id/premium_conditions3" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/premium_conditions5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:drawableStart="@drawable/check"
+                    android:drawablePadding="8dp"
+                    android:fontFamily="@font/proximanovasemibold"
+                    android:gravity="center|start"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="0dp"
+                    android:text="@string/premium_cond_4"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/special_offer_title_text"
+                    app:drawableTint="@android:color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/premium_conditions"
+                    app:layout_constraintTop_toBottomOf="@+id/premium_conditions4" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/plan_price"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:fontFamily="@font/proximanovasemibold"
+                android:gravity="start"
+                android:text="@string/select_plan_text_new_premium"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/premium_pack_button_text_size"
+                android:visibility="invisible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout3"
+                app:layout_constraintWidth_percent=".9"
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/cancel_anytime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/cancel_anytime"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/premium_pack_text"
+                android:visibility="invisible"
+                app:layout_constraintStart_toStartOf="@+id/plan_price"
+                app:layout_constraintTop_toBottomOf="@+id/plan_price"
+                tools:visibility="visible" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,7 +9,7 @@ githubProperties.load(new FileInputStream(rootProject.file("github.properties"))
 
 
 def getVersionName = { ->
-    return "1.0.1" // Replace with version Name
+    return "1.0.4" // Replace with version Name
 }
 
 def getArtifiactId = { ->

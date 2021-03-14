@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="premium_title">48sp</dimen>
+
+    <dimen name="special_offer_title_text">36sp</dimen>
+    <dimen name="premium_pack">36sp</dimen>
+    <dimen name="premium_pack_vertical_margin">20dp</dimen>
+    <dimen name="premium_pack_text">26sp</dimen>
+    <dimen name="text_above_margin">20dp</dimen>
+    <dimen name="special_offer_vertical_margin">26dp</dimen>
+    <dimen name="button_vertical_margin">36dp</dimen>
+    <dimen name="premium_pack_button_text_size">36sp</dimen>
+    <dimen name="premium_little_text_size">26sp</dimen>
+    <dimen name="special_offer_little_text_size">24sp</dimen>
+    <dimen name="dialog_button_vertical_margin">48dp</dimen>
+</resources>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/continue_button"
+        layout="@layout/lock_screen_fragments_action_button"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline69"
+        app:layout_constraintDimensionRatio="5:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias=".5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_percent="0.8" />
+
+    <TextView
+        android:id="@+id/theQuestion3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fontFamily="@font/proximanovalight"
+        android:gravity="center"
+        android:text="@string/lock_screen_info_fragment_text"
+        android:textColor="?attr/colorOnSurface"
+        app:autoSizeMaxTextSize="@dimen/lock_screen_informative_text_size"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintBottom_toTopOf="@+id/guideline65"
+        app:layout_constraintDimensionRatio="w,1:5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lock_screen_info_img"
+        app:layout_constraintWidth_percent="0.8" />
+
+    <ImageView
+        android:id="@+id/lock_screen_info_img"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintWidth_percent=".75"
+        app:layout_constraintDimensionRatio="1080:1280"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline67"
+        app:srcCompat="@drawable/lockscreenphoto_with_author" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline69"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent=".95" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline67"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent=".08" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline65"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent=".82" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

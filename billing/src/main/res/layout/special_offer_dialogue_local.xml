@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/special_offer_action_button"
+                style="@style/dialog_button"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/proximanovasemibold"
+                android:text="@string/start_subscription_button"
+                app:layout_constraintDimensionRatio="w,1:5"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/count_down_container"
+                app:layout_constraintWidth_percent=".95" />
+
+
+            <ImageView
+                android:id="@+id/close_icon"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:contentDescription="@string/campaign_photo"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent=".1"
+                app:srcCompat="@drawable/exit"
+                app:tint="?attr/colorPrimary" />
+
+            <TextView
+                android:id="@+id/special_offer_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/proximanovasemibold"
+                android:gravity="center"
+                android:text="@string/thousands_of_new_facts_articles"
+                android:textSize="@dimen/premium_pack"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+                app:layout_constraintWidth_percent=".75" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/close_icon"
+                app:layout_constraintWidth_percent=".5">
+
+                <ImageView
+                    android:id="@+id/special_offer_image"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/offer" />
+
+                <TextView
+                    android:id="@+id/special_offer_promotion_amount"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:fontFamily="@font/proximanovaextrabld"
+                    android:gravity="center"
+                    android:text="50"
+                    android:textColor="#303030"
+                    app:autoSizeMaxTextSize="@dimen/premium_title"
+                    app:autoSizeMinTextSize="6sp"
+                    app:autoSizeTextType="uniform"
+                    app:layout_constraintBottom_toTopOf="@+id/guideline56"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline53"
+                    app:layout_constraintStart_toStartOf="@+id/guideline54"
+                    app:layout_constraintTop_toTopOf="@+id/guideline55" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline53"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.58" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline54"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.3" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline55"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.6" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline56"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.78" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/count_down_container"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/special_offer_text">
+
+                <ProgressBar
+                    android:id="@+id/hours_bar"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:indeterminateOnly="false"
+                    android:progress="60"
+                    android:progressDrawable="@drawable/circular_progress_bar"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintDimensionRatio="w,1:1"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline44"
+                    app:layout_constraintStart_toStartOf="@+id/guideline44"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent=".3" />
+
+                <ProgressBar
+                    android:id="@+id/mins_bar"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:indeterminateOnly="false"
+                    android:progress="60"
+                    android:progressDrawable="@drawable/circular_progress_bar"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintDimensionRatio="w,1:1"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline49"
+                    app:layout_constraintStart_toStartOf="@+id/guideline49"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent=".3" />
+
+                <ProgressBar
+                    android:id="@+id/secs_bar"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:indeterminateOnly="false"
+                    android:progress="60"
+                    android:progressDrawable="@drawable/circular_progress_bar"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintDimensionRatio="w,1:1"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline52"
+                    app:layout_constraintStart_toStartOf="@+id/guideline52"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent=".3" />
+
+                <TextView
+                    android:id="@+id/count_down_hours"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/proximanovaextrabld"
+                    android:includeFontPadding="true"
+                    android:text="24"
+                    android:textSize="@dimen/premium_title"
+                    app:layout_constraintBottom_toBottomOf="@+id/hours_bar"
+                    app:layout_constraintEnd_toEndOf="@+id/hours_bar"
+                    app:layout_constraintStart_toStartOf="@+id/hours_bar"
+                    app:layout_constraintTop_toTopOf="@+id/hours_bar"
+                    app:layout_constraintVertical_bias="0.45" />
+
+                <TextView
+                    android:id="@+id/hours_identifier"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/proximanovaregular"
+                    android:text="hours"
+                    android:textSize="@dimen/premium_little_text_size"
+                    app:layout_constraintBottom_toBottomOf="@+id/count_down_hours"
+                    app:layout_constraintEnd_toEndOf="@+id/count_down_hours"
+                    app:layout_constraintStart_toStartOf="@+id/count_down_hours"
+                    app:layout_constraintTop_toBottomOf="@+id/count_down_hours" />
+
+                <TextView
+                    android:id="@+id/count_down_mins"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/proximanovaextrabld"
+                    android:includeFontPadding="true"
+                    android:text="60"
+                    android:textSize="@dimen/premium_title"
+                    app:layout_constraintBottom_toBottomOf="@+id/count_down_hours"
+                    app:layout_constraintEnd_toEndOf="@+id/mins_bar"
+                    app:layout_constraintStart_toStartOf="@+id/mins_bar"
+                    app:layout_constraintTop_toTopOf="@+id/count_down_hours" />
+
+                <TextView
+                    android:id="@+id/mins_identifier"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/proximanovaregular"
+                    android:text="minutes"
+                    android:textSize="@dimen/premium_little_text_size"
+                    app:layout_constraintBottom_toBottomOf="@+id/hours_identifier"
+                    app:layout_constraintEnd_toEndOf="@+id/count_down_mins"
+                    app:layout_constraintStart_toStartOf="@+id/count_down_mins"
+                    app:layout_constraintTop_toTopOf="@+id/hours_identifier" />
+
+                <TextView
+                    android:id="@+id/count_down_secs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/proximanovaextrabld"
+                    android:includeFontPadding="true"
+                    android:text="60"
+                    android:textSize="@dimen/premium_title"
+                    app:layout_constraintBottom_toBottomOf="@+id/count_down_mins"
+                    app:layout_constraintEnd_toEndOf="@+id/secs_bar"
+                    app:layout_constraintStart_toStartOf="@+id/secs_bar"
+                    app:layout_constraintTop_toTopOf="@+id/count_down_mins" />
+
+                <TextView
+                    android:id="@+id/seconds_identifier"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/proximanovaregular"
+                    android:text="seconds"
+                    android:textSize="@dimen/premium_little_text_size"
+                    app:layout_constraintBottom_toBottomOf="@+id/mins_identifier"
+                    app:layout_constraintEnd_toEndOf="@+id/count_down_secs"
+                    app:layout_constraintStart_toStartOf="@+id/count_down_secs"
+                    app:layout_constraintTop_toTopOf="@+id/mins_identifier" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline44"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.2" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline49"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.5" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline52"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.8" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

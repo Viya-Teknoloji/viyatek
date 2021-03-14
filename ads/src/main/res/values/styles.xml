@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="ad_action_button_style" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:layout_marginBottom">16dp</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:paddingStart">8dp</item>
+        <item name="android:paddingEnd">8dp</item>
+        <item name="android:textColor">@android:color/background_light</item>
+    </style>
+
+    <style name="ad_body_text_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:fontFamily">@font/proximanovalight</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingStart">20dp</item>
+        <item name="android:paddingEnd">20dp</item>
+        <item name="android:textSize">22sp</item>
+    </style>
+
+    <style name="ad_title_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:fontFamily">@font/proximanovasemibold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="lock_screen_button_ad" parent="Widget.MaterialComponents.Button">
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="backgroundTint">@color/ad_yellow</item>
+    </style>
+
+</resources>

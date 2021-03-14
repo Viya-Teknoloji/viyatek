@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/proximanova_regular"
+        android:gravity="center"
+        android:text="@string/permission_required_text"
+        android:textSize="@dimen/lock_screen_informative_text_size"
+        app:layout_constraintBottom_toTopOf="@+id/guideline71"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/permission_gif"
+        app:layout_constraintVertical_bias="0.508"
+        app:layout_constraintWidth_percent=".85" />
+
+    <include
+        android:id="@+id/continue_button"
+        layout="@layout/lock_screen_fragments_action_button"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline73"
+        app:layout_constraintDimensionRatio="5:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias=".5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_percent="0.8" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline73"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent=".95" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline71"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent=".82" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline70"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent=".08" />
+
+    <ImageView
+        android:id="@+id/permission_gif"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/permission_r_day_night"
+        app:layout_constraintDimensionRatio="w,1280:1080"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline70"
+        app:layout_constraintWidth_percent=".6" />
+</androidx.constraintlayout.widget.ConstraintLayout>

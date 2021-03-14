@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="article_ad_text_size">10sp</dimen>
+    <dimen name="article_ad_title_text_size">16sp</dimen>
+    <dimen name="article_end_ad_attribution_text_size">16sp</dimen>
+    <dimen name="ad_button_text_size">16sp</dimen>
+    <dimen name="ad_topicTitle">20sp</dimen>
+    <dimen name="ad_card_text">16sp</dimen>
+</resources>

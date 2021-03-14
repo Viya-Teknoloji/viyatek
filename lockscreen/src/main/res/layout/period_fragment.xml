@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/period_informative_text"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:textColor="?attr/colorOnSurface"
+        android:textSize="@dimen/lock_screen_informative_text_size"
+        android:visibility="gone"
+        app:autoSizeMaxTextSize="@dimen/lock_screen_informative_text_size"
+        app:autoSizeMinTextSize="12sp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintBottom_toTopOf="@+id/quote_period_continue_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent=".15"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/learning_period_grid_layout"
+        app:layout_constraintWidth_percent=".85"
+        tools:text="Informative Text" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/top_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/below_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.95" />
+
+    <androidx.gridlayout.widget.GridLayout
+        android:id="@+id/learning_period_grid_layout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:columnCount="2"
+        app:layout_constraintBottom_toTopOf="@+id/period_informative_text"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent=".45"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/quote_period_title"
+        app:rowCount="2">
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/morning_checkbox"
+            style="@style/quote_period_selective_card_style"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:text="@string/quote_period_morning"
+            app:cardCornerRadius="10dp"
+            app:checkedIcon="@drawable/period_tick"
+            app:checkedIconSize="20dp"
+            app:layout_column="0"
+            app:layout_columnWeight="1"
+            app:layout_row="0"
+            app:layout_rowWeight="1">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/morning_image"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/morning"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:src="@drawable/period_card_scrim"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="@+id/morning_image"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHeight_percent=".5"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:gravity="bottom|center"
+                    android:shadowColor="#121212"
+                    android:shadowDx="3"
+                    android:shadowDy="3"
+                    android:shadowRadius="5"
+                    android:text="@string/quote_period_morning"
+                    android:textColor="@android:color/white"
+                    app:autoSizeMaxTextSize="@dimen/lock_screen_informative_text_size"
+                    app:autoSizeMinTextSize="6sp"
+                    app:autoSizeTextType="uniform"
+                    app:layout_constraintBottom_toBottomOf="@+id/morning_image"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHeight_percent=".9"
+                    app:layout_constraintStart_toStartOf="@+id/morning_image"
+                    app:layout_constraintTop_toTopOf="@+id/morning_image" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/noon_checkBox"
+            style="@style/quote_period_selective_card_style"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="@dimen/grid_layout_option_margin"
+            android:checkable="true"
+            android:text="@string/quote_period_noon"
+            app:cardCornerRadius="10dp"
+            app:checkedIcon="@drawable/period_tick"
+            app:checkedIconSize="20dp"
+            app:layout_column="1"
+            app:layout_columnWeight="1"
+            app:layout_row="0"
+            app:layout_rowWeight="1">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/perion_noon_img"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/noon"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHeight_percent=".5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:srcCompat="@drawable/period_card_scrim" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:gravity="bottom|center"
+                    android:shadowColor="@color/uq_black"
+                    android:shadowDx="3"
+                    android:shadowDy="3"
+                    android:shadowRadius="5"
+                    android:text="@string/quote_period_noon"
+                    android:textColor="@android:color/white"
+                    app:autoSizeMaxTextSize="@dimen/lock_screen_informative_text_size"
+                    app:autoSizeMinTextSize="6sp"
+                    app:autoSizeTextType="uniform"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHeight_percent=".9"
+                    app:layout_constraintStart_toStartOf="@+id/perion_noon_img"
+                    app:layout_constraintTop_toTopOf="@+id/perion_noon_img" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/evening_checkbox"
+            style="@style/quote_period_selective_card_style"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="@dimen/grid_layout_option_margin"
+            android:checkable="true"
+            android:checked="false"
+            android:text="@string/quote_period_evening"
+            app:buttonCompat="@null"
+            app:cardCornerRadius="10dp"
+            app:checkedIcon="@drawable/period_tick"
+            app:checkedIconSize="20dp"
+            app:layout_column="0"
+            app:layout_columnWeight="1"
+            app:layout_row="1"
+            app:layout_rowWeight="1">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/evening_img"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/evening"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHeight_percent=".5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:srcCompat="@drawable/period_card_scrim" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:gravity="bottom|center"
+                    android:shadowColor="@color/uq_black"
+                    android:shadowDx="3"
+                    android:shadowDy="3"
+                    android:shadowRadius="5"
+                    android:text="@string/quote_period_evening"
+                    android:textColor="@android:color/white"
+                    app:autoSizeMaxTextSize="@dimen/lock_screen_informative_text_size"
+                    app:autoSizeMinTextSize="6sp"
+                    app:autoSizeTextType="uniform"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHeight_percent=".9"
+                    app:layout_constraintStart_toStartOf="@+id/evening_img"
+                    app:layout_constraintTop_toTopOf="@+id/evening_img" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/night_checkbox"
+            style="@style/quote_period_selective_card_style"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="@dimen/grid_layout_option_margin"
+            android:checkable="true"
+            android:text="@string/quote_period_night"
+            app:buttonCompat="@null"
+            app:cardCornerRadius="10dp"
+            app:checkedIcon="@drawable/period_tick"
+            app:checkedIconSize="20dp"
+            app:layout_column="1"
+            app:layout_columnWeight="1"
+            app:layout_row="1"
+            app:layout_rowWeight="1">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/night_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/night"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="@+id/night_img"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHeight_percent=".5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:srcCompat="@drawable/period_card_scrim" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:gravity="bottom|center"
+                    android:shadowColor="@color/uq_black"
+                    android:shadowDx="3"
+                    android:shadowDy="3"
+                    android:shadowRadius="5"
+                    android:text="@string/quote_period_night"
+                    android:textColor="@android:color/white"
+                    app:autoSizeMaxTextSize="@dimen/lock_screen_informative_text_size"
+                    app:autoSizeMinTextSize="6sp"
+                    app:autoSizeTextType="uniform"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHeight_percent=".9"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </androidx.gridlayout.widget.GridLayout>
+
+    <include
+        android:id="@+id/quote_period_title"
+        style="@style/include_style"
+        layout="@layout/lock_screen_fragments_top_title"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="h,5:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/top_guideline"
+        app:layout_constraintWidth_percent=".8" />
+
+    <include
+        android:id="@+id/quote_period_continue_button"
+        layout="@layout/lock_screen_fragments_action_button"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/below_guideline"
+        app:layout_constraintDimensionRatio="5:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias=".5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_percent="0.8" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -82,7 +82,7 @@ dependencies {
     implementation project(path: ':helper')
     implementation project(path: ':rate')
     implementation project(path: ':preferences')
-    implementation project(path: ':mopub')
+    implementation project(path: ':ads')
     implementation project(path: ':billing')
     implementation project(path: ':app_update')
     implementation project(path: ':firebase')

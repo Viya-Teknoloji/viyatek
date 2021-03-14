@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="quote_period_selective_card_style">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_margin">@dimen/grid_layout_option_margin</item>
+        <item name="android:checkable">true</item>
+        <item name="android:gravity">center</item>
+        <item name="strokeWidth">2dp</item>
+        <item name="strokeColor">@color/ultimate_quotes_checkbox_color</item>
+        <item name="checkedIconTint">@android:color/white</item>
+    </style>
+
+    <style name="include_style">
+
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_marginTop">0dp</item>
+
+    </style>
+</resources>

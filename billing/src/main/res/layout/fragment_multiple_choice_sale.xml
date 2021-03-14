@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:background="@drawable/default_bg">
+
+    <TextView
+        android:id="@+id/unlock_premium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:fontFamily="@font/proximanovasemibold"
+        android:text="@string/unlock_premium"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/premium_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/close_activity_button2" />
+
+    <ImageView
+        android:id="@+id/close_activity_button2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:cropToPadding="true"
+        android:src="@drawable/exit"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent=".075" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/multiple_choice_group"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/action_button_group"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/unlock_premium"
+        tools:visibility="visible">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/price_plan_cl"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/unimited_text"
+            app:layout_constraintWidth_percent=".93">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/monthly_cl_new"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:cardBackgroundColor="#88FFFFFF"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent=".333"
+                app:strokeColor="@android:color/black">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/monthly_old_price"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:gravity="center"
+                        android:text="29.99$"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/special_offer_title_text"
+                        app:layout_constraintBottom_toTopOf="@+id/monthly_price"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHeight_percent=".2"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintWidth_percent=".9" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/monthly_price"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:fontFamily="@font/proximanovasemibold"
+                        android:gravity="center"
+                        android:text="$4.99"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/special_offer_title_text"
+                        app:fontFamily="@font/proximanovaextrabld"
+                        app:layout_constraintBottom_toTopOf="@+id/guideline75"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/guideline26"
+                        app:layout_constraintWidth_percent=".9" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/monthly_identifier"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:fontFamily="@font/proximanovabold"
+                        android:gravity="center"
+                        android:textColor="@android:color/black"
+                        app:autoSizeMaxTextSize="16sp"
+                        app:autoSizeMinTextSize="10sp"
+                        app:autoSizeTextType="uniform"
+                        app:layout_constraintBottom_toTopOf="@+id/monthly_old_price"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintWidth_percent=".9" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guideline26"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintGuide_percent=".5" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guideline75"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintGuide_percent=".8" />
+
+                    <TextView
+                        android:id="@+id/monthly_promo_motto"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:fontFamily="@font/proximanovabold"
+                        android:gravity="center|top"
+                        android:text="Save %50"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/premium_little_text_size"
+                        android:visibility="invisible"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/monthly_price"
+                        app:layout_constraintWidth_percent=".9"
+                        tools:visibility="visible" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/yearly_cl_new"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintStart_toEndOf="@id/monthly_cl_new"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent=".333"
+                app:strokeColor="@android:color/black"
+                app:strokeWidth="3dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/yearly_promo_motto"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:fontFamily="@font/proximanovabold"
+                        android:gravity="center|top"
+                        android:text="Save %25"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/premium_little_text_size"
+                        android:visibility="invisible"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/yearly_price"
+                        app:layout_constraintWidth_percent=".9" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/yearly_price"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:fontFamily="@font/proximanovaextrabld"
+                        android:gravity="center"
+                        android:text="$4.99"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/premium_title"
+                        app:autoSizeMaxTextSize="@dimen/premium_title"
+                        app:autoSizeMinTextSize="12sp"
+                        app:autoSizeTextType="uniform"
+                        app:layout_constraintBottom_toTopOf="@+id/guideline76"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/guideline27"
+                        app:layout_constraintVertical_bias="0.0"
+                        app:layout_constraintWidth_percent=".9" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/yearly_identifier"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:fontFamily="@font/proximanovabold"
+                        android:gravity="center"
+                        android:textColor="@android:color/black"
+                        app:autoSizeMaxTextSize="20sp"
+                        app:autoSizeMinTextSize="12sp"
+                        app:autoSizeTextType="uniform"
+                        app:layout_constraintBottom_toTopOf="@+id/old_yearly_price"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintWidth_percent=".9" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guideline76"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintGuide_percent=".8" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guideline27"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintGuide_percent=".5" />
+
+                    <TextView
+                        android:id="@+id/old_yearly_price"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:gravity="center"
+                        android:text="29.99$"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/special_offer_title_text"
+                        app:layout_constraintBottom_toTopOf="@+id/yearly_price"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHeight_percent=".2"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintWidth_percent=".9"
+                        tools:visibility="visible" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/life_time_cl_new"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:cardBackgroundColor="#88FFFFFF"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintStart_toEndOf="@id/yearly_cl_new"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent=".333"
+                app:strokeColor="@android:color/black">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/lifetime_old_price"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:gravity="center"
+                        android:text="29.99$"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/special_offer_title_text"
+                        app:layout_constraintBottom_toTopOf="@+id/lifetime_price"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHeight_percent=".2"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintWidth_percent=".9" />
+
+                    <TextView
+                        android:id="@+id/lifetime_promo_motto"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:fontFamily="@font/proximanovabold"
+                        android:gravity="center|top"
+                        android:text="Pay Once"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/special_offer_title_text"
+                        android:visibility="invisible"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/lifetime_price"
+                        app:layout_constraintWidth_percent=".9"
+                        tools:visibility="visible" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/lifetime_price"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:fontFamily="@font/proximanovasemibold"
+                        android:gravity="center"
+                        android:text="$4.99"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/special_offer_title_text"
+                        app:fontFamily="@font/proximanovaextrabld"
+                        app:layout_constraintBottom_toTopOf="@+id/guideline78"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/guideline28"
+                        app:layout_constraintWidth_percent=".9" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/lifetime_identifier"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:fontFamily="@font/proximanovabold"
+                        android:gravity="center"
+                        android:textColor="@android:color/black"
+                        app:autoSizeMaxTextSize="16sp"
+                        app:autoSizeMinTextSize="10sp"
+                        app:autoSizeTextType="uniform"
+                        app:layout_constraintBottom_toTopOf="@+id/lifetime_old_price"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintWidth_percent=".9" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guideline78"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintGuide_percent=".8"
+                        app:layout_constraintWidth_percent=".9" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guideline28"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintGuide_percent=".5" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline74"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" />
+            </com.google.android.material.card.MaterialCardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/unimited_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/proximanovaregular"
+            android:text="Unlimited Access to All Features"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/select_your_plan_text3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:fontFamily="@font/proximanovasemibold"
+            android:gravity="center"
+            android:text="@string/select_plan_text_new_premium"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/price_plan_cl"
+            app:layout_constraintWidth_percent=".9" />
+
+        <TextView
+            android:id="@+id/cancel_anytimee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancel anytime"
+            android:textColor="@android:color/white"
+            app:layout_constraintEnd_toEndOf="@+id/select_your_plan_text3"
+            app:layout_constraintStart_toStartOf="@+id/select_your_plan_text3"
+            app:layout_constraintTop_toBottomOf="@+id/select_your_plan_text3" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <include
+        android:id="@+id/action_button_group"
+        layout="@layout/premium_button_group"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/loading_progressbar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="gone" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
