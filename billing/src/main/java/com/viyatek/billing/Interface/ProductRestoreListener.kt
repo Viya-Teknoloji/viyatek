@@ -1,3 +1,3 @@
 package com.viyatek.billing.Interface
 
-interface ProductRestoreListener : IRestoreSubscription
+interface ProductRestoreListener : IRestoreSubscription, IRestoreManagedProducts

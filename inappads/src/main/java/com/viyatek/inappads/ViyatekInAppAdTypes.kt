@@ -1,0 +1,14 @@
+package com.viyatek.inappads
+
+enum class ViyatekInAppAdTypes {
+    ULTIMATE_FACTS_INSTAGRAM,
+    ULTIMATE_FACTS_TWITTER,
+    ULTIMATE_QUOTES_INSTAGRAM,
+    BASKET_BUSTERS,
+    BOTTLE_CAP_CHALLANGE,
+    COLOR_UP,
+    FACTS,
+    QUOTES,
+    MOTILIFE,
+    FACE_FIND
+}

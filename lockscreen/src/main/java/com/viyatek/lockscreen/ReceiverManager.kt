@@ -13,7 +13,6 @@ class ReceiverManager(private val context: Context) {
     private val receivers: MutableList<BroadcastReceiver> = ArrayList()
     private var ref: ReceiverManager? = null
 
-    @Synchronized
     fun init(): ReceiverManager? {
         if (ref == null) ref = ReceiverManager(context)
         return ref

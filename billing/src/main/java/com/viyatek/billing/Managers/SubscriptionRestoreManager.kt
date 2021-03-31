@@ -1,10 +1,12 @@
 package com.viyatek.billing.Managers
 
 import android.content.Context
+import com.viyatek.billing.Handlers.QuerySubscriptionHandler
+import com.viyatek.billing.Interface.IRestoreSubscription
 
 class SubscriptionRestoreManager(
     val context: Context,
-    val subscriptionRestoreListener: com.viyatek.billing.Interface.IRestoreSubscription
+    val subscriptionRestoreListener: IRestoreSubscription
 ) : com.viyatek.billing.BaseBillingClass(context) {
 
     fun init() {
@@ -12,7 +14,7 @@ class SubscriptionRestoreManager(
     }
 
     override fun connectedGooglePlay() {
-        com.viyatek.billing.Handlers.QuerySubscriptionHandler(
+        QuerySubscriptionHandler(
             billingClient,
             context,
             subscriptionRestoreListener

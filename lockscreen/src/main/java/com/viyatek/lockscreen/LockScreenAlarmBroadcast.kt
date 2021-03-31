@@ -42,8 +42,6 @@ abstract class LockScreenAlarmBroadcast : BroadcastReceiver() {
 
             this.intent = intent
 
-
-
             val versionControl = versionControl(context)
 
             if (versionControl) {
@@ -55,13 +53,17 @@ abstract class LockScreenAlarmBroadcast : BroadcastReceiver() {
                 setSpareAlarm()
                 checkLastDayOpened()
 
-                if (isLockScreenOK) {
+                if (isLockScreenOK && screenDisplayCoordinator.checkIfDisplay()) {
                     Log.d(LOG_TAG, "Starting Daily Quote Service")
                     startLockScreenService()
                     }
-                else {
+                else if(isLockScreenNotificationOK && screenDisplayCoordinator.checkIfDisplay()){
 
                     createNotification()
+                }
+                else
+                {
+                    setNextAlarm()
                 }
             }
 

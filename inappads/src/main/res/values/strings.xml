@@ -1,0 +1,39 @@
+<resources>
+    <string name="uf_insta_id_with_at">\@ultimatefactsapp</string>
+    <string name="uf_insta_id">ultimatefactsapp</string>
+
+    <string name="ultimateFactsInsta">Follow Ultimate Facts in Instagram</string>
+    <string name="ultimateFactsTwitter">Follow Ultimate Facts in Twitter</string>
+
+    <string name="ultimateQuotesInstaText">Follow Ultimate Quotes in Instagram</string>
+
+    <string name="uq_insta_id">ultimatequotesapp</string>
+    <string name="uq_insta_id_with_at">\@ultimatequotesapp</string>
+
+    <string name="uf_twitter_id">ultimate__facts</string>
+    <string name="uf_twitter_with_at">\@ultimatefactsapp</string>
+
+    <string name="install">Install</string>
+    <string name="ad">Ad</string>
+    <string name="viyatek">Viyatek</string>
+
+    <string name="color_up_ad_text">Get ready to explore the magical world of colors with Color Up!</string>
+    <string name="bottle_cap_text">Are you ready for an exciting challenge?</string>
+    <string name="basket_busters_ad_text">Explore the world of Augmented Reality with the new Cross-Platform Multiplayer AR game, Basket Busters!</string>
+    <string name="motilife_motto">Daily Quotes For A Better Life</string>
+    <string name="face_find_motto">VK &amp; Web Find Face Photo Search</string>
+    <string name="ultimate_facts_motto">Learn Something New Every Day with Ultimate Facts</string>
+
+    <string name="quotes_ad">Ultimate Quotes</string>
+    <string name="quotes_instagram">quotes_instagram</string>
+    <string name="basket_busters_ad">Basket Busters</string>
+    <string name="color_up_ad">Color Up</string>
+    <string name="bottle_cap_ad">Bottle Cap Challenge</string>
+    <string name="motilife_ad">Inspiring Quotes</string>
+    <string name="face_find_ad">Face Find</string>
+    <string name="quotes_ad_text">Inspire Your Life With Daily Quotes</string>
+    <string name="uf_ad">Ultimate Facts</string>
+
+    <string name="store_base_link">https://play.google.com/store/apps/details?id=%1$s</string>
+
+</resources>

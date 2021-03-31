@@ -5,9 +5,9 @@ import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
 import com.android.billingclient.api.Purchase
 import com.viyatek.billing.BaseBillingClass
+import com.viyatek.billing.BillingPrefHandlers
 import com.viyatek.billing.Handlers.*
 import com.viyatek.billing.Interface.InAppPurchaseListener
-import com.viyatek.billing.PrefHandlers.ViyatekKotlinSharedPrefHelper
 import com.viyatek.billing.R
 import com.viyatek.billing.SubscriptionNetworkHelpers.SubscriptionVerification
 
@@ -17,16 +17,18 @@ class BillingManager(
     private val inAppPurchaseListener: InAppPurchaseListener
 ) : BaseBillingClass(activity) {
 
-
     private var isConnected: Boolean = false
     private var subs_skuList: List<String> = ArrayList()
-    private var managedProductsSkuList: List<String> = ArrayList()
-    private val viyatekKotlinSharedPrefHelper by lazy { ViyatekKotlinSharedPrefHelper(activity)
-    }
+    private var managedProductsPremiumSkuList: List<String> = ArrayList()
+    private var oneTimeProductsSkuList: List<String> = ArrayList()
+    private val billingPrefsHandler by lazy { BillingPrefHandlers(activity) }
 
-    fun init(subscriptionSkuList: List<String>, managedProductsSkuList: List<String>) {
+    fun init(subscriptionSkuList: List<String>, managedProductsPremiumSkuList: List<String>, oneTimeManagedProductsSkuList: List<String>? = null) {
         this.subs_skuList = subscriptionSkuList
-        this.managedProductsSkuList = managedProductsSkuList
+        this.managedProductsPremiumSkuList = managedProductsPremiumSkuList
+        oneTimeManagedProductsSkuList?.let {
+            this.oneTimeProductsSkuList = it
+        }
         super.startProcess()
     }
 
@@ -39,20 +41,29 @@ class BillingManager(
         val sku = purchase.sku
 
         if (purchase.purchaseState == Purchase.PurchaseState.PURCHASED) {
-            if (managedProductsSkuList.contains(sku)) {
+            if (managedProductsPremiumSkuList.contains(sku)) {
 
-                viyatekKotlinSharedPrefHelper.applyPrefs(ViyatekKotlinSharedPrefHelper.PREMIUM, 1)
-                ViyatekKotlinSharedPrefHelper.isPremium = true
+                Log.d("Billing", "Managed product contains the sku ${sku} made premium")
+
+                billingPrefsHandler.setPremium(true)
+
                 AckHandler(billingClient).acknowledgePurchase(purchase)
                 inAppPurchaseListener.ManagedProductPurchaseSucceded(purchase.sku)
 
-            } else {
+            }
+            else {
 
                 SubscriptionVerification(activity, inAppPurchaseListener).executeNetworkCall(
                     activity.getString(R.string.viyatek_subscription_validation_end_point),
                     purchase
                 )
 
+                AckHandler(billingClient).acknowledgePurchase(purchase)
+            }
+
+            if(oneTimeProductsSkuList.contains(sku))
+            {
+                inAppPurchaseListener.soldOneTimeProductsFetched(purchase)
                 AckHandler(billingClient).acknowledgePurchase(purchase)
             }
         } else if (purchase.purchaseState == Purchase.PurchaseState.PENDING) {
@@ -63,7 +74,7 @@ class BillingManager(
 
     private fun queryPurchases() {
         QuerySubscriptionHandler(billingClient, activity, inAppPurchaseListener).querySubscriptions()
-        QueryManagedProductsHandler(billingClient, activity).queryInAppProducts()
+        QueryManagedProductsHandler(billingClient, activity, inAppPurchaseListener).queryInAppProducts()
     }
 
     private fun querySkuDetails() {
@@ -75,7 +86,8 @@ class BillingManager(
             subs_skuList,
             inAppPurchaseListener
         ).querySkuDetails()
-        QueryManagedProductsSkuHandler(billingClient, managedProductsSkuList, inAppPurchaseListener).querySkuDetails()
+
+        QueryManagedProductsSkuHandler(billingClient,managedProductsPremiumSkuList, inAppPurchaseListener).querySkuDetails()
     }
 
 

@@ -16,16 +16,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import com.android.billingclient.api.BillingClient
 import com.android.billingclient.api.BillingFlowParams
 import com.android.billingclient.api.SkuDetails
 import com.google.firebase.analytics.FirebaseAnalytics
-import com.viyatek.billing.PrefHandlers.ViyatekKotlinSharedPrefHelper
-import com.viyatek.billing.PrefHandlers.ViyatekKotlinSharedPrefHelper.Companion.SUBSCRIPTION_TOKEN
-import com.viyatek.billing.PrefHandlers.ViyatekKotlinSharedPrefHelper.Companion.SUBSCRIPTION_TRIAL_MODE_USED
-import com.viyatek.billing.PrefHandlers.ViyatekKotlinSharedPrefHelper.Companion.SUBSCRIPTION_TYPE
+import com.viyatek.billing.BillingPrefHandlers
+import com.viyatek.billing.Campaign.ActiveSku
 import com.viyatek.billing.PremiumActivity.ViyatekPremiumActivity.Companion.billingLogs
 import com.viyatek.billing.R
 import com.viyatek.billing.databinding.FragmentStandAloneSaleBinding
@@ -34,16 +33,17 @@ import java.time.Period
 
 abstract class PurchaseStandAloneFragment : Fragment() {
 
-    var activeSkuType = com.viyatek.billing.Campaign.ActiveSku.YEARLY
+    var activeSkuType = ActiveSku.YEARLY
     var otherSubscriptionPlansAvailable = false
 
     private var _binding: FragmentStandAloneSaleBinding? = null
     private val binding get() = _binding!!
     private var activeSkuDetail: SkuDetails? = null
     private var oldSkuDetail: SkuDetails? = null
-    val viyatekKotlinSharedPrefHelper by lazy { ViyatekKotlinSharedPrefHelper(requireContext()) }
+    val billingPrefHandlers by lazy { BillingPrefHandlers(requireContext()) }
     val mFireBaseAnalytics by lazy { FirebaseAnalytics.getInstance(requireContext()) }
 
+    private val theActivity by lazy { (requireActivity() as ViyatekPremiumActivity) }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -56,15 +56,9 @@ abstract class PurchaseStandAloneFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         activeSkuDetail = when (activeSkuType) {
-            com.viyatek.billing.Campaign.ActiveSku.MONTHLY -> {
-                (requireActivity() as ViyatekPremiumActivity).activeMonthlySku
-            }
-            com.viyatek.billing.Campaign.ActiveSku.YEARLY -> {
-                (requireActivity() as ViyatekPremiumActivity).activeYearlySku
-            }
-            com.viyatek.billing.Campaign.ActiveSku.LIFETIME -> {
-                (requireActivity() as ViyatekPremiumActivity).activeLifeTimeSku
-            }
+            ActiveSku.MONTHLY -> { theActivity.activeMonthlySku }
+            ActiveSku.YEARLY -> { theActivity.activeYearlySku }
+            ActiveSku.LIFETIME -> { theActivity.activeLifeTimeSku }
         }
 
         bindData()
@@ -74,13 +68,13 @@ abstract class PurchaseStandAloneFragment : Fragment() {
             requireActivity().finish()
         }
 
-        binding.saleButtonGroup.privacyPolicy.setOnClickListener {
+        binding.saleButtonGroup.viyatekPrivacyPolicy.setOnClickListener {
             ReportButonClick("privacyPolicyClicked")
             val browserIntent =
                 Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.privacy_policy_url)))
             startActivity(browserIntent)
         }
-        binding.saleButtonGroup.termsOfUse.setOnClickListener {
+        binding.saleButtonGroup.viyatekTermsOfUse.setOnClickListener {
             ReportButonClick("termsOfUseClicked")
             val browserIntent =
                 Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.terms_of_use_url)))
@@ -88,11 +82,11 @@ abstract class PurchaseStandAloneFragment : Fragment() {
             //
         }
 
-        binding.saleButtonGroup.restorePurchasButton.setOnClickListener {
-            (requireActivity() as ViyatekPremiumActivity).queryPurchaseAsync()
+        binding.saleButtonGroup.viyatekRestorePurchaseButton.setOnClickListener {
+            theActivity.queryPurchaseAsync()
         }
 
-        binding.saleButtonGroup.otherSubscriptionPlans.apply {
+        binding.saleButtonGroup.viyatekOtherPlans.apply {
             if (otherSubscriptionPlansAvailable) {
                 visibility = View.VISIBLE
                 setOnClickListener {
@@ -104,11 +98,18 @@ abstract class PurchaseStandAloneFragment : Fragment() {
                 visibility = View.GONE
             }
         }
+
+        bindConditions(binding.premiumConditions2, binding.premiumConditions3, binding.premiumConditions4, binding.premiumConditions5)
     }
 
-    open fun navigateToMultiChoiceFragment() {
+    abstract fun bindConditions(
+        first_row: AppCompatTextView,
+        second_row: AppCompatTextView,
+        third_row: AppCompatTextView,
+        fourth_row: AppCompatTextView
+    )
 
-    }
+    open fun navigateToMultiChoiceFragment() {}
 
     private fun ReportButonClick(eventName: String) {
         val bundle = Bundle()
@@ -151,14 +152,13 @@ abstract class PurchaseStandAloneFragment : Fragment() {
 
 
             if (activeSkuDetail?.freeTrialPeriod != null
-                && activeSkuDetail?.freeTrialPeriod!!.isNotBlank()
-                && viyatekKotlinSharedPrefHelper.getPref(SUBSCRIPTION_TRIAL_MODE_USED)
-                    ?.getIntegerValue() == 0
+                && activeSkuDetail?.freeTrialPeriod?.isNotBlank()!!
+                && !billingPrefHandlers.isSubscriptionTrialModeUsed()
             ) {
                 val freeTrial = Period.parse(activeSkuDetail?.freeTrialPeriod)
                 binding.premiumConditions.text = "${freeTrial.days} Days Free Trial"
 
-                if (activeSkuDetail != oldSkuDetail) {
+                if (activeSkuDetail != oldSkuDetail && oldSkuDetail != null) {
                     val discountAmount = calculateDiscount()
 
                     binding.planPrice.text = if (thePeriodTime != 1) {
@@ -225,7 +225,7 @@ abstract class PurchaseStandAloneFragment : Fragment() {
 
             } else {
                 binding.premiumConditions.text = getString(R.string.access_to_all_features)
-                if (activeSkuDetail != oldSkuDetail) {
+                if (activeSkuDetail != oldSkuDetail && oldSkuDetail != null) {
                     val calculateDiscount = calculateDiscount()
                     binding.planPrice.text = if (thePeriodTime == 1) {
                         getString(
@@ -267,7 +267,7 @@ abstract class PurchaseStandAloneFragment : Fragment() {
 
 
         } else {
-            if (oldSkuDetail != activeSkuDetail) {
+            if (oldSkuDetail != activeSkuDetail && oldSkuDetail != null) {
                 val discountAmount = calculateDiscount()
                 binding.planPrice.text = getString(
                     R.string.stand_alone_save_string_pay_once,
@@ -280,7 +280,7 @@ abstract class PurchaseStandAloneFragment : Fragment() {
             }
 
             binding.cancelAnytime.text = getString(R.string.lifetime_motto)
-            binding.saleButtonGroup.premiumTrialButton2.text =
+            binding.saleButtonGroup.viyatekPremiumTrialButton.text =
                 getString(R.string.start_subscription_button)
         }
 
@@ -289,18 +289,16 @@ abstract class PurchaseStandAloneFragment : Fragment() {
 
         binding.planPrice.visibility = View.VISIBLE
         binding.cancelAnytime.visibility = View.VISIBLE
-        binding.saleButtonGroup.premiumTrialButton2.isEnabled = true
-        binding.saleButtonGroup.premiumTrialButton2.setOnClickListener {
+        binding.saleButtonGroup.viyatekPremiumTrialButton.isEnabled = true
+        binding.saleButtonGroup.viyatekPremiumTrialButton.setOnClickListener {
             Log.d(billingLogs, "Selam Aleküm")
             ReportButonClick("subscribeButtonClick")
 
-            val oldPurchasedSkuId =
-                viyatekKotlinSharedPrefHelper.getPref(SUBSCRIPTION_TYPE)?.getStringValue()!!
-            val oldPurchaseSkuToken =
-                viyatekKotlinSharedPrefHelper.getPref(SUBSCRIPTION_TOKEN)?.getStringValue()!!
+            val oldPurchasedSkuId = billingPrefHandlers.getSubscriptionType()!!
+            val oldPurchaseSkuToken = billingPrefHandlers.getSubscriptionToken()!!
 
             val flowParams =
-                if ((requireActivity() as ViyatekPremiumActivity).subSkuListHelper.getSkuList()
+                if (theActivity.subSkuListHelper.getSkuList()
                         .contains(oldPurchasedSkuId)
                 ) {
                     BillingFlowParams.newBuilder()
@@ -314,7 +312,7 @@ abstract class PurchaseStandAloneFragment : Fragment() {
                 }
 
 
-            (requireActivity() as ViyatekPremiumActivity).billingManager.billingClient.launchBillingFlow(
+            theActivity.billingManager.billingClient.launchBillingFlow(
                 requireActivity(),
                 flowParams
             )
@@ -322,7 +320,7 @@ abstract class PurchaseStandAloneFragment : Fragment() {
     } else {
         binding.planPrice.visibility = View.INVISIBLE
         binding.cancelAnytime.visibility = View.INVISIBLE
-        binding.saleButtonGroup.premiumTrialButton2.isEnabled = false
+        binding.saleButtonGroup.viyatekPremiumTrialButton.isEnabled = false
     }
 
     private fun calculateDiscount(): Int {

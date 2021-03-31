@@ -8,7 +8,7 @@ import com.viyatek.preferences.ViyatekSharedPrefsHandler
 
 class ApplyNewVersionCode(val context: Context) {
 
-    val sharedPreferences by lazy { ViyatekSharedPrefsHandler(context, Statics.UPDATE_PREFS_NAME) }
+    private val sharedPreferences by lazy { ViyatekSharedPrefsHandler(context, Statics.UPDATE_PREFS_NAME) }
 
     fun applySharedPrefNewVersionCode() {
         val verCode: Long

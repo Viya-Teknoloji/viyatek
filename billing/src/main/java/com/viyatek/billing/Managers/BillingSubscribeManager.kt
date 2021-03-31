@@ -5,11 +5,13 @@ import android.util.Log
 import android.widget.Toast
 import com.android.billingclient.api.Purchase
 import com.android.billingclient.api.SkuDetails
+import com.viyatek.billing.BillingPrefHandlers
+import com.viyatek.billing.Handlers.AckHandler
+import com.viyatek.billing.Handlers.QuerySubscriptionHandler
+import com.viyatek.billing.Handlers.QuerySubscriptionSkuHandler
 
-import com.viyatek.billing.PrefHandlers.ViyatekKotlinSharedPrefHelper.Companion.SUBSCRIPTION_TAG
-import com.viyatek.billing.PrefHandlers.ViyatekKotlinSharedPrefHelper.Companion.SUBSCRIPTION_TRIAL_MODE_USED
-import com.viyatek.billing.PrefHandlers.ViyatekKotlinSharedPrefHelper.Companion.SUBSCRIPTION_TYPE
 import com.viyatek.billing.R
+import com.viyatek.billing.Statics.BILLING_LOGS
 import com.viyatek.billing.SubscriptionNetworkHelpers.SubscriptionVerification
 
 
@@ -21,11 +23,7 @@ class BillingSubscribeManager(
 
     var subscriptionSkuList = arrayListOf<String>()
     private val skuDetailsList = arrayListOf<SkuDetails>()
-    private val kotlinSharedPrefHelper by lazy {
-        com.viyatek.billing.PrefHandlers.ViyatekKotlinSharedPrefHelper(
-            activity
-        )
-    }
+    private val billingPrefsHandler by lazy { BillingPrefHandlers(activity) }
 
     fun init(subscriptionSkuList: ArrayList<String>) {
         this.subscriptionSkuList = subscriptionSkuList
@@ -33,12 +31,13 @@ class BillingSubscribeManager(
     }
 
     override fun connectedGooglePlay() {
-        com.viyatek.billing.Handlers.QuerySubscriptionHandler(
+        QuerySubscriptionHandler(
             billingClient,
             activity,
             subscriptionListener
         ).querySubscriptions()
-        com.viyatek.billing.Handlers.QuerySubscriptionSkuHandler(
+
+        QuerySubscriptionSkuHandler(
             billingClient,
             subscriptionSkuList,
             this
@@ -50,41 +49,33 @@ class BillingSubscribeManager(
 
         if (purchase.purchaseState == Purchase.PurchaseState.PURCHASED) {
             if (subscriptionSkuList.contains(sku)) {
-                kotlinSharedPrefHelper.applyPrefs(SUBSCRIPTION_TRIAL_MODE_USED, 1)
-                Log.d(SUBSCRIPTION_TAG, "Handling Purchase")
+                billingPrefsHandler.setSubscriptionTrialModeUsed(true)
+
+                Log.d(BILLING_LOGS, "Handling Purchase")
 
                 for (i in skuDetailsList.indices) {
                     if (sku == skuDetailsList[i].sku) {
                         Log.d(
-                            SUBSCRIPTION_TAG,
+                            BILLING_LOGS,
                             "Subs Period " + skuDetailsList[i].subscriptionPeriod
                         )
 
                         when (skuDetailsList[i].subscriptionPeriod) {
                             "P1W" -> {
-                                kotlinSharedPrefHelper.applyPrefs(
-                                    SUBSCRIPTION_TYPE,
-                                    activity.getString(R.string.weekly_subscription_type)
-                                )
+                                billingPrefsHandler.setSubscriptionType("weekly")
                             }
                             "P1M" -> {
-                                kotlinSharedPrefHelper.applyPrefs(
-                                    SUBSCRIPTION_TYPE,
-                                    activity.getString(R.string.monthly_subscription_type)
-                                )
+                                billingPrefsHandler.setSubscriptionType("monthly")
                             }
                             else -> {
-                                kotlinSharedPrefHelper.applyPrefs(
-                                    SUBSCRIPTION_TYPE,
-                                    activity.getString(R.string.yearly_subscription_type)
-                                )
+                                billingPrefsHandler.setSubscriptionType("yearly")
                             }
                         }
                     }
                 }
 
                 Log.d(
-                    SUBSCRIPTION_TAG,
+                    BILLING_LOGS,
                     "Package info : ${activity.applicationContext.applicationInfo.packageName}"
                 )
                 SubscriptionVerification(activity, subscriptionVerificationDataFetched)
@@ -99,7 +90,7 @@ class BillingSubscribeManager(
                     )
 
                 // subscriptionListener.SubscriptionPurchaseSucceded(purchase)
-                com.viyatek.billing.Handlers.AckHandler(billingClient).acknowledgePurchase(purchase)
+                AckHandler(billingClient).acknowledgePurchase(purchase)
             }
 
         } else if (purchase.purchaseState == Purchase.PurchaseState.PENDING) {

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:cardCornerRadius="5dp"
+    app:cardElevation="0dp"
+    app:cardPreventCornerOverlap="true">
+
+    <com.google.android.gms.ads.nativead.NativeAdView
+        android:id="@+id/article_ad_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <LinearLayout
+            android:id="@+id/linearLayout7"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <com.google.android.gms.ads.nativead.MediaView
+                android:id="@+id/lock_screen_ad_image"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="0dp"
+                android:layout_weight=".45"
+                android:padding="0dp">
+
+            </com.google.android.gms.ads.nativead.MediaView>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/linearLayout4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".55"
+                android:weightSum="1">
+
+                <TextView
+                    android:id="@+id/lock_screen_ad_headline"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:fontFamily="@font/proximanovasemibold"
+                    android:gravity="center_vertical"
+                    android:text="Kıbrıs'ta Tatil Fırsatı"
+                    android:textSize="@dimen/article_ad_title_text_size"
+                    app:autoSizeMaxTextSize="@dimen/article_ad_title_text_size"
+                    app:autoSizeMinTextSize="8sp"
+                    app:autoSizeTextType="uniform"
+                    app:layout_constraintBottom_toTopOf="@+id/lock_screen_ad_text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHeight_percent=".3"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent=".95" />
+
+                <TextView
+                    android:id="@+id/lock_screen_ad_text"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/proximanovalight"
+                    android:gravity="center_vertical"
+                    android:maxLines="2"
+                    android:text="Placeholder tw"
+                    android:textSize="@dimen/article_ad_text_size"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHeight_percent=".4"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/lock_screen_ad_headline"
+                    app:layout_constraintWidth_percent=".95" />
+
+                <Button
+                    android:id="@+id/lock_screen_ad_button"
+                    style="@style/lock_screen_button_ad"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:background="@color/ad_yellow"
+                    android:textColor="@android:color/black"
+                    android:text="VISIT SITE"
+                    android:textSize="@dimen/article_ad_text_size"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintHeight_percent=".3"
+                    app:layout_constraintStart_toStartOf="@+id/lock_screen_ad_text"
+                    app:layout_constraintTop_toBottomOf="@+id/lock_screen_ad_text" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/lock_screen_ad_place"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_gravity="bottom"
+            android:background="@color/ad_yellow"
+            android:text="Ad"
+            android:textColor="@android:color/background_light"
+            android:textSize="@dimen/article_end_ad_attribution_text_size" />
+    </com.google.android.gms.ads.nativead.NativeAdView>
+
+</androidx.cardview.widget.CardView>

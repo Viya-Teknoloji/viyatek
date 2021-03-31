@@ -7,6 +7,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.fragment.app.DialogFragment
 import com.bumptech.glide.Glide
 import com.viyatek.billing.databinding.BillingDialogueLayoutBinding
@@ -49,15 +52,13 @@ abstract class BaseBillingDialogueLayout : DialogFragment() {
             handleActionButtonClick()
             dismissAllowingStateLoss()
         }
+
+        bindData(binding.actionButton, binding.dialogueText, binding.dialogueImage)
     }
+
+    abstract fun bindData(actionButton: Button, dialogueText: TextView, dialogueImage: ImageView)
 
     abstract fun handleActionButtonClick()
-
-    open fun bindData(drawableResourceId: Int, message: String, buttonString: String) {
-        Glide.with(requireContext()).load(drawableResourceId).into(binding.dialogueImage)
-        binding.dialogueText.text = message
-        binding.actionButton.text = buttonString
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()

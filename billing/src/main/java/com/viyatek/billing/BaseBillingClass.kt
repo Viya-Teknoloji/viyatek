@@ -3,22 +3,9 @@ package com.viyatek.billing
 import android.content.Context
 import android.util.Log
 import com.android.billingclient.api.*
-import com.viyatek.billing.PrefHandlers.ViyatekKotlinSharedPrefHelper
 import com.viyatek.billing.PremiumActivity.ViyatekPremiumActivity
 
-
 abstract class BaseBillingClass(context: Context) {
-
-    init {
-
-        Log.d(ViyatekPremiumActivity.billingLogs, "Init base class")
-
-        val kotlinSharedPrefHandler = ViyatekKotlinSharedPrefHelper(context)
-
-        if (!kotlinSharedPrefHandler.checkUserExists(context)) {
-            kotlinSharedPrefHandler.createLocalAccount()
-        }
-    }
 
     private var isConnected: Boolean = false
 

@@ -24,7 +24,7 @@
 
     <include
         android:id="@+id/sale_button_group"
-        layout="@layout/premium_button_group"
+        layout="@layout/premium_sale_button_group"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -199,7 +199,7 @@
                 android:gravity="start"
                 android:text="@string/select_plan_text_new_premium"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/premium_pack_button_text_size"
+                android:textSize="@dimen/special_offer_title_text"
                 android:visibility="invisible"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout3"

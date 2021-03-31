@@ -21,12 +21,13 @@ class HandleAlarms(private val context: Context, private val intent: Intent) {
 
     val LOG_TAG = "Handle Alarms"
 
+    val sdc by lazy { ScreenDisplayCoordinator(context) }
+    val lockScreenPrefsHandler by lazy { LockScreenPreferencesHandler(context) }
     private val alarmManager by lazy { context.getSystemService(Context.ALARM_SERVICE) as AlarmManager }
     val sharedPrefsHandler by lazy { ViyatekSharedPrefsHandler(context, Statics.LOCK_SCREEN_PREFS) }
     private val alarmTime by lazy {
-        sharedPrefsHandler.getLongVale(SHOW_TIME, 0).let {
-            if (it > now.timeInMillis) {
-                it
+        lockScreenPrefsHandler.getShowTime().let {
+            if (it > now.timeInMillis) { it
             } else {
                 now.timeInMillis + 15 * 1000
             }
@@ -44,10 +45,11 @@ class HandleAlarms(private val context: Context, private val intent: Intent) {
         )
     }
 
-    fun setAlarmManager() {
+    fun updateAlarmTime()
+    { sdc.updateFutureTime() }
 
-        if (sharedPrefsHandler.getBooleanValue(IS_LOCK_SCREEN_OK, true)
-            || sharedPrefsHandler.getBooleanValue(IS_LOCK_SCREEN_NOTIFICATION_OK, true)
+    fun setAlarmManager() {
+        if (lockScreenPrefsHandler.isLockScreenOk() || lockScreenPrefsHandler.isLockScreenNotificationOk()
         ) {
 
             showAlarmTimeinLog(alarmTime)
@@ -132,9 +134,9 @@ class HandleAlarms(private val context: Context, private val intent: Intent) {
     fun setDeveloperAlarm() {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            lockScreenPrefsHandler.setShowTime(System.currentTimeMillis())
             alarmManager.setExactAndAllowWhileIdle(
-                AlarmManager.RTC,
-                System.currentTimeMillis() + 15 * 1000, pendingIntent
+                AlarmManager.RTC, System.currentTimeMillis() + 15 * 1000, pendingIntent
             )
         } else {
             alarmManager.setRepeating(

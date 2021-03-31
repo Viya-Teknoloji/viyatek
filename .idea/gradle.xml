@@ -16,10 +16,13 @@
             <option value="$PROJECT_DIR$/billing" />
             <option value="$PROJECT_DIR$/firebase" />
             <option value="$PROJECT_DIR$/helper" />
+            <option value="$PROJECT_DIR$/inappads" />
+            <option value="$PROJECT_DIR$/inappreward" />
             <option value="$PROJECT_DIR$/libraries" />
             <option value="$PROJECT_DIR$/lockscreen" />
             <option value="$PROJECT_DIR$/preferences" />
             <option value="$PROJECT_DIR$/rate" />
+            <option value="$PROJECT_DIR$/realmhelper" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

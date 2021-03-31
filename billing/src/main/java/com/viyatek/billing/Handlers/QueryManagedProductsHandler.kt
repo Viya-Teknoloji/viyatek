@@ -5,19 +5,19 @@ import android.util.Log
 import com.android.billingclient.api.BillingClient
 import com.android.billingclient.api.ConsumeParams
 import com.android.billingclient.api.Purchase
-import com.viyatek.billing.PrefHandlers.ViyatekKotlinSharedPrefHelper
+import com.viyatek.billing.BillingPrefHandlers
+import com.viyatek.billing.Interface.IRestoreManagedProducts
+import com.viyatek.billing.Interface.ManagedProductListener
+import com.viyatek.billing.Interface.ProductsSkuListener
 
 
 internal class QueryManagedProductsHandler(
     private val billingClient: BillingClient,
-    private val context: Context
+    private val context: Context,
+    private val managedProductsListener: IRestoreManagedProducts? = null
 ) {
 
-    private val viyatekKotlinSharedPrefHelper by lazy {
-        ViyatekKotlinSharedPrefHelper(
-            context
-        )
-    }
+    private val billingPrefsHandler by lazy { BillingPrefHandlers(context) }
 
     fun queryInAppProducts() {
 
@@ -25,15 +25,23 @@ internal class QueryManagedProductsHandler(
 
         val boughtManagedProducts = inAppPurchasesResult.purchasesList
 
-        Log.d("Bill", "Queying managed products")
+        Log.d("Bill", "Querying managed products")
         if (boughtManagedProducts != null && boughtManagedProducts.size > 0) {
             for (purchase in boughtManagedProducts) {
 
-                Log.d("Bill", "Consuming managed products")
+                Log.d("Bill", "Consuming managed products what purchase ${purchase.sku}")
 
-                viyatekKotlinSharedPrefHelper.applyPrefs(ViyatekKotlinSharedPrefHelper.PREMIUM, 1)
+                if(managedProductsListener == null)
+                {
+                    billingPrefsHandler.setPremium(true)
+                    //consume(purchase)
+                }
+                else
+                {
+                    managedProductsListener.soldOneTimeProductsFetched(purchase)
+                }
 
-                // managedProductListener.ManagedProductPurchaseSucceded(purchase)
+
                 if(!purchase.isAcknowledged)
                 AckHandler(billingClient).acknowledgePurchase(purchase)
 
@@ -48,7 +56,6 @@ internal class QueryManagedProductsHandler(
 
     fun consume(purchase : Purchase)
     {
-        // When you call consumeAsync(),you shoud set developerPayload to distinguish consumed purchases.
         // When you call consumeAsync(),you shoud set developerPayload to distinguish consumed purchases.
         val consumeParams: ConsumeParams = ConsumeParams.newBuilder().setPurchaseToken(purchase.purchaseToken).build()
         billingClient.consumeAsync(consumeParams

@@ -11,7 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.bumptech.glide.Glide
-import com.viyatek.billing.PrefHandlers.ViyatekKotlinSharedPrefHelper.Companion.SPECIAL_DAY_CAMPAIGN_APPEARED_IN_HOME
+import com.viyatek.billing.BillingPrefHandlers
 import com.viyatek.billing.R
 import com.viyatek.billing.databinding.SpecialOfferDialogueBinding
 
@@ -36,11 +36,8 @@ abstract class BaseSpecialOfferSpecialDay : DialogFragment() {
     private var startDate: Long = 0L
     private var duration: Long = 0L
 
-    private val viyatekKotlinSharedPrefHelper by lazy {
-        com.viyatek.billing.PrefHandlers.ViyatekKotlinSharedPrefHelper(
-            requireContext()
-        )
-    }
+
+    val billingPrefHandlers by lazy { BillingPrefHandlers(requireContext()) }
 
     override fun onResume() {
         super.onResume()
@@ -97,14 +94,10 @@ abstract class BaseSpecialOfferSpecialDay : DialogFragment() {
         }
 
         if (isHome) {
-            viyatekKotlinSharedPrefHelper.apply {
-                // GetPref(LOCAL_CAMPAIGN_NO)?.getIntegerValue()?.let { this.ApplyPrefs(LOCAL_CAMPAIGN_APPEARED_IN_HOME, it) }
-                specialDayCampaignNo?.let {
-                    this.applyPrefs(
-                        SPECIAL_DAY_CAMPAIGN_APPEARED_IN_HOME,
-                        it
-                    )
-                }
+            specialDayCampaignNo?.let {
+                billingPrefHandlers.setSpecialCampaignAppearedInHome(
+                    it
+                )
             }
 
         } else {

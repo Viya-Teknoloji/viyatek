@@ -33,6 +33,7 @@ abstract class UpdateProgressFragment : Fragment(R.layout.progress_fragment) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        Log.d(Statics.LOG_TAG, "Loval Update Service : $localUpdateService")
         serviceConnection = object : ServiceConnection, UpdateServiceCallBack {
 
             override fun onServiceConnected(componentName: ComponentName, iBinder: IBinder) {

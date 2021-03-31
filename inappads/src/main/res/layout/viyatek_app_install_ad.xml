@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:cardCornerRadius="5dp"
+    app:cardElevation="0dp"
+    app:cardPreventCornerOverlap="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/linearLayout7"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="1">
+
+        <ImageView
+            android:id="@+id/viyatek_install_app_img"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:padding="0dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="W,1:1"
+            app:layout_constraintHeight_max="250dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_max="250dp"
+            app:srcCompat="@drawable/basket_buster"
+            android:contentDescription="@string/ad">
+
+        </ImageView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/linearLayout4"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/viyatek_install_app_img"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <Button
+                android:id="@+id/tw_lock_screen_ad_button"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:background="@color/ad_yellow"
+                android:includeFontPadding="true"
+                android:text="@string/install"
+                style="@style/adButton"
+                android:textColor="?colorOnPrimary"
+                android:textSize="@dimen/add_button_text"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHeight_percent=".3"
+                app:layout_constraintStart_toStartOf="@+id/tw_lock_screen_ad_text"
+                app:layout_constraintTop_toBottomOf="@+id/tw_lock_screen_ad_text" />
+
+            <TextView
+                android:id="@+id/tw_lock_screen_ad_headline"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:fontFamily="@font/proximanovabold"
+                android:gravity="center_vertical"
+                tools:text="Kıbrıs'ta Tatil Fırsatı"
+                android:textSize="@dimen/add_button_text"
+                app:autoSizeMaxTextSize="@dimen/add_button_text"
+                app:autoSizeMinTextSize="8sp"
+                app:autoSizeTextType="uniform"
+                app:layout_constraintBottom_toTopOf="@+id/tw_lock_screen_ad_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_percent=".3"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent=".95" />
+
+            <TextView
+                android:id="@+id/tw_lock_screen_ad_text"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/proximanovalight"
+                android:gravity="center_vertical"
+                android:maxLines="2"
+                android:text="Placeholder"
+                android:textSize="@dimen/add_button_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_percent=".4"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tw_lock_screen_ad_headline"
+                app:layout_constraintWidth_percent=".95" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
+

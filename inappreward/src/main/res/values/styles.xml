@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="reward_special_offer_button">
+        <item name="shapeAppearance">@style/s_offer_button_shape_appareance</item>
+    </style>
+
+    <style name="s_offer_button_shape_appareance" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">30dp</item>
+    </style>
+</resources>

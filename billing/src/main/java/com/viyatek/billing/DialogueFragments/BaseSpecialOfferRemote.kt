@@ -10,10 +10,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
-import com.viyatek.billing.PrefHandlers.ViyatekKotlinSharedPrefHelper
+import com.viyatek.billing.BillingPrefHandlers
 import com.viyatek.billing.databinding.SpecialOfferDialogueLocalBinding
-
-
 /*
 Created By Eren Tüfekçi
 */
@@ -30,7 +28,7 @@ abstract class BaseSpecialOfferRemote : DialogFragment() {
     var remoteCampaignTitle: String = ""
     var promotionAmount: String = ""
 
-    val viyatekKotlinSharedPrefHelper by lazy { ViyatekKotlinSharedPrefHelper(requireContext()) }
+    val billingPrefHandlers by lazy { BillingPrefHandlers(requireContext()) }
 
     private var countDownTimer: CountDownTimer? = null
     private var timerWorks = false
@@ -61,17 +59,8 @@ abstract class BaseSpecialOfferRemote : DialogFragment() {
 
         try {
             if (isHome) {
-                if (isLocal) {
-                    viyatekKotlinSharedPrefHelper.applyPrefs(
-                        ViyatekKotlinSharedPrefHelper.LOCAL_CAMPAIGN_APPEARED_IN_HOME,
-                        campaign_no
-                    )
-                } else {
-                    viyatekKotlinSharedPrefHelper.applyPrefs(
-                        ViyatekKotlinSharedPrefHelper.REMOTE_CAMPAIGN_APPEARED_IN_HOME,
-                        campaign_no
-                    )
-                }
+                if (isLocal) { billingPrefHandlers.setLocalCampaignAppearedInHome(campaign_no) }
+                else { billingPrefHandlers.setRemoteCampaignAppearedInHome(campaign_no) }
             } else {
                 binding.specialOfferActionButton.text = "OK"
             }
@@ -80,14 +69,14 @@ abstract class BaseSpecialOfferRemote : DialogFragment() {
             binding.specialOfferPromotionAmount.text = promotionAmount
 
             endDate = startDate + duration
-            val currentTimeinMilis = System.currentTimeMillis()
+            val currentTimeInMilis = System.currentTimeMillis()
             val hoursMax = ConvertMilisToHours(duration)
 
             binding.hoursBar.max = hoursMax
             binding.minsBar.max = 60
             binding.secsBar.max = 60
-            if (currentTimeinMilis in (startDate + 1) until endDate) {
-                countDownTimer = object : CountDownTimer(endDate - currentTimeinMilis, 1000) {
+            if (currentTimeInMilis in (startDate + 1) until endDate) {
+                countDownTimer = object : CountDownTimer(endDate - currentTimeInMilis, 1000) {
                     override fun onTick(millisUntilFinished: Long) {
                         val totalSeconds = (millisUntilFinished.toInt() / 1000).toLong()
                         val hours = (totalSeconds / (60 * 60)).toInt()
@@ -113,7 +102,7 @@ abstract class BaseSpecialOfferRemote : DialogFragment() {
                 timerWorks = true
             }
 
-            binding.closeIcon.setOnClickListener(View.OnClickListener { dismissAllowingStateLoss() })
+            binding.closeIcon.setOnClickListener { dismissAllowingStateLoss() }
             binding.specialOfferActionButton.setOnClickListener(
                 View.OnClickListener {
                     if (isHome) {
@@ -124,6 +113,10 @@ abstract class BaseSpecialOfferRemote : DialogFragment() {
                     dismissAllowingStateLoss()
                 }
             )
+
+
+
+
         } catch (e: NullPointerException) {
             throw RequiredVariablesNotSet(
                 "Be sure you set all required variables with" +

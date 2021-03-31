@@ -13,4 +13,15 @@
     <dimen name="premium_little_text_size">15sp</dimen>
     <dimen name="special_offer_little_text_size">15sp</dimen>
     <dimen name="dialog_button_vertical_margin">36dp</dimen>
+
+    <dimen name="premium_topic_card_vertical_margin">15dp</dimen>
+    <dimen name="premium_topic_card_horizontal_margin">9dp</dimen>
+    <dimen name="premium_topic_image_height">180dp</dimen>
+    <dimen name="premium_topic_image_padding">30dp</dimen>
+    <dimen name="premium_topic_title">30sp</dimen>
+    <dimen name="premium_topic_description_text_size">20sp</dimen>
+    <dimen name="premium_topic_description_vertical_margin">18dp</dimen>
+    <dimen name="premium_topic_description_horizontal_padding">8dp</dimen>
+    <dimen name="premium_topic_button_text_size">20sp</dimen>
+    <dimen name="premium_topic_button_vertical_margin">20dp</dimen>
 </resources>

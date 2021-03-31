@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">inappreward</string>
+    <string name="get_reward">Get Reward</string>
+
+    <string name="invite_friends_text">Invite your friends</string>
+    <string name="invite_title">Get Reward</string>
+
+    <string name="reward_friends_text">Thanks for sharing</string>
+    <string name="reward_title">Claim Reward</string>
+
+    <string name="no_reward_title">Sharing is Caring</string>
+    <string name="thanks_for_sharing">Thanks for sharing %1$s!\nPick your reward above</string>
+
+    <string name="unlock_all_title">Unlock All</string>
+    <string name="unlock_all_text">Premium Content</string>
+</resources>

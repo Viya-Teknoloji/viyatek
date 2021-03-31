@@ -4,13 +4,8 @@ Created By Eren Tüfekçi
 */
 import android.content.Context
 import android.util.Log
-import com.viyatek.billing.PrefHandlers.ViyatekKotlinSharedPrefHelper
-import com.viyatek.billing.PrefHandlers.ViyatekKotlinSharedPrefHelper.Companion.CAMPAIGN_START_TIME
-import com.viyatek.billing.PrefHandlers.ViyatekKotlinSharedPrefHelper.Companion.LOCAL_CAMPAIGN_ACTIVE
-import com.viyatek.billing.PrefHandlers.ViyatekKotlinSharedPrefHelper.Companion.PREMIUM
-import com.viyatek.billing.PrefHandlers.ViyatekKotlinSharedPrefHelper.Companion.REMOTE_CAMPAIGN_ACTIVE
-import com.viyatek.billing.PrefHandlers.ViyatekKotlinSharedPrefHelper.Companion.SPECIAL_DAY_CAMPAIGN_ACTIVE
-import com.viyatek.billing.PrefHandlers.ViyatekKotlinSharedPrefHelper.Companion.SUBSCRIBED
+import com.viyatek.billing.BillingPrefHandlers
+
 
 import com.viyatek.billing.PremiumActivity.ViyatekPremiumActivity
 
@@ -26,12 +21,8 @@ class CampaignHandler(
 ) {
 
     private var campaignType: CampaignType = CampaignType.NO_CAMPAIGN
-    private val viyatekSharedPrefsHandler by lazy { ViyatekKotlinSharedPrefHelper(context) }
-    private val isPremium by lazy {
-        viyatekSharedPrefsHandler.getPref(PREMIUM)
-            .getIntegerValue() == 1 || viyatekSharedPrefsHandler.getPref(SUBSCRIBED)
-            .getIntegerValue() == 1
-    }
+    private val billingPrefHandlers by lazy { BillingPrefHandlers(context) }
+    private val isPremium by lazy { billingPrefHandlers.isPremium() || billingPrefHandlers.isSubscribed() }
 
     private fun checkCampaignActive(startDate: Long, duration: Long): Boolean {
 
@@ -58,7 +49,11 @@ class CampaignHandler(
 
         Log.d("Bargain", "Setting Active Campaign")
 
-        setActiveCampaign(0, 0, 0)
+        setActiveCampaign(
+            isRemoteCampaignActive = false,
+            isSpecialDayCampaignActive = false,
+            isLocalCampaignActive = false
+        )
 
         if (isPremium) {
             Log.d("Bargain", "No Campaign is set Because the user is premium")
@@ -68,10 +63,18 @@ class CampaignHandler(
         campaignType = if (isRemoteCampaignEnabled) {
 
             if (checkCampaignActive(startDate, duration)) {
-                setActiveCampaign(1, 0, 0)
+                setActiveCampaign(
+                    isRemoteCampaignActive = true,
+                    isSpecialDayCampaignActive = false,
+                    isLocalCampaignActive = false
+                )
                 CampaignType.REMOTE_CAMPAIGN
             } else {
-                setActiveCampaign(0, 0, 0)
+                setActiveCampaign(
+                    isRemoteCampaignActive = false,
+                    isSpecialDayCampaignActive = false,
+                    isLocalCampaignActive = false
+                )
                 CampaignType.NO_CAMPAIGN
             }
         } else {
@@ -82,11 +85,19 @@ class CampaignHandler(
         if (campaignType == CampaignType.NO_CAMPAIGN) {
             if (isSpecialCampaignEnabled) {
                 if (checkCampaignActive(startDate, duration)) {
-                    setActiveCampaign(0, 1, 0)
+                    setActiveCampaign(
+                        isRemoteCampaignActive = false,
+                        isSpecialDayCampaignActive = true,
+                        isLocalCampaignActive = false
+                    )
                     campaignType = CampaignType.SPECIAL_DAY_CAMPAIGN
                     Log.d(ViyatekPremiumActivity.billingLogs, "Special Day Campaign is Active ")
                 } else {
-                    setActiveCampaign(0, 0, 0)
+                    setActiveCampaign(
+                        isRemoteCampaignActive = false,
+                        isSpecialDayCampaignActive = false,
+                        isLocalCampaignActive = false
+                    )
                     Log.d(
                         ViyatekPremiumActivity.billingLogs,
                         "Special Day Campaign off out of time limit "
@@ -100,7 +111,7 @@ class CampaignHandler(
                 )
             }
         }
-        Log.d(ViyatekPremiumActivity.billingLogs, "Set Campaign ${isLocalCampaignEnabled}")
+        Log.d(ViyatekPremiumActivity.billingLogs, "Set Campaign $isLocalCampaignEnabled")
 
 
         if (campaignType == CampaignType.NO_CAMPAIGN) {
@@ -108,21 +119,26 @@ class CampaignHandler(
 
                 Log.d(
                     ViyatekPremiumActivity.billingLogs,
-                    "Active Campaign in Local ${
-                        viyatekSharedPrefsHandler.getPref(CAMPAIGN_START_TIME).getStringValue()
-                    }"
+                    "Active Campaign in Local ${billingPrefHandlers.getCampaignStartTime()}"
                 )
                 campaignType =
                     if (checkCampaignActive(
-                            viyatekSharedPrefsHandler.getPref(CAMPAIGN_START_TIME).getStringValue()
-                                .toLong(), localCampaignDuration
+                       billingPrefHandlers.getCampaignStartTime(), localCampaignDuration
                         )
                     ) {
                         Log.d("Local_Promotion", "Local Campaign is active")
-                        setActiveCampaign(0, 0, 1)
+                        setActiveCampaign(
+                            isRemoteCampaignActive = false,
+                            isSpecialDayCampaignActive = false,
+                            isLocalCampaignActive = true
+                        )
                         CampaignType.LOCAL_CAMPAIGN
                     } else {
-                        setActiveCampaign(0, 0, 0)
+                        setActiveCampaign(
+                            isRemoteCampaignActive = false,
+                            isSpecialDayCampaignActive = false,
+                            isLocalCampaignActive = false
+                        )
                         CampaignType.NO_CAMPAIGN
                     }
             }
@@ -131,32 +147,22 @@ class CampaignHandler(
     }
 
     private fun setActiveCampaign(
-        isRemoteCampaignActive: Int,
-        isSpecialDayCampaignActive: Int,
-        isLocalCampaignActive: Int
+        isRemoteCampaignActive: Boolean,
+        isSpecialDayCampaignActive: Boolean,
+        isLocalCampaignActive: Boolean
     ) {
-        viyatekSharedPrefsHandler.applyPrefs(REMOTE_CAMPAIGN_ACTIVE, isRemoteCampaignActive)
-        viyatekSharedPrefsHandler.applyPrefs(
-            SPECIAL_DAY_CAMPAIGN_ACTIVE,
-            isSpecialDayCampaignActive
-        )
-        viyatekSharedPrefsHandler.applyPrefs(LOCAL_CAMPAIGN_ACTIVE, isLocalCampaignActive)
+       billingPrefHandlers.setRemoteCampaignActive(isRemoteCampaignActive)
+        billingPrefHandlers.setSpecialDayCampaignActive(isSpecialDayCampaignActive)
+        billingPrefHandlers.setLocalCampaignActive(isLocalCampaignActive)
     }
 
 
     fun getActiveCampaign(): CampaignType {
 
         return when {
-            viyatekSharedPrefsHandler.getPref(REMOTE_CAMPAIGN_ACTIVE).getIntegerValue() == 1 -> {
-                CampaignType.REMOTE_CAMPAIGN
-            }
-            viyatekSharedPrefsHandler.getPref(SPECIAL_DAY_CAMPAIGN_ACTIVE)
-                .getIntegerValue() == 1 -> {
-                CampaignType.SPECIAL_DAY_CAMPAIGN
-            }
-            viyatekSharedPrefsHandler.getPref(LOCAL_CAMPAIGN_ACTIVE).getIntegerValue() == 1 -> {
-                CampaignType.LOCAL_CAMPAIGN
-            }
+            billingPrefHandlers.isRemoteCampaignActive() -> { CampaignType.REMOTE_CAMPAIGN }
+            billingPrefHandlers.isSpecialDayCampaignActive()-> { CampaignType.SPECIAL_DAY_CAMPAIGN }
+            billingPrefHandlers.isLocalCampaignActive() -> { CampaignType.LOCAL_CAMPAIGN }
             else -> CampaignType.NO_CAMPAIGN
         }
     }
@@ -165,30 +171,27 @@ class CampaignHandler(
         Log.d(
             "Billing",
             "Starting a local campaign ${System.currentTimeMillis()} and local campaign no : ${
-                viyatekSharedPrefsHandler.getPref(ViyatekKotlinSharedPrefHelper.LOCAL_CAMPAIGN_NO)
-                    .getIntegerValue()
+                billingPrefHandlers.getLocalCampaignNumber()
             } "
         )
 
-        viyatekSharedPrefsHandler.applyPrefs(
-            CAMPAIGN_START_TIME,
-            System.currentTimeMillis().toString()
-        )
+        billingPrefHandlers.setCampaignStartTime(System.currentTimeMillis())
+
 
         Log.d(
             "Billing",
             "Campaign Start Time ${
-                viyatekSharedPrefsHandler.getPref(ViyatekKotlinSharedPrefHelper.CAMPAIGN_START_TIME)
-                    .getStringValue()
+             billingPrefHandlers.getCampaignStartTime()
             }"
         )
-        viyatekSharedPrefsHandler.applyPrefs(
-            ViyatekKotlinSharedPrefHelper.LOCAL_CAMPAIGN_NO,
-            viyatekSharedPrefsHandler.getPref(ViyatekKotlinSharedPrefHelper.LOCAL_CAMPAIGN_NO)
-                .getIntegerValue() + 1
-        )
+        billingPrefHandlers.setLocalCampaignNumber(billingPrefHandlers.getLocalCampaignNumber() + 1)
 
-        setActiveCampaign(0, 0, 1)
+
+        setActiveCampaign(
+            isRemoteCampaignActive = false,
+            isSpecialDayCampaignActive = false,
+            isLocalCampaignActive = true
+        )
     }
 
 }

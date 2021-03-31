@@ -68,6 +68,9 @@ class ProcessStandAloneAd(
         val moPubNative = MoPubNative(context, adUnitId, moPubNativeNetworkListener)
 
         val moPubStaticNativeAdRenderer = MoPubStaticNativeAdRenderer(viewBinder)
+
+        Log.d("Ads", "Handling the ads")
+
         val googlePlayServicesAdRenderer = GooglePlayServicesAdRenderer(
             GooglePlayServicesViewBinder.Builder(R.layout.admob_lock_screen_end_ad)
                 .mediaLayoutId(R.id.admob_media_layout) // bind to your `com.mopub.nativeads.MediaLayout` element
@@ -101,6 +104,7 @@ class ProcessStandAloneAd(
         moPubNative.registerAdRenderer(googlePlayServicesAdRenderer)
         moPubNative.registerAdRenderer(pangleAdRenderer)
         moPubNative.makeRequest()
+
         adapterHelper = AdapterHelper(context, 0, 5)
     }
 

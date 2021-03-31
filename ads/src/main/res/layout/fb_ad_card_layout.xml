@@ -10,7 +10,6 @@
         android:clipToPadding="false"
         app:cardCornerRadius="8dp"
         app:cardElevation="4dp"
-        app:cardBackgroundColor="#424242"
         app:cardPreventCornerOverlap="false"
         app:contentPadding="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -54,9 +53,10 @@
                 android:scaleType="centerCrop"
                 app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:srcCompat="@tools:sample/backgrounds/scenic"/>
+                tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
             <RelativeLayout
                 android:id="@+id/privacy"
@@ -73,12 +73,10 @@
                 tools:text="TextView"
                 app:layout_constraintEnd_toEndOf="parent"
                 style="@style/ad_body_text_style"
-                android:textColor="@android:color/white"
                 app:layout_constraintTop_toBottomOf="@id/ad_card_head_line" />
 
             <TextView
                 android:id="@+id/ad_card_head_line"
-                android:textColor="@android:color/white"
                 style="@style/ad_title_style"
                 tools:text="TextView"
                 app:autoSizeMaxTextSize="20sp"

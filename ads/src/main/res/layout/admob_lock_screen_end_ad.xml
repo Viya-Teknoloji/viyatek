@@ -11,29 +11,41 @@
         android:id="@+id/linearLayout7"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:weightSum="1">
+        android:orientation="horizontal">
 
-        <com.mopub.nativeads.GooglePlayServicesMediaLayout
-            android:id="@+id/admob_media_layout"
+        <FrameLayout
+            android:id="@+id/admob_media_holder"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:padding="0dp"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintWidth_percent=".4">
+            app:layout_constraintWidth_percent=".4"
+            app:layout_constraintTop_toTopOf="parent">
 
-        </com.mopub.nativeads.GooglePlayServicesMediaLayout>
+            <com.mopub.nativeads.GooglePlayServicesMediaLayout
+                android:id="@+id/admob_media_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="visible"
+                android:padding="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                >
+
+            </com.mopub.nativeads.GooglePlayServicesMediaLayout>
+
+
+        </FrameLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/linearLayout4"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:weightSum="1"
+            app:layout_constraintWidth_percent=".6"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/admob_media_layout"
             app:layout_constraintTop_toTopOf="parent">
 
             <Button

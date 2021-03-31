@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="premium_blue">#0e92a1</color>
+    <color name="premium_orange">#ef6945</color>
+    <color name="premium_purple">#ff3e52b5</color>
+    <color name="premium_accent_bg">#33397D77</color>
+    <color name="premium_offer_bg_color">#ffffff</color>
+</resources>

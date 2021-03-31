@@ -11,7 +11,9 @@ class ProcessMoPubAdapter(private val activity: Activity,
                           private val recyclerView: RecyclerView,
                           private val adapter: RecyclerView.Adapter<RecyclerView.ViewHolder>,
                           private val twitter_native_ad_unit_id : String,
-                          private var isSwipe : Boolean = false) {
+                          private var isSwipe : Boolean = false,
+                          private val isDark: Boolean =false
+) {
 
     fun init() {
 
@@ -19,11 +21,17 @@ class ProcessMoPubAdapter(private val activity: Activity,
 
             val myViewBinder = ViewBinder.Builder(
                 if(isSwipe){
-                    Log.d(MoPubInitializer.LOG_TAG, "Swipe")
-                    R.layout.tw_ad_card_layout
+                   if(isDark)
+                   { R.layout.tw_ad_card_layout_dark}
+                    else
+                   { R.layout.tw_ad_card_layout}
                 }
                 else{
-                    R.layout.tw_ad_card_layout_feed
+                    if(isDark)
+                    { R.layout.tw_ad_card_layout_feed_dark }
+                    else
+                    { R.layout.tw_ad_card_layout_feed }
+
                 })
                 .titleId(R.id.ad_card_head_line)
                 .textId(R.id.ad_card_body_text)
@@ -37,13 +45,20 @@ class ProcessMoPubAdapter(private val activity: Activity,
 
             val googlePlayServicesAdRenderer = GooglePlayServicesAdRenderer(
                 GooglePlayServicesViewBinder.Builder(
-                    if (isSwipe) {
-                        Log.d(MoPubInitializer.LOG_TAG, "Swipe")
-                        R.layout.admob_ad_card_layout
-                    } else {
-                        R.layout.admob_ad_card_layout_feed
+                    if(isSwipe){
+                        if(isDark)
+                        { R.layout.admob_ad_card_layout_dark}
+                        else
+                        { R.layout.admob_ad_card_layout}
                     }
-                )
+                    else{
+                        if(isDark)
+                        { R.layout.admob_ad_card_layout_feed_dark }
+                        else
+                        { R.layout.admob_ad_card_layout_feed}
+
+                    })
+
                     .mediaLayoutId(R.id.ad_card_image) // bind to your `com.mopub.nativeads.MediaLayout` element
                     .titleId(R.id.ad_card_head_line)
                     .textId(R.id.ad_card_body_text)
@@ -59,10 +74,17 @@ class ProcessMoPubAdapter(private val activity: Activity,
             val facebookAdRenderer = FacebookAdRenderer(
                 FacebookViewBinder.Builder(
                     if(isSwipe){
-                        Log.d(MoPubInitializer.LOG_TAG, "Swipe")
-                        R.layout.fb_ad_card_layout
-                    } else{
-                        R.layout.fb_ad_card_layout_feed
+                        if(isDark)
+                        { R.layout.fb_ad_card_layout_dark}
+                        else
+                        { R.layout.fb_ad_card_layout}
+                    }
+                    else{
+                        if(isDark)
+                        { R.layout.fb_ad_card_layout_feed_dark }
+                        else
+                        { R.layout.fb_ad_card_layout_feed}
+
                     })
                     .titleId(R.id.ad_card_head_line)
                     .textId(R.id.ad_card_body_text) // Binding to new layouts from Facebook 4.99.0+
@@ -76,10 +98,17 @@ class ProcessMoPubAdapter(private val activity: Activity,
             val pangleAdRenderer = PangleAdRenderer(
                 PangleAdViewBinder.Builder(
                     if(isSwipe){
-                        Log.d(MoPubInitializer.LOG_TAG, "Swipe")
-                        R.layout.pangle_ad_card_layout
-                    } else{
-                        R.layout.pangle_ad_card_layout_feed
+                        if(isDark)
+                        { R.layout.pangle_ad_card_layout_dark}
+                        else
+                        { R.layout.pangle_ad_card_layout}
+                    }
+                    else{
+                        if(isDark)
+                        { R.layout.pangle_ad_card_layout_feed_dark}
+                        else
+                        { R.layout.pangle_ad_card_layout_feed}
+
                     })
                     .callToActionId(R.id.ad_card_button)
                     .decriptionTextId(R.id.ad_card_body_text) //.iconImageId(R.id.native_icon_image)

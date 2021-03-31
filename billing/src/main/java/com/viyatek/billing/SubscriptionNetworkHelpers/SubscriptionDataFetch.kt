@@ -10,10 +10,11 @@ import com.android.volley.AuthFailureError
 import com.android.volley.DefaultRetryPolicy
 import com.android.volley.toolbox.JsonObjectRequest
 import com.viyatek.billing.BillingHelperLibraryRequestQueue
+import com.viyatek.billing.BillingPrefHandlers
 import com.viyatek.billing.Handlers.AckHandler
 import com.viyatek.billing.Handlers.QueryManagedProductsHandler
+import com.viyatek.billing.Interface.ProductRestoreListener
 import com.viyatek.billing.Interface.SubscriptionPaymentProblem
-import com.viyatek.billing.PrefHandlers.ViyatekKotlinSharedPrefHelper
 import com.viyatek.billing.PremiumActivity.ViyatekPremiumActivity
 import com.viyatek.billing.SubscriptionHelpers.SubscribeCheck
 import org.json.JSONObject
@@ -22,15 +23,32 @@ import java.util.*
 
 class SubscriptionDataFetch(
     val context: Context,
-    private val listener: SubscriptionPaymentProblem,
     private val billingClient: BillingClient
 ) {
 
-    private val viyatekKotlinSharedPrefHelper by lazy { ViyatekKotlinSharedPrefHelper(context)}
+    private var listener: SubscriptionPaymentProblem? = null
+    private var managedProductsRestoreListener: ProductRestoreListener? = null
+    private val billingPrefsHandler by lazy { BillingPrefHandlers(context) }
+
+    constructor(
+        billingClient: BillingClient,
+        theContext: Context,
+        productsRestoreListener: ProductRestoreListener?
+    ) : this(theContext, billingClient) {
+        this.managedProductsRestoreListener = productsRestoreListener
+    }
+
+    constructor(
+        billingClient: BillingClient,
+        theContext: Context,
+        paymentProblem: SubscriptionPaymentProblem?
+    ) : this(theContext, billingClient) {
+        listener = paymentProblem
+    }
+
 
     fun executeNetWorkCall(endpoint: String, sku : String, token : String )
     {
-
         val url = Uri.parse(endpoint)
             .buildUpon()
             .appendQueryParameter("token", token)
@@ -99,13 +117,12 @@ class SubscriptionDataFetch(
                 Log.d(ViyatekPremiumActivity.billingLogs, "Checking subs")
 
                 val isSubscribed = SubscribeCheck(context).checkSubscription(
-                    viyatekKotlinSharedPrefHelper,
                     returnedToken,
                     expiryTimeMillis,
                     paymentStateint,
                     theSku)
 
-                if(purchase == null)
+                if(isSubscribed)
                     {
                         if(isSubscribed)
                         { Toast.makeText(context, "Your subscription is restored", Toast.LENGTH_SHORT).show() }
@@ -121,7 +138,7 @@ class SubscriptionDataFetch(
 
 
                 if (paymentStateint == 0) {
-                    listener.subscriptionInGracePeriod(theSku)
+                    listener?.subscriptionInGracePeriod(theSku)
                 }
 
 

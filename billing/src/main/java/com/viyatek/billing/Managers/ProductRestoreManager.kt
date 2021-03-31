@@ -1,6 +1,7 @@
 package com.viyatek.billing.Managers
 
 import android.content.Context
+import android.util.Log
 import com.viyatek.billing.BaseBillingClass
 import com.viyatek.billing.Handlers.QueryManagedProductsHandler
 import com.viyatek.billing.Handlers.QuerySubscriptionHandler
@@ -12,6 +13,7 @@ class ProductRestoreManager(
 ) : BaseBillingClass(context) {
 
     fun init() {
+        Log.d("Billing", "Starting Restore Process")
         startProcess()
     }
 
@@ -22,7 +24,6 @@ class ProductRestoreManager(
             productRestoreListener
         ).querySubscriptions()
 
-        //QueryManagedProductsHandler(billingClient, context).queryInAppProducts()
     }
 
 }

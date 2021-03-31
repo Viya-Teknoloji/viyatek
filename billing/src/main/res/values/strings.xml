@@ -72,5 +72,27 @@
     <string name="progress">Please Wait.\n\n We are verifying your purchase</string>
     <string name="restore_purchase">Restore Purchase</string>
 
+    <string name="subscription_term_of_use">
+        By starting your subscription, your payment will be charged to your Google Play Account, and your subscription will automatically renew
+        at the same price until you cancel in settings in Google Play store. By tapping "Upgrade Premium" you agree
+        to our &lt;a href="http://www.viyateknoloji.com/ultimate-facts-terms-of-use/">Terms of Service&lt;/a>
+    </string>
+
+    <string name="premium_purchase_terms">
+By tapping "Upgrade Premium" you agree
+        to our &lt;a href="http://www.viyateknoloji.com/ultimate-facts-terms-of-use/">Terms of Service&lt;/a>
+    </string>
+
+    <string name="subscription_term_of_use_free">
+        By clicking "Start My Free Trial", you will begin your 3-day free trial. Your payment will be charged to your Google
+        Play Account after free trial. Your subscription will automatically renew at the same price until you cancel in
+        settings in Google Play store. By tapping "Start My Free Trial" you agree to our &lt;a href="http://www.viyateknoloji.com/ultimate-facts-terms-of-use/">Terms of Service&lt;/a>
+    </string>
+    <string name="uf_premium_second">45+ Topics</string>
+    <string name="uf_premium_third">Regularly Updated Content</string>
+    <string name="uf_premium_forth">Ad Free Experience</string>
+    <string name="uf_premium_fifth">Access Audio Content of All Facts</string>
+
+    <string name="premium_subtitle">Unlimited Access</string>
 
 </resources>

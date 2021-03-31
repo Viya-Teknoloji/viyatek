@@ -1,3 +1,3 @@
 package com.viyatek.billing.Interface
 
-interface ManagedProductListener : IManagedProductsSkuDetails, IManagedProductPurchase
+interface ManagedProductListener : IManagedProductsSkuDetails, IManagedProductPurchase, IRestoreManagedProducts

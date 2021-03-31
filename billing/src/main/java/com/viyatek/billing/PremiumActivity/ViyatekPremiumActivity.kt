@@ -13,21 +13,19 @@ import com.android.billingclient.api.PurchaseHistoryRecord
 import com.android.billingclient.api.SkuDetails
 import com.android.volley.VolleyError
 import com.google.firebase.analytics.FirebaseAnalytics
+import com.viyatek.billing.BillingPrefHandlers
 import com.viyatek.billing.Campaign.CampaignHandler
 import com.viyatek.billing.Campaign.CampaignType
 import com.viyatek.billing.Handlers.SkuListHelper
 import com.viyatek.billing.Interface.InAppPurchaseListener
+import com.viyatek.billing.Interface.ProductRestoreListener
 import com.viyatek.billing.Managers.BillingManager
-import com.viyatek.billing.PrefHandlers.ViyatekKotlinSharedPrefHelper
-import com.viyatek.billing.PrefHandlers.ViyatekKotlinSharedPrefHelper.Companion.RESTORE_PURCHASE_ASYNC_CALL_MADE
-import com.viyatek.billing.PrefHandlers.ViyatekKotlinSharedPrefHelper.Companion.SUBSCRIPTION_TRIAL_MODE_USED
 import com.viyatek.billing.R
-import com.viyatek.billing.SubscriptionHelpers.SubscribeCheck
 import com.viyatek.billing.SubscriptionNetworkHelpers.SubscriptionDataFetch
 import com.viyatek.billing.databinding.ActivityViyatekPremiumBinding
 
 
-abstract class ViyatekPremiumActivity : AppCompatActivity(), InAppPurchaseListener {
+abstract class ViyatekPremiumActivity : AppCompatActivity(), InAppPurchaseListener, ProductRestoreListener {
 
 
     var multiChoiceEnabled = false
@@ -61,12 +59,13 @@ abstract class ViyatekPremiumActivity : AppCompatActivity(), InAppPurchaseListen
     private var isCameFromMainActivityDialog: Boolean = false
     private var isSubscriptionSkuFetched: Boolean = false
 
-    private val viyatekKotlinSharedPrefHelper by lazy { ViyatekKotlinSharedPrefHelper(this) }
+    private val billingPrefsHandler by lazy { BillingPrefHandlers(this) }
 
     private lateinit var binding: ActivityViyatekPremiumBinding
     lateinit var billingManager: BillingManager
 
-    val inAppSkuListHelper: SkuListHelper = SkuListHelper()
+    val oneTimePurchasesSkuHelper : SkuListHelper = SkuListHelper()
+    val premiumSkuHelper: SkuListHelper = SkuListHelper()
     val subSkuListHelper: SkuListHelper = SkuListHelper()
 
     val subscriptionSkuDetailsList: ArrayList<SkuDetails> = ArrayList()
@@ -121,56 +120,36 @@ abstract class ViyatekPremiumActivity : AppCompatActivity(), InAppPurchaseListen
         subSkuListHelper.addSku(firstSlotLocalCampaignSku)
         subSkuListHelper.addSku(secondSlotLocalCampaignSku)
 
-        inAppSkuListHelper.addSku(thirdSlotSku)
-        inAppSkuListHelper.addSku(thirdSlotCampaignSku)
-        inAppSkuListHelper.addSku(thirdSlotLifeTimeSku)
+        premiumSkuHelper.addSku(thirdSlotSku)
+        premiumSkuHelper.addSku(thirdSlotCampaignSku)
+        premiumSkuHelper.addSku(thirdSlotLifeTimeSku)
 
 
-        if (!viyatekKotlinSharedPrefHelper.checkUserExists(this)) {
-            Log.d(billingLogs, "Create Prefs")
-            viyatekKotlinSharedPrefHelper.createLocalAccount()
-        } else {
-            if (viyatekKotlinSharedPrefHelper.getPref(RESTORE_PURCHASE_ASYNC_CALL_MADE)
-                    .getIntegerValue() == 0
-            ) {
+        if (!billingPrefsHandler.isRestorePurchaseAsyncCallMade()) {
                 Log.d(billingLogs, "Making call")
                 queryPurchaseAsync()
             } else {
                 Log.d(billingLogs, "call already made")
             }
-        }
 
-        billingManager.init(subSkuListHelper.getSkuList(), inAppSkuListHelper.getSkuList())
+
+        billingManager.init(subSkuListHelper.getSkuList(), premiumSkuHelper.getSkuList())
     }
 
     fun queryPurchaseAsync() {
+
         billingManager.billingClient.queryPurchaseHistoryAsync(BillingClient.SkuType.SUBS) { billingResult, purchaseHistoryRecords ->
             if (purchaseHistoryRecords != null) {
                 var activePurchaseRecord : PurchaseHistoryRecord? = null
+
                 if (purchaseHistoryRecords.size > 0) {
                     for (purchaseHistoryRecord in purchaseHistoryRecords) {
                         Log.d(billingLogs, "Purchase History Record : $purchaseHistoryRecord")
 
-                        if (inAppSkuListHelper.getSkuList().contains(purchaseHistoryRecord.sku)) {
-                            viyatekKotlinSharedPrefHelper.applyPrefs(
-                                ViyatekKotlinSharedPrefHelper.PREMIUM,
-                                1
-                            )
-
-                            Toast.makeText(
-                                this@ViyatekPremiumActivity,
-                                getString(R.string.verification_success),
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-
                         if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
                             if (subSkuListHelper.getSkuList().contains(purchaseHistoryRecord.sku)
                             ) {
-                                viyatekKotlinSharedPrefHelper.applyPrefs(
-                                    SUBSCRIPTION_TRIAL_MODE_USED,
-                                    1
-                                )
+                                billingPrefsHandler.setSubscriptionTrialModeUsed(true)
 
                                 if (activePurchaseRecord == null) {
                                     activePurchaseRecord = purchaseHistoryRecord
@@ -185,8 +164,7 @@ abstract class ViyatekPremiumActivity : AppCompatActivity(), InAppPurchaseListen
 
                     }
 
-                    if (viyatekKotlinSharedPrefHelper.getPref(ViyatekKotlinSharedPrefHelper.PREMIUM).getIntegerValue() != 1
-                    ) {
+                    if (!billingPrefsHandler.isPremium()) {
 
                         Toast.makeText(
                             this@ViyatekPremiumActivity,
@@ -195,8 +173,8 @@ abstract class ViyatekPremiumActivity : AppCompatActivity(), InAppPurchaseListen
                         ).show()
 
                         activePurchaseRecord?.let { SubscriptionDataFetch(
-                                this@ViyatekPremiumActivity, this,
-                                billingManager.billingClient
+                            billingManager.billingClient,
+                                this@ViyatekPremiumActivity, productsRestoreListener = this@ViyatekPremiumActivity
                             )
                                 .executeNetWorkCall(
                                     getString(R.string.viyatek_subscription_check_endpoint),
@@ -207,20 +185,42 @@ abstract class ViyatekPremiumActivity : AppCompatActivity(), InAppPurchaseListen
                     }
                 }
                 else {
+                    billingManager.billingClient.queryPurchaseHistoryAsync(BillingClient.SkuType.INAPP) { billingResult, purchaseHistoryRecords->
+                        if (purchaseHistoryRecords != null) {
+                            if (purchaseHistoryRecords.size > 0) {
+                                for (purchaseHistoryRecord in purchaseHistoryRecords) {
+                                    if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
+
+                                        if (premiumSkuHelper.getSkuList().contains(purchaseHistoryRecord.sku))
+                                        {
+
+                                            Log.d("Billing", "Made Premium in Premium Activity async restore func")
+                                            billingPrefsHandler.setPremium(true)
+                                        }
+
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+
                     Log.d(billingLogs, "Purchase History Record not found size 0") }
 
             }
             else {
-                Toast.makeText(
-                    this@ViyatekPremiumActivity,
-                    "Purchase not found",
-                    Toast.LENGTH_SHORT
-                ).show()
+                if(billingPrefsHandler.isRestorePurchaseAsyncCallMade()) {
+                    Toast.makeText(
+                        this@ViyatekPremiumActivity,
+                        "Purchase not found",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
 
                 Log.d(billingLogs, "Purchase History Record not found null")
             }
 
-            viyatekKotlinSharedPrefHelper.applyPrefs(RESTORE_PURCHASE_ASYNC_CALL_MADE, 1)
+            billingPrefsHandler.setRestorePurchaseAsyncCallMade(true)
         }
     }
 
@@ -420,6 +420,5 @@ abstract class ViyatekPremiumActivity : AppCompatActivity(), InAppPurchaseListen
         return null
 
     }
-
 
 }

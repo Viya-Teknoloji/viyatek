@@ -10,11 +10,10 @@ import com.android.volley.DefaultRetryPolicy
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.viyatek.billing.BillingHelperLibraryRequestQueue
+import com.viyatek.billing.BillingPrefHandlers
 import com.viyatek.billing.DialogueFragments.ProgressDialog
 import com.viyatek.billing.Interface.SubscriptionVerificationDataFetched
-import com.viyatek.billing.PrefHandlers.ViyatekKotlinSharedPrefHelper
-import com.viyatek.billing.PrefHandlers.ViyatekKotlinSharedPrefHelper.Companion.SUBSCRIBED
-import com.viyatek.billing.PrefHandlers.ViyatekKotlinSharedPrefHelper.Companion.SUBSCRIPTION_TYPE
+
 import com.viyatek.billing.PremiumActivity.ViyatekPremiumActivity
 import com.viyatek.billing.SubscriptionHelpers.SubscribeCheck
 import org.json.JSONObject
@@ -25,8 +24,8 @@ class SubscriptionVerification(
     private val listener: SubscriptionVerificationDataFetched
 ) {
 
-    private val sharedPrefHandler by lazy {
-        ViyatekKotlinSharedPrefHelper(
+    private val billingPrefHandlers by lazy {
+        BillingPrefHandlers(
             activity
         )
     }
@@ -77,7 +76,6 @@ class SubscriptionVerification(
 
 
                 val isSubscribed = SubscribeCheck(activity).checkSubscription(
-                            ViyatekKotlinSharedPrefHelper(activity),
                             returnedToken,
                             expiryTimeMillis,
                             1,
@@ -87,10 +85,10 @@ class SubscriptionVerification(
                     Log.d(ViyatekPremiumActivity.billingLogs,
                         "Subscription successfull")
 
-                    ViyatekKotlinSharedPrefHelper.isSubscribed = true
-
-                    sharedPrefHandler.applyPrefs(SUBSCRIPTION_TYPE, purchase.sku)
-                    sharedPrefHandler.applyPrefs(SUBSCRIBED, 1)
+                    billingPrefHandlers.apply {
+                        setSubscribed(true)
+                        setSubscriptionType(purchase.sku)
+                    }
 
                     listener.SubscriptionVerified()
 

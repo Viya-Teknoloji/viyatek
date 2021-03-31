@@ -8,12 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.viyatek.billing.R
-import com.viyatek.billing.databinding.ProgressLayoutBinding
+import com.viyatek.billing.databinding.BillingProgressLayoutBinding
 
 
 class ProgressDialog : DialogFragment() {
 
-    var _binding: ProgressLayoutBinding? = null
+    var _binding: BillingProgressLayoutBinding? = null
     val binding get() = _binding!!
 
     override fun onCreateView(
@@ -21,16 +21,15 @@ class ProgressDialog : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
-        _binding = ProgressLayoutBinding.inflate(inflater, container, false)
-        dialog?.setCanceledOnTouchOutside(true)
+        _binding = BillingProgressLayoutBinding.inflate(inflater, container, false)
+        dialog?.setCanceledOnTouchOutside(false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.progressText.text = getString(R.string.progress)
+        binding.billingProgressText.text = getString(R.string.progress)
     }
 
     override fun onDestroyView() {

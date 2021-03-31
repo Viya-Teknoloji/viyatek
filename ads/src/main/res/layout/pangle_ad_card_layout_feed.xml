@@ -12,7 +12,8 @@
         app:cardElevation="4dp"
         app:cardPreventCornerOverlap="false"
         app:contentPadding="0dp"
-        app:cardBackgroundColor="#424242"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintWidth_percent=".95"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -72,22 +73,22 @@
             <TextView
                 android:id="@+id/ad_card_body_text"
                 tools:text="TextView"
-                android:textColor="@android:color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 style="@style/ad_body_text_style"
                 app:layout_constraintTop_toBottomOf="@id/ad_card_head_line" />
 
             <TextView
                 android:id="@+id/ad_card_head_line"
-                tools:text="TextView"
+                style="@style/ad_title_style"
+                android:layout_marginTop="16dp"
                 app:autoSizeMaxTextSize="20sp"
                 app:autoSizeMinTextSize="14sp"
                 app:autoSizeTextType="uniform"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                android:textColor="@android:color/white"
-                style="@style/ad_title_style"
-                app:layout_constraintTop_toBottomOf="@id/ad_card_ad_attiribution" />
+                app:layout_constraintTop_toBottomOf="@id/ad_card_ad_attiribution"
+                tools:text="TextView" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

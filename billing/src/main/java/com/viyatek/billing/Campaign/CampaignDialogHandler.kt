@@ -1,8 +1,8 @@
 package com.viyatek.billing.Campaign
 
 import android.content.Context
-import com.viyatek.billing.PrefHandlers.ViyatekKotlinSharedPrefHelper
-import com.viyatek.billing.PrefHandlers.ViyatekKotlinSharedPrefHelper.Companion.LOCAL_CAMPAIGN_APPEARED_IN_HOME
+import com.viyatek.billing.BillingPrefHandlers
+
 
 class CampaignDialogHandler(
     val context: Context,
@@ -12,22 +12,17 @@ class CampaignDialogHandler(
     val isHome: Boolean
 ) {
 
-    private val viyatekKotlinSharedPrefHelper by lazy { ViyatekKotlinSharedPrefHelper(context) }
+    private val billingPrefsHandler by lazy { BillingPrefHandlers(context) }
 
     fun checkDialogShow(): Boolean {
         if (activeCampaign == CampaignType.NO_CAMPAIGN) return false
 
         if (activeCampaign == CampaignType.REMOTE_CAMPAIGN) {
             return if (isHome) {
-                if (viyatekKotlinSharedPrefHelper.getPref(ViyatekKotlinSharedPrefHelper.REMOTE_CAMPAIGN_APPEARED_IN_HOME)
-                        .getIntegerValue() == remoteCampaignNo
-                ) {
+                if (billingPrefsHandler.numberOfRemoteCampaignAppearedInHome() == remoteCampaignNo) {
                     false
                 } else {
-                    viyatekKotlinSharedPrefHelper.applyPrefs(
-                        ViyatekKotlinSharedPrefHelper.REMOTE_CAMPAIGN_APPEARED_IN_HOME,
-                        remoteCampaignNo
-                    )
+                    billingPrefsHandler.setRemoteCampaignAppearedInHome(remoteCampaignNo)
                     true
                 }
             } else {
@@ -37,15 +32,10 @@ class CampaignDialogHandler(
 
         if (activeCampaign == CampaignType.SPECIAL_DAY_CAMPAIGN) {
             return if (isHome) {
-                if (viyatekKotlinSharedPrefHelper.getPref(ViyatekKotlinSharedPrefHelper.SPECIAL_DAY_CAMPAIGN_APPEARED_IN_HOME)
-                        .getIntegerValue() == specialCampaignNo
-                ) {
+                if (billingPrefsHandler.numberOfSpecialCampaignAppearedInHome() == specialCampaignNo) {
                     false
                 } else {
-                    viyatekKotlinSharedPrefHelper.applyPrefs(
-                        ViyatekKotlinSharedPrefHelper.SPECIAL_DAY_CAMPAIGN_APPEARED_IN_HOME,
-                        specialCampaignNo
-                    )
+                    billingPrefsHandler.setSpecialCampaignAppearedInHome(specialCampaignNo)
                     true
                 }
             } else {
@@ -56,19 +46,12 @@ class CampaignDialogHandler(
         if (activeCampaign == CampaignType.LOCAL_CAMPAIGN) {
             return if (isHome) {
 
-                if (viyatekKotlinSharedPrefHelper.getPref(LOCAL_CAMPAIGN_APPEARED_IN_HOME)
-                        .getIntegerValue() ==
-                    viyatekKotlinSharedPrefHelper.getPref(ViyatekKotlinSharedPrefHelper.LOCAL_CAMPAIGN_NO)
-                        .getIntegerValue()
-                ) {
+                if (billingPrefsHandler.numberOfLocalCampaignAppearedInHome() == billingPrefsHandler.getLocalCampaignNumber()) {
                     false
                 } else {
-                    viyatekKotlinSharedPrefHelper.applyPrefs(
-                        ViyatekKotlinSharedPrefHelper.LOCAL_CAMPAIGN_APPEARED_IN_HOME,
-                        viyatekKotlinSharedPrefHelper.getPref(ViyatekKotlinSharedPrefHelper.LOCAL_CAMPAIGN_NO)
-                            .getIntegerValue()
+                    billingPrefsHandler.setLocalCampaignAppearedInHome(
+                        billingPrefsHandler.getLocalCampaignNumber()
                     )
-
                     true
                 }
             } else {

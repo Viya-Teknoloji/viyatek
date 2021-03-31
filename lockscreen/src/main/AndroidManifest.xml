@@ -6,7 +6,10 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
 
-<application>
-    <service android:name=".LockScreenService" />
-</application>
+    <application>
+        <activity android:name=".LockScreenActivity"></activity>
+
+        <service android:name=".LockScreenService" />
+    </application>
+
 </manifest>

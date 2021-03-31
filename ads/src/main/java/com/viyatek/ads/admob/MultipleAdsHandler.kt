@@ -1,16 +1,10 @@
 package admob
 
 import android.content.Context
-import android.os.Bundle
 import android.util.Log
-import android.util.LogPrinter
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.gms.ads.AdListener
-import com.google.android.gms.ads.AdLoader
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.VideoOptions
+import com.google.android.gms.ads.*
 import com.google.android.gms.ads.nativead.NativeAd
 import com.google.android.gms.ads.nativead.NativeAdOptions
 import com.viyatek.ads.interfaces.AdMobAdListener
@@ -18,7 +12,6 @@ import com.viyatek.ads.interfaces.LoadMultipleAds
 import kotlin.math.min
 
 class MultipleAdsHandler (
-
     private val theContext: Context,
     private val nativeAdID: String,
     private val mRecyclerView: RecyclerView,
@@ -51,6 +44,7 @@ class MultipleAdsHandler (
 
             adLoader = builder.forNativeAd { nativeAd -> // A native ad loaded successfully, check if the ad loader has finished loading
                 // and if so, insert the ads into the list.
+                Log.d("Ads","AdMob Ad Loaded" )
                 mNativeAds.add(nativeAd)
                 if (!adLoader?.isLoading!!) {
                     adloaded = true
@@ -58,11 +52,10 @@ class MultipleAdsHandler (
                 }
             }.withAdListener(
                 object : AdListener() {
-                    override fun onAdFailedToLoad(errorCode: Int) {
-                        // A native ad failed to load, check if the ad loader has finished loading
-                        // and if so, insert the ads into the list.
+                    override fun onAdFailedToLoad(adError: LoadAdError?) {
+                        super.onAdFailedToLoad(adError)
 
-                        adMobAdListener?.adClicked()
+                        adMobAdListener?.adFailedToLoad(adError)
 
                         if (!adLoader?.isLoading!!) {
                             adloaded = true
@@ -73,7 +66,7 @@ class MultipleAdsHandler (
                     override fun onAdClicked() {
                         super.onAdClicked()
 
-                       adMobAdListener?.adFailedToLoad()
+                        adMobAdListener?.adClicked()
                     }
                 })
                 .withNativeAdOptions(adOptions)
@@ -90,7 +83,7 @@ class MultipleAdsHandler (
         }
 
 
-    override fun loadNewAds() {
+        override fun loadNewAds() {
 
             val index: Int = (mRecyclerView.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
 
@@ -127,11 +120,18 @@ class MultipleAdsHandler (
 
             val indexInCellData: Int
 
+            Log.d("Ads","Ad Frequency size ${adFrequency.size}" )
 
             if (mNativeAds.size <= adFrequency.size)
             {
                 indexInCellData = adFrequency[mNativeAds.size - 1]
                 finalindex += indexInCellData
+
+                if(mRecyclerViewList.size > finalindex)
+                {
+                    mRecyclerViewList.add(finalindex, mNativeAds.last())
+                    mRecyclerView.adapter?.notifyItemInserted(finalindex)
+                }
 
             }
 

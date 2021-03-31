@@ -7,5 +7,5 @@
     <dimen name="number_vertical_padding">18dp</dimen>
     <dimen name="number_picker_text_size">42sp</dimen>
     <dimen name="grid_layout_option_margin">24dp</dimen>
-
+    <dimen name="lock_screen_preferences_button">30sp</dimen>
 </resources>

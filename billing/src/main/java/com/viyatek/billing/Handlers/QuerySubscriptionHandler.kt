@@ -4,8 +4,9 @@ import android.content.Context
 import android.util.Log
 import com.android.billingclient.api.BillingClient
 import com.android.billingclient.api.Purchase
+import com.viyatek.billing.BillingPrefHandlers
+import com.viyatek.billing.Interface.ProductRestoreListener
 import com.viyatek.billing.Interface.SubscriptionPaymentProblem
-import com.viyatek.billing.PrefHandlers.ViyatekKotlinSharedPrefHelper
 import com.viyatek.billing.PremiumActivity.ViyatekPremiumActivity
 import com.viyatek.billing.R
 import com.viyatek.billing.SubscriptionHelpers.SubscribeCheck
@@ -17,8 +18,17 @@ internal class QuerySubscriptionHandler(
     private val billingClient: BillingClient
 ) {
 
-    private lateinit var listener: SubscriptionPaymentProblem
-    private val viyatekKotlinSharedPrefHelper by lazy { ViyatekKotlinSharedPrefHelper(theContext) }
+    private var listener: SubscriptionPaymentProblem? = null
+    private var managedProductsRestoreListener: ProductRestoreListener? = null
+    private val billingPrefsHandler by lazy { BillingPrefHandlers(theContext) }
+
+    constructor(
+        billingClient: BillingClient,
+        theContext: Context,
+        productsRestoreListener: ProductRestoreListener
+    ) : this(theContext, billingClient) {
+        this.managedProductsRestoreListener = productsRestoreListener
+    }
 
     constructor(
         billingClient: BillingClient,
@@ -27,6 +37,7 @@ internal class QuerySubscriptionHandler(
     ) : this(theContext, billingClient) {
         listener = paymentProblem
     }
+
 
 
     fun querySubscriptions() {
@@ -54,7 +65,8 @@ internal class QuerySubscriptionHandler(
             Log.d(ViyatekPremiumActivity.billingLogs,
                 "Package name ${theContext.applicationContext.applicationInfo.packageName}")
 
-            SubscriptionDataFetch(theContext, listener, billingClient).executeNetWorkCall(
+
+            SubscriptionDataFetch(billingClient, theContext, listener).executeNetWorkCall(
                 theContext.getString(R.string.viyatek_subscription_check_endpoint),
                 activePurchase
             )
@@ -67,15 +79,20 @@ internal class QuerySubscriptionHandler(
             )
 
             SubscribeCheck(theContext).checkSubscription(
-                viyatekKotlinSharedPrefHelper,
-                viyatekKotlinSharedPrefHelper.getPref(ViyatekKotlinSharedPrefHelper.SUBSCRIPTION_TOKEN).value,
-                viyatekKotlinSharedPrefHelper.getPref(ViyatekKotlinSharedPrefHelper.SUBSCRIPTION_EXPIRATION_DATE)
-                    .getIntegerValue().toLong(),
-                0,
-                viyatekKotlinSharedPrefHelper.getPref(ViyatekKotlinSharedPrefHelper.SUBSCRIPTION_TYPE).value
+                billingPrefsHandler.getSubscriptionToken(),
+                billingPrefsHandler.getSubscriptionExpTime(),
+                paymentStatus = 0,
+                billingPrefsHandler.getSubscriptionType()
             )
 
-            QueryManagedProductsHandler(billingClient, theContext).queryInAppProducts()
+
+            if(listener == null && managedProductsRestoreListener != null) {
+                QueryManagedProductsHandler(
+                    billingClient,
+                    theContext,
+                    managedProductsRestoreListener
+                ).queryInAppProducts()
+            }
         }
     }
 }
