@@ -3,7 +3,6 @@ package com.viyatek.realmhelper
 import android.content.Context
 import android.util.Base64
 import android.util.Log
-import com.viyatek.preferences.ViyatekSharedPrefsHandler
 import io.realm.Realm
 import io.realm.RealmConfiguration
 import io.realm.RealmMigration
@@ -16,7 +15,8 @@ import java.io.File
 
 abstract class HandleRealmInit(private val context: Context,
                                private val migration : RealmMigration,
-                                private val defaultSchemaVersion : Long) {
+                               private val defaultSchemaVersion : Long,
+                               private val destinationName: String = "default.realm") {
 
     private val realmTag = "Realm"
     private val realmPrefManager by lazy {RealmPrefManager(context) }
@@ -25,7 +25,7 @@ abstract class HandleRealmInit(private val context: Context,
     //private val mFirebaseAnalytics by lazy { AnalyticsHandler(context) }
 
     private val populatedRealmConfiguration by lazy { getPopulatedRealmConfig(populatedRealmKey, defaultSchemaVersion)}
-    private val defaultRealmConfiguration by lazy { getDefaultRealmConfig(key, migration, defaultSchemaVersion) }
+    private val defaultRealmConfiguration by lazy { getDefaultRealmConfig(key, migration, defaultSchemaVersion, destinationName) }
 
     private val backgroundRealm by lazy { Realm.getInstance(defaultRealmConfiguration) }
     private val populatedRealm by lazy { Realm.getInstance(populatedRealmConfiguration) }
@@ -36,17 +36,14 @@ abstract class HandleRealmInit(private val context: Context,
     val populatedRealmKey by lazy { realmEncryption.getPopulatedRealmKey().toByteArray() }
 
 
-    private val file by lazy { File(context.filesDir.toString() + "/default.realm")  }
+     private val file by lazy { File(context.filesDir.toString() + "/${destinationName}")  }
 
     companion object{
 
-        @Volatile
         private var defaultRealmConfigInstance: RealmConfiguration? = null
-
-        @Volatile
         private var populatedRealmConfigInstance: RealmConfiguration? = null
 
-        fun getDefaultRealmConfig(key: ByteArray, migrationClass : RealmMigration, schemaVersion: Long= 11L) : RealmConfiguration {
+        fun getDefaultRealmConfig(key: ByteArray, migrationClass : RealmMigration, schemaVersion: Long= 11L, destinationName : String = "default.realm") : RealmConfiguration {
 
             return when {
                 defaultRealmConfigInstance != null -> defaultRealmConfigInstance!!
@@ -55,6 +52,7 @@ abstract class HandleRealmInit(private val context: Context,
                     defaultRealmConfigInstance= RealmConfiguration.Builder()
                         .schemaVersion(schemaVersion)
                         .migration(migrationClass)
+                        .name(destinationName)
                         .compactOnLaunch()
                         .encryptionKey(key)
                         .allowQueriesOnUiThread(true)
@@ -66,7 +64,7 @@ abstract class HandleRealmInit(private val context: Context,
             }
         }
 
-        fun getPopulatedRealmConfig(populatedKey: ByteArray, schemaVersion: Long = 11L) : RealmConfiguration {
+        fun getPopulatedRealmConfig(populatedKey: ByteArray, schemaVersion: Long = 11L, assetName : String = "populated.realm") : RealmConfiguration {
             return when {
                 populatedRealmConfigInstance != null -> populatedRealmConfigInstance!!
 
@@ -75,8 +73,8 @@ abstract class HandleRealmInit(private val context: Context,
                         .schemaVersion(schemaVersion)
                         .compactOnLaunch()
                         .encryptionKey(populatedKey)
-                        .assetFile("populated.realm")
-                        .name("populated.realm")
+                        .assetFile(assetName)
+                        .name(assetName)
                         .allowQueriesOnUiThread(true)
                         .allowWritesOnUiThread(true)
                         .build()
@@ -104,11 +102,11 @@ abstract class HandleRealmInit(private val context: Context,
             setDefault()
             Realm.getInstance(defaultRealmConfiguration)
         } catch (e: RealmMigrationNeededException) {
+
             Log.d(realmTag, "Migration Needed Exception $e")
             logMigrationNeededExceptionRealm()
-            Realm.deleteRealm(defaultRealmConfiguration)
-            initRealmWhenUpdateOrCreate()
             Realm.getInstance(defaultRealmConfiguration)
+
         } catch (e: RealmFileException) {
             Log.d(realmTag, "Realm File Exception ${realmPrefManager.getRealmKey()}")
             Realm.deleteRealm(defaultRealmConfiguration)
@@ -122,7 +120,6 @@ abstract class HandleRealmInit(private val context: Context,
     abstract fun logMigrationNeededExceptionRealm()
 
     fun initRealmWhenUpdateOrCreate() {
-
         //increasing opening count of the app
         //sharedPrefsHandler.ApplyPrefs(SharedPrefsHandler.OPENING_COUNT,sharedPrefsHandler.GetPref(SharedPrefsHandler.OPENING_COUNT).getIntegerValue()+1);
 
@@ -134,7 +131,6 @@ abstract class HandleRealmInit(private val context: Context,
             )
             RealmHelperStatics.isRealmUpdate = false
         } else if(!file.exists()){
-
             Realm.deleteRealm(getDefaultRealmConfig(key, migration, defaultSchemaVersion))
             createRealmsWhenDefaultNotExists(populatedRealm, key)
             Realm.deleteRealm(getPopulatedRealmConfig(populatedRealmKey,defaultSchemaVersion))
@@ -143,12 +139,34 @@ abstract class HandleRealmInit(private val context: Context,
     }
 
     private fun createRealmsWhenUpdateHappens() {
+
+        defaultRealmConfigInstance = null
+        populatedRealmConfigInstance = null
+
         try{
             CoroutineScope(Dispatchers.Main).launch { backgroundRealm.close() }
+
             Realm.deleteRealm(populatedRealmConfiguration)
 
+            val bgRealmConfiguration= RealmConfiguration.Builder()
+                .schemaVersion(defaultSchemaVersion)
+                .migration(migration)
+                .compactOnLaunch()
+                .encryptionKey(key)
+                .allowQueriesOnUiThread(true)
+                .allowWritesOnUiThread(true)
+                .build()
+
+            val theRealm = try { Realm.getInstance(bgRealmConfiguration) }
+            catch(e: RealmMigrationNeededException)
+            {
+                RealmMigrationErrorOccuredInUpdate(defaultSchemaVersion)
+                Realm.getInstance(bgRealmConfiguration)
+            }
+
             Log.d(realmTag, "Populated Realm dosyası oluşturuldu")
-            synchronizeWhenUpdated(populatedRealm, backgroundRealm)
+            synchronizeWhenUpdated(populatedRealm, theRealm )
+
             Log.d(realmTag, "Güncelleme Eşitlemesi başlatıldı")
         }
         catch (e:RealmFileException)
@@ -163,6 +181,8 @@ abstract class HandleRealmInit(private val context: Context,
 
     }
 
+    abstract fun RealmMigrationErrorOccuredInUpdate(defaultSchemaVersion: Long)
+
     abstract fun createRealmsWhenDefaultNotExists(
         populatedRealm: Realm?,
         key: ByteArray
@@ -170,7 +190,11 @@ abstract class HandleRealmInit(private val context: Context,
 
     abstract fun synchronizeWhenUpdated(populatedRealm: Realm?, backgroundRealm: Realm?)
 
-
+    fun deleteOldCreateNewRealm()
+    {
+        Realm.deleteRealm(defaultRealmConfiguration)
+        initRealmWhenUpdateOrCreate()
+    }
 
 /*
     private fun shuffleAndCopyToOtherRealm(copyToRealm: Realm?, copyFromRealm: Realm?) {

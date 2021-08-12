@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavGraph
 import androidx.navigation.NavInflater
@@ -12,6 +13,8 @@ import com.android.billingclient.api.BillingClient
 import com.android.billingclient.api.PurchaseHistoryRecord
 import com.android.billingclient.api.SkuDetails
 import com.android.volley.VolleyError
+import com.google.android.gms.ads.identifier.AdvertisingIdClient
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.viyatek.billing.BillingPrefHandlers
 import com.viyatek.billing.Campaign.CampaignHandler
@@ -21,8 +24,11 @@ import com.viyatek.billing.Interface.InAppPurchaseListener
 import com.viyatek.billing.Interface.ProductRestoreListener
 import com.viyatek.billing.Managers.BillingManager
 import com.viyatek.billing.R
+import com.viyatek.billing.Statics
 import com.viyatek.billing.SubscriptionNetworkHelpers.SubscriptionDataFetch
 import com.viyatek.billing.databinding.ActivityViyatekPremiumBinding
+import java.io.IOException
+import java.lang.Exception
 
 
 abstract class ViyatekPremiumActivity : AppCompatActivity(), InAppPurchaseListener, ProductRestoreListener {
@@ -33,6 +39,8 @@ abstract class ViyatekPremiumActivity : AppCompatActivity(), InAppPurchaseListen
     var standAloneSaleFragmentId = R.id.purchaseBaseFragment
     var activeSlot = 2L
     val mFireBaseAnalytics by lazy { FirebaseAnalytics.getInstance(this) }
+    var appsFlyerUUID = ""
+    var gaid =""
 
 
     var secondSlotSku: String = "premium"
@@ -89,6 +97,7 @@ abstract class ViyatekPremiumActivity : AppCompatActivity(), InAppPurchaseListen
 
         binding = ActivityViyatekPremiumBinding.inflate(layoutInflater)
         setPremiumActivityVariables(navInflater)
+        setBackgroundImage(binding.root)
 
         val view = binding.root
         setContentView(view)
@@ -113,6 +122,12 @@ abstract class ViyatekPremiumActivity : AppCompatActivity(), InAppPurchaseListen
 
         billingManager = BillingManager(this, this)
 
+        subSkuListHelper.addSku(thirdSlotSku)
+        subSkuListHelper.addSku(thirdSlotCampaignSku)
+        subSkuListHelper.addSku(thirdSlotLifeTimeSku)
+
+
+
         subSkuListHelper.addSku(secondSlotSku)
         subSkuListHelper.addSku(firstSlotSku)
         subSkuListHelper.addSku(secondSlotCampaignSku)
@@ -127,16 +142,29 @@ abstract class ViyatekPremiumActivity : AppCompatActivity(), InAppPurchaseListen
 
         if (!billingPrefsHandler.isRestorePurchaseAsyncCallMade()) {
                 Log.d(billingLogs, "Making call")
-                queryPurchaseAsync()
+                queryPurchaseAsync(false)
             } else {
                 Log.d(billingLogs, "call already made")
             }
 
+        val adInfo : AdvertisingIdClient.Info? = try {
+            AdvertisingIdClient.getAdvertisingIdInfo(this)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+        adInfo?.let { gaid = it.id }
+
+        Log.d(Statics.BILLING_LOGS, "Gaid $gaid")
+
+       // billingManager.init(subSkuListHelper.getSkuList(), subSkuListHelper.getSkuList())
 
         billingManager.init(subSkuListHelper.getSkuList(), premiumSkuHelper.getSkuList())
     }
 
-    fun queryPurchaseAsync() {
+    abstract fun setBackgroundImage(rootLayout: ConstraintLayout)
+
+    fun queryPurchaseAsync(showToast : Boolean = false) {
 
         billingManager.billingClient.queryPurchaseHistoryAsync(BillingClient.SkuType.SUBS) { billingResult, purchaseHistoryRecords ->
             if (purchaseHistoryRecords != null) {
@@ -166,11 +194,13 @@ abstract class ViyatekPremiumActivity : AppCompatActivity(), InAppPurchaseListen
 
                     if (!billingPrefsHandler.isPremium()) {
 
-                        Toast.makeText(
-                            this@ViyatekPremiumActivity,
-                            "Subscription Purchases found, Checking validity...",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        if(showToast) {
+                            Toast.makeText(
+                                this@ViyatekPremiumActivity,
+                                "Subscription Purchases found, Checking validity...",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
 
                         activePurchaseRecord?.let { SubscriptionDataFetch(
                             billingManager.billingClient,
@@ -209,7 +239,7 @@ abstract class ViyatekPremiumActivity : AppCompatActivity(), InAppPurchaseListen
 
             }
             else {
-                if(billingPrefsHandler.isRestorePurchaseAsyncCallMade()) {
+                if(billingPrefsHandler.isRestorePurchaseAsyncCallMade() && showToast) {
                     Toast.makeText(
                         this@ViyatekPremiumActivity,
                         "Purchase not found",
@@ -234,10 +264,17 @@ abstract class ViyatekPremiumActivity : AppCompatActivity(), InAppPurchaseListen
         isSubscriptionSkuFetched = true
         //subsSkuDetails = list
 
-        Log.d(billingLogs, "Skus fetched")
+        Log.d(billingLogs, "Skus fetched ")
 
         for (skuDetails in subsciptionSkuDetailsList) {
+
+            Log.d(billingLogs, "Incoming Skus $skuDetails")
+
             when (skuDetails.sku) {
+                thirdSlotSku -> {
+                    activeLifeTimeSku = skuDetails
+                    oldLifeTimeSku = skuDetails
+                }
                 secondSlotSku -> {
                     activeYearlySku = skuDetails
                     oldYearlySku = skuDetails
@@ -283,9 +320,7 @@ abstract class ViyatekPremiumActivity : AppCompatActivity(), InAppPurchaseListen
 
     private fun handleActiveSku(theCampaignType: CampaignType?) {
 
-        if (theCampaignType != null) {
-            reportCampaign(theCampaignType.name)
-        }
+        if (theCampaignType != null) { reportCampaign(theCampaignType.name) }
 
         val shouldBeYearlySku: String
         val shouldBeMonthlySku: String
@@ -358,32 +393,51 @@ abstract class ViyatekPremiumActivity : AppCompatActivity(), InAppPurchaseListen
                         oldLifeTimeSku
                     )//Will call the fragment function with sku}
                 }
-                is PurchaseStandAloneFragment -> {
-                    val oldSkuDetail: SkuDetails?
-
-                    val activeSkuDetail = when (activeSlot) {
-                        0L -> {
-                            oldSkuDetail = oldMonthlySku
-                            activeMonthlySku
-                        }
-                        1L -> {
-                            oldSkuDetail = oldYearlySku
-                            activeYearlySku
-                        }
-                        2L -> {
-                            oldSkuDetail = oldLifeTimeSku
-                            activeLifeTimeSku
-                        }
-                        else -> {
-                            oldSkuDetail = oldLifeTimeSku
-                            activeYearlySku
-                        }
-                    }
-
+                is FacieTypeMultipleChoiceSale -> {
+                    fragment.skuDetailsFetched(
+                        activeYearlySku,
+                        oldYearlySku,
+                        activeMonthlySku,
+                        oldMonthlySku,
+                        activeLifeTimeSku,
+                        oldLifeTimeSku
+                    )//Will call the fragment function with sku}
+                }
+                is FacieTypePurchaseStandAloneFragment -> {
+                    val (oldSkuDetail: SkuDetails?, activeSkuDetail) = handleSkuDetails()
                     fragment.skuDetailsFetched(activeSkuDetail, oldSkuDetail)
                 }
+                is PurchaseStandAloneFragment -> {
+                    val (oldSkuDetail: SkuDetails?, activeSkuDetail) = handleSkuDetails()
+                    fragment.skuDetailsFetched(activeSkuDetail, oldSkuDetail)
+                }
+
             }
         }
+    }
+
+    private fun handleSkuDetails(): Pair<SkuDetails?, SkuDetails?> {
+        val oldSkuDetail: SkuDetails?
+
+        val activeSkuDetail = when (activeSlot) {
+            0L -> {
+                oldSkuDetail = oldMonthlySku
+                activeMonthlySku
+            }
+            1L -> {
+                oldSkuDetail = oldYearlySku
+                activeYearlySku
+            }
+            2L -> {
+                oldSkuDetail = oldLifeTimeSku
+                activeLifeTimeSku
+            }
+            else -> {
+                oldSkuDetail = oldLifeTimeSku
+                activeYearlySku
+            }
+        }
+        return Pair(oldSkuDetail, activeSkuDetail)
     }
 
     override fun ManagedProductsSkuFetched(skuDetailsList: List<SkuDetails>) {
@@ -393,13 +447,25 @@ abstract class ViyatekPremiumActivity : AppCompatActivity(), InAppPurchaseListen
         isPremiumSkuFetched = true
         //subsSkuDetails = list
 
-        for (skuDetails in managedProductSkuDetails) {
-            if (skuDetails.sku == thirdSlotSku) {
-                activeLifeTimeSku = skuDetails
-                oldLifeTimeSku = skuDetails
+        managedProductSkuDetails.forEach { skuDetails->
+
+            when(skuDetails.sku)
+            {
+                thirdSlotSku -> {
+                    activeLifeTimeSku = skuDetails
+                    oldLifeTimeSku = skuDetails
+                }
+                secondSlotSku -> {
+                    activeYearlySku = skuDetails
+                    oldYearlySku = skuDetails
+                }
+
+                firstSlotSku -> {
+                    activeMonthlySku = skuDetails
+                    oldMonthlySku = skuDetails
+                }
             }
         }
-
         handleCampaign()
     }
 

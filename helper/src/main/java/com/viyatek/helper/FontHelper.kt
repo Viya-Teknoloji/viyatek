@@ -8,9 +8,7 @@ class FontHelper(val context: Context) {
 
 
     fun GetFont(fontName: String?): Typeface? {
-        val resID = context.resources.getIdentifier(
-            fontName, "font", context.packageName
-        )
+        val resID = context.resources.getIdentifier(fontName, "font", context.packageName)
 
         return ResourcesCompat.getFont(context, resID)
     }

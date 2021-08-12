@@ -1,12 +1,11 @@
 package com.viyatek.ads.admob
 
-import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.viyatek.ads.databinding.AdmobAdCardLayoutBinding
-import com.viyatek.ads.databinding.AdmobAdCardLayoutFeedBinding
 import com.viyatek.ads.databinding.AdmobStandaloneSwipeBinding
 
-class NativeAdSwipeViewHolder(val binding: AdmobStandaloneSwipeBinding) : RecyclerView.ViewHolder(binding.root) {init {
+class NativeAdSwipeViewHolder(val binding: AdmobStandaloneSwipeBinding) : RecyclerView.ViewHolder(binding.root)
+{
+    init {
     // If the app is using a MediaView, it should be
     // instantiated and passed to setMediaView. This view is a little different
     // in that the asset is populated automatically, so there's one less step.
@@ -25,4 +24,5 @@ class NativeAdSwipeViewHolder(val binding: AdmobStandaloneSwipeBinding) : Recycl
     binding.adView.callToActionView = binding.adCardButton
 
 }
+
 }

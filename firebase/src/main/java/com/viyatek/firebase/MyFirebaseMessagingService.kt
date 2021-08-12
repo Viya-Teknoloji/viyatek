@@ -4,7 +4,7 @@ import android.util.Log
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 
-class MyFirebaseMessagingService : FirebaseMessagingService() {
+abstract class MyFirebaseMessagingService : FirebaseMessagingService() {
     
     val LOG_TAG = "FirebaseFCM"
     /**
@@ -21,9 +21,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         sendRegistrationToServer(token)
     }
 
-    private fun sendRegistrationToServer(token: String) {
-        // TODO: Implement this method to send token to your app server.
-    }
+    abstract fun sendRegistrationToServer(token: String)
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         super.onMessageReceived(remoteMessage)
@@ -35,8 +33,9 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         // Check if message contains a data payload.
         if (remoteMessage.data.isNotEmpty()) {
             Log.d(LOG_TAG, "Message data payload: " + remoteMessage.data)
-            scheduleJob()
+            scheduleJob(remoteMessage)
         }
+
 
         // Check if message contains a notification payload.
         if (remoteMessage.notification != null) {
@@ -50,9 +49,6 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         // message, here is where that should be initiated. See sendNotification method below.
     }
 
-    private fun handleNow() {}
-    private fun scheduleJob() {}
-    override fun onDeletedMessages() {
-        super.onDeletedMessages()
-    }
+    abstract fun scheduleJob(data: RemoteMessage)
+
 }

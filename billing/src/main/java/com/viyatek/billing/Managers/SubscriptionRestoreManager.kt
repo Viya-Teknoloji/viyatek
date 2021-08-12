@@ -9,9 +9,7 @@ class SubscriptionRestoreManager(
     val subscriptionRestoreListener: IRestoreSubscription
 ) : com.viyatek.billing.BaseBillingClass(context) {
 
-    fun init() {
-        startProcess()
-    }
+    fun init() { startProcess() }
 
     override fun connectedGooglePlay() {
         QuerySubscriptionHandler(

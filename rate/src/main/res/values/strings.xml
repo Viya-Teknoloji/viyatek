@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="rate_bar_text">How would you rate the app?</string>
     <string name="rate_your_experience">Rate Your Experience</string>
-    <string name="rate_us_feed_text">We are always keen to hear youe ideas for how we could improve ourselves</string>
+    <string name="rate_us_feed_text">We are always keen to hear your ideas for how we could improve ourselves</string>
 
     <string name="five_star_rate_title">Your reviews make difference</string>
     <string name="five_star_play_store">Would you like to help us out by giving your rating on Google Play too?</string>
@@ -18,7 +19,8 @@
 
     <string name="in_app_rate_us_below_four_star_text">Let us know what went wrong and we will work on it.</string>
     <string name="in_app_below_four_start_title">Sorry for not being perfect</string>
-    <string name="close_icon">Close Button</string>
-    <string name="rate_us_img">Rate Us Image</string>
-    <string name="rate_bar_text">How would you rate the app?</string>
+
+    <string name="close_icon" translatable="false">Close Button</string>
+    <string name="rate_us_img" translatable="false">Rate Us Image</string>
+
 </resources>

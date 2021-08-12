@@ -67,6 +67,7 @@ class NativeAdGeneration {
                     .callToActionId(R.id.tw_lock_screen_ad_button)
                     .privacyInformationIconImageId(R.id.ad_choices_overlay)
                     .build())
+
             moPubNative.registerAdRenderer(moPubStaticNativeAdRenderer)
             moPubNative.registerAdRenderer(googlePlayServicesAdRenderer)
             moPubNative.makeRequest()

@@ -5,9 +5,10 @@
     <string name="quote_counts_third">10</string>
     <string name="quote_counts_fourth">15</string>
 
-    <string name="permission_dialog_title">PERMISSION</string>
 
     <string name="fragment_action_button">Continue</string>
+    <string name="permission_dialog_title">PERMISSION</string>
+
     <string name="opening_first_time_begin_button">Begin</string>
     <string name="how_many_quotes">How many quotes do you want to see in a day?</string>
 
@@ -24,18 +25,10 @@
     <string name="third_period">evening</string>
     <string name="fourth_period">night</string>
 
-    <string name="lock_screen_info_fragment_text">You will soon start to receive daily quotes on your lock screen right
-    after you unlock your phone</string>
 
-    <string name="permission_required_text"> We need your permission to show daily quotes when you unlock your phone
-    \n\nAfter you click "Continue", you will be redirected to your phone\'s settings page. Please grant the permission as
-    illustrated above </string>
     <string name="positive_button">OK</string>
     <string name="permission_denied_title">PERMISSION DENIED</string>
-    <string name="permission_denied_text">Since you did not grant the permission,
-                        daily quotes will not be displayed on your lock screen.\n\nInstead,
-                        you will be able to view quotes by clicking daily notifications.
-                        \n\nPlease note that you can grant this permission later in the settings section</string>
+
     <string name="ok">OK</string>
     <string name="number">number</string>
 </resources>

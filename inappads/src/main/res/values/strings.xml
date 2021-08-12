@@ -7,8 +7,8 @@
 
     <string name="ultimateQuotesInstaText">Follow Ultimate Quotes in Instagram</string>
 
-    <string name="uq_insta_id">ultimatequotesapp</string>
-    <string name="uq_insta_id_with_at">\@ultimatequotesapp</string>
+    <string name="uq_insta_id">motivationalquotes_app</string>
+    <string name="uq_insta_id_with_at">\@motivationalquotes_app</string>
 
     <string name="uf_twitter_id">ultimate__facts</string>
     <string name="uf_twitter_with_at">\@ultimatefactsapp</string>
@@ -34,6 +34,6 @@
     <string name="quotes_ad_text">Inspire Your Life With Daily Quotes</string>
     <string name="uf_ad">Ultimate Facts</string>
 
-    <string name="store_base_link">https://play.google.com/store/apps/details?id=%1$s</string>
+    <string name="store_base_link" translatable="false">https://play.google.com/store/apps/details?id=%1$s</string>
 
 </resources>

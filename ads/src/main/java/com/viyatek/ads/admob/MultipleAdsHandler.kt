@@ -85,7 +85,7 @@ class MultipleAdsHandler (
 
         override fun loadNewAds() {
 
-            val index: Int = (mRecyclerView.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
+            val index: Int = (mRecyclerView.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
 
             if (index > mNativeAds.size * 5 && adloaded) {
                 adloaded = false
@@ -140,7 +140,7 @@ class MultipleAdsHandler (
                 if (finalindex < mRecyclerViewList.size) {
 
                     mRecyclerViewList.add(finalindex, mNativeAds.last())
-                   mRecyclerView.adapter?.notifyItemInserted(finalindex)
+                    mRecyclerView.adapter?.notifyItemInserted(finalindex)
 
                 }
             }

@@ -7,7 +7,9 @@ import com.viyatek.rate.interfaces.RateUsDone
 
 class FeedRateUsHandler(private val fragment: Fragment, private val rateUsDone: RateUsDone) {
 
-    fun handle(theRate: Float, rateUsViewHolder: RateUsViewHolder, typeface: Typeface?) {
+    fun handle(theRate: Float,
+               rateUsViewHolder: RateUsViewHolder,
+               typeface: Typeface?) {
 
         rateUsViewHolder.rateUsRatingBar.rating = theRate
 

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/action_line"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_marginTop="16dp"
+    android:minHeight="50dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/main_line"
+    tools:showIn="@layout/tw_ad_card_layout_dark">
+
+    <TextView
+        android:id="@+id/ad_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/proximanovalight"
+        android:paddingStart="5dp"
+        android:paddingLeft="5dp"
+        android:paddingEnd="5dp"
+        android:paddingRight="5dp"
+        android:textColor="@color/gnt_white"
+        android:textSize="@dimen/ad_card_text"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/ad_store"
+        app:layout_constraintEnd_toStartOf="@+id/ad_store"
+        app:layout_constraintTop_toTopOf="@+id/ad_store"
+        tools:text="FREE" />
+
+    <TextView
+        android:id="@+id/ad_store"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/proximanovalight"
+        android:paddingStart="5dp"
+        android:paddingLeft="5dp"
+        android:paddingEnd="5dp"
+        android:paddingRight="5dp"
+        android:textColor="@color/gnt_white"
+        android:textSize="@dimen/ad_card_text"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/ad_card_button"
+        app:layout_constraintEnd_toStartOf="@+id/ad_card_button"
+        app:layout_constraintTop_toTopOf="@+id/ad_card_button"
+        tools:text="Play Store" />
+
+
+    <Button
+        android:id="@+id/ad_card_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        android:maxLines="2"
+        tools:text=" VISIT "
+        android:textAllCaps="false"
+        app:autoSizeMaxTextSize="@dimen/ad_button_text_size"
+        app:autoSizeMinTextSize="12sp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

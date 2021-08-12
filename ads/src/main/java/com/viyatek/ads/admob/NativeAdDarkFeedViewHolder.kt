@@ -1,9 +1,6 @@
 package com.viyatek.ads.admob
 
-import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.viyatek.ads.databinding.AdmobAdCardLayoutFeedBinding
-import com.viyatek.ads.databinding.AdmobAdCardLayoutFeedDarkBinding
 import com.viyatek.ads.databinding.AdmobStandaloneFeedDarkBinding
 
 class NativeAdDarkFeedViewHolder(val binding: AdmobStandaloneFeedDarkBinding) : RecyclerView.ViewHolder(binding.root)

@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import com.google.firebase.analytics.FirebaseAnalytics
 
+
 class AnalyticsHandler(private val context: Context) {
 
     private val firebaseAnalytics by lazy { FirebaseAnalytics.getInstance(context) }

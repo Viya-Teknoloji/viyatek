@@ -23,20 +23,6 @@ class MoPubInitializer(private val context: Context,
 
     fun initializeMoPubSDK() {
 
-        val testDevices: MutableList<String> = ArrayList()
-        testDevices.add("FB9F1C3D53382E1666489F5407301E91")
-        testDevices.add("CDD86067AF6113E56BF2B62A2D28F5DB")
-        testDevices.add("8F7C1F9C3B6C783BB772DF15871E5636")
-
-        val requestConfiguration = RequestConfiguration.Builder()
-            .setTestDeviceIds(testDevices)
-            .build()
-
-        MobileAds.setRequestConfiguration(requestConfiguration)
-        MobileAds.initialize(context)
-
-       // AudienceNetworkAds.initialize(context);
-
         Log.d(LOG_TAG, "MoPub SDK initializiation Called")
 
         val pangleConfig: MutableMap<String, String> = HashMap()
@@ -52,23 +38,22 @@ class MoPubInitializer(private val context: Context,
             .build()
 
             MoPub.initializeSdk(context, sdkConfiguration) {
-            Log.d(LOG_TAG, "MoPub SDK initialized")
 
+            Log.d(LOG_TAG, "MoPub SDK initialized")
             mopubInitializer?.initMoPubCompleted()
 
-            if(isGDPRCheckEnabled) {
-                GdprHandler().checkForGDPR()}
+            if(isGDPRCheckEnabled) { GdprHandler().checkForGDPR() }
 
             AdSettings.addTestDevice("c94498a3-6810-48db-921a-795f108e58e3");
             AdSettings.addTestDevice("4046b6af-565e-4535-8ed2-a274db570d19");
             AdSettings.addTestDevice("f442208d-12c1-471b-9381-305df8580264")
             AdSettings.addTestDevice("f3237402-e79a-4e5a-be81-b6c5b6441c28")
-        }
+            }
     }
 
     fun  buildConfig() : TTAdConfig {
         return TTAdConfig.Builder()
-            .appId("Your_App_Id")
+            .appId(pangleAppId)
             .supportMultiProcess(false)
             .coppa(0)
             .setGDPR(0)

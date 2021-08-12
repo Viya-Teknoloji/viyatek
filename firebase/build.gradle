@@ -9,7 +9,7 @@ githubProperties.load(new FileInputStream(rootProject.file("github.properties"))
 
 
 def getVersionName = { ->
-    return "1.0.4" // Replace with version Name
+    return "1.0.8" // Replace with version Name
 }
 
 def getArtifactId = { ->
@@ -78,8 +78,6 @@ android {
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -113,10 +111,9 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
     // Import the BoM for the Firebase platform
-    implementation platform('com.google.firebase:firebase-bom:26.4.0')
+    implementation platform('com.google.firebase:firebase-bom:28.0.1')
     implementation 'com.google.firebase:firebase-messaging-ktx'
     implementation 'com.google.firebase:firebase-dynamic-links-ktx'
     implementation 'com.google.firebase:firebase-analytics-ktx'
-    implementation 'com.google.firebase:firebase-ads:19.7.0'
     implementation 'com.google.firebase:firebase-config-ktx'
 }

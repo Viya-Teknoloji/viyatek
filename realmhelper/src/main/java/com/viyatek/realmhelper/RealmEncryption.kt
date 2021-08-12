@@ -7,7 +7,7 @@ import com.viyatek.realmhelper.RealmHelperStatics.EncRealmKey
 import java.security.SecureRandom
 import java.util.*
 
-class RealmEncryption(val context: Context) {
+class RealmEncryption(val context: Context, val encRealmKey : String = EncRealmKey) {
 
     val realmPrefs by lazy { RealmPrefManager(context) }
 
@@ -74,7 +74,7 @@ class RealmEncryption(val context: Context) {
             const val END_CHAR = 38
         }
 
-        fun getPopulatedRealmKey(): String { return resolveEncrypt(EncRealmKey) }
+        fun getPopulatedRealmKey(): String { return resolveEncrypt(encRealmKey) }
 
         fun generateRealmKey(): String? {
 

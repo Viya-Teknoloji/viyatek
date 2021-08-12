@@ -5,12 +5,12 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/permission_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/proximanova_regular"
         android:gravity="center"
-        android:text="@string/permission_required_text"
+        android:text=""
         android:textSize="@dimen/lock_screen_informative_text_size"
         app:layout_constraintBottom_toTopOf="@+id/guideline71"
         app:layout_constraintEnd_toEndOf="parent"

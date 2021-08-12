@@ -41,12 +41,13 @@ abstract class LockScreenPermissionFragment : Fragment(), PermissionListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        permissionDeniedText = requireActivity().resources.getString(R.string.permission_denied_text)
-        theText = getString(R.string.permission_required_text)
+        permissionDeniedText = ""
+        theText = ""
 
         setRequiredVariables()
 
-        binding.textView.text = theText
+        binding.permissionText.text = theText
+
         lockScreenPermissionHandler = LockScreenPermissionHandler(this, this)
 
         Log.d(LOG_TAG, "Android Version : " + Build.VERSION.SDK_INT)

@@ -40,7 +40,7 @@ internal class QuerySubscriptionHandler(
 
 
 
-    fun querySubscriptions() {
+    fun  querySubscriptions() {
         val purchasesResult = billingClient.queryPurchases(BillingClient.SkuType.SUBS)
 
         var activePurchase: Purchase
@@ -65,11 +65,14 @@ internal class QuerySubscriptionHandler(
             Log.d(ViyatekPremiumActivity.billingLogs,
                 "Package name ${theContext.applicationContext.applicationInfo.packageName}")
 
+            val theString = if(theContext.applicationContext.packageName == "com.viyatek.facefind")
+            { theContext.getString(R.string.face_find_subscription_check_end_point) }
+            else
+            {
+                theContext.getString(R.string.viyatek_subscription_check_endpoint)
+            }
 
-            SubscriptionDataFetch(billingClient, theContext, listener).executeNetWorkCall(
-                theContext.getString(R.string.viyatek_subscription_check_endpoint),
-                activePurchase
-            )
+            SubscriptionDataFetch(billingClient, theContext, listener).executeNetWorkCall(theString, activePurchase)
 
         }
         else {

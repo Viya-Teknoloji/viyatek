@@ -6,8 +6,8 @@
         <item name="android:layout_marginTop">16dp</item>
         <item name="android:layout_marginBottom">16dp</item>
         <item name="android:maxLines">2</item>
-        <item name="android:paddingStart">8dp</item>
-        <item name="android:paddingEnd">8dp</item>
+        <item name="android:paddingStart">4dp</item>
+        <item name="android:paddingEnd">4dp</item>
         <item name="android:textColor">@android:color/background_light</item>
     </style>
 

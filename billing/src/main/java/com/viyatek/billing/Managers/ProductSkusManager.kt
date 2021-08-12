@@ -22,6 +22,7 @@ class ProductSkusManager(
             subs_skuList,
             productSkuListener
         ).querySkuDetails()
+
         com.viyatek.billing.Handlers.QueryManagedProductsSkuHandler(
             billingClient,
             managedProductsSkuList,

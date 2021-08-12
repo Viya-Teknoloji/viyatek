@@ -144,10 +144,10 @@ class AppUpdateManager (
 
         val snackbar = Snackbar.make(
             activity.findViewById(android.R.id.content),
-            "An update has just been downloaded.",
+            activity.getString(R.string.app_has_downloaded),
             Snackbar.LENGTH_INDEFINITE
         )
-        snackbar.setAction("RESTART") { appUpdateManager.completeUpdate() }
+        snackbar.setAction(activity.getString(R.string.restart)) { appUpdateManager.completeUpdate() }
         snackbar.setActionTextColor(ThemeColorHelper(activity).get(R.attr.colorPrimary))
         snackbar.show()
     }

@@ -2,18 +2,6 @@ package com.viyatek.lockscreen
 
 import android.content.Context
 import android.util.Log
-import com.viyatek.lockscreen.Statics.IS_AFTERNOON_OK
-import com.viyatek.lockscreen.Statics.IS_EVENING_OK
-import com.viyatek.lockscreen.Statics.IS_LOCK_SCREEN_NOTIFICATION_OK
-import com.viyatek.lockscreen.Statics.IS_LOCK_SCREEN_OK
-import com.viyatek.lockscreen.Statics.IS_MORNING_OK
-import com.viyatek.lockscreen.Statics.IS_NIGHT_OK
-import com.viyatek.lockscreen.Statics.LAST_DAY_OPENED
-import com.viyatek.lockscreen.Statics.LOCK_SCREEN_PREFS
-import com.viyatek.lockscreen.Statics.SEEN_FACTS_SUM_SO_FAR
-import com.viyatek.lockscreen.Statics.SHOW_FACT_COUNT
-import com.viyatek.lockscreen.Statics.SHOW_TIME
-import com.viyatek.preferences.ViyatekSharedPrefsHandler
 import java.util.*
 import kotlin.math.floor
 
@@ -27,21 +15,13 @@ class ScreenDisplayCoordinator(val activity: Context) {
     val NIGHT_BOUNDRIES = intArrayOf(0, 6)
 
     val LOG_TAG = "Display Coordinator"
-    private val lockScreenSharedPrefsHandler by lazy { ViyatekSharedPrefsHandler (activity, LOCK_SCREEN_PREFS)}
+    private val lockScreenSharedPrefsHandler by lazy { LockScreenPreferencesHandler(activity)}
 
-    private val isLockScreenOk by lazy { lockScreenSharedPrefsHandler.getBooleanValue(IS_LOCK_SCREEN_OK, true) }
-    private val isLockScreenNotificationOk by lazy { lockScreenSharedPrefsHandler.getBooleanValue(IS_LOCK_SCREEN_NOTIFICATION_OK, true)  }
+    private val preferredAmount by lazy { lockScreenSharedPrefsHandler.getMustShowFactCount()}
 
-    private val isNightOK by lazy { lockScreenSharedPrefsHandler.getBooleanValue(IS_NIGHT_OK, false) }
-    private val isMorningOK by lazy { lockScreenSharedPrefsHandler.getBooleanValue(IS_MORNING_OK, true) }
-    private val isAfternoonOK by lazy { lockScreenSharedPrefsHandler.getBooleanValue(IS_AFTERNOON_OK, true)  }
-    private val isEveningOK by lazy { lockScreenSharedPrefsHandler.getBooleanValue(IS_EVENING_OK, true) }
 
-    private val preferredAmount by lazy { lockScreenSharedPrefsHandler.getIntegerValue(SHOW_FACT_COUNT, 15) }
-    val currentAmount by lazy { lockScreenSharedPrefsHandler.getIntegerValue(SEEN_FACTS_SUM_SO_FAR, 0)}
-
-    private val lastDayOpened by lazy { lockScreenSharedPrefsHandler.getIntegerValue(LAST_DAY_OPENED,0) }
-    private val knowledgeSoFar by lazy { lockScreenSharedPrefsHandler.getIntegerValue(SEEN_FACTS_SUM_SO_FAR, 0) }
+    private val lastDayOpened by lazy { lockScreenSharedPrefsHandler.getLastDayOpened() }
+    private val knowledgeSoFar by lazy { lockScreenSharedPrefsHandler.getSeenFactCount()}
     val quoteLeft by lazy {  preferredAmount - knowledgeSoFar }
 
     val calendar: Calendar by lazy { Calendar.getInstance() }
@@ -50,7 +30,7 @@ class ScreenDisplayCoordinator(val activity: Context) {
     private val today by lazy { calendar[Calendar.DAY_OF_MONTH]  }
     private val currentTime by lazy { calendar.timeInMillis }
 
-    private val showTime by lazy { lockScreenSharedPrefsHandler.getLongVale(SHOW_TIME, 0)}
+    private val showTime by lazy { lockScreenSharedPrefsHandler.getShowTime()}
 
     val remainingMiliSeconds by lazy { ((showTime - currentTime) * 0.8).toLong() }
     val remainingSeconds by lazy { (remainingMiliSeconds / 1000 % 60).toInt() }
@@ -79,7 +59,7 @@ class ScreenDisplayCoordinator(val activity: Context) {
     {
         Log.d(LOG_TAG, "Looking for User Prefs")
 
-        if (!isLockScreenOk && !isLockScreenNotificationOk)
+        if (!lockScreenSharedPrefsHandler.isAfternoonOk() && !lockScreenSharedPrefsHandler.isLockScreenNotificationOk())
         {
             Log.d(LOG_TAG, "User don't want to take reminders. So it is not elligible to show")
             return false
@@ -87,7 +67,7 @@ class ScreenDisplayCoordinator(val activity: Context) {
 
         when {
             hourOfDay >= NIGHT_BOUNDRIES[0] && hourOfDay <= NIGHT_BOUNDRIES[1] -> {
-                when (isNightOK) {
+                when (lockScreenSharedPrefsHandler.isNightOk()) {
                     false -> {
                         Log.d(LOG_TAG, "We are in night period night is not preferred returning false")
                         return false
@@ -98,14 +78,14 @@ class ScreenDisplayCoordinator(val activity: Context) {
                 }
             }
             hourOfDay >= MORNING_BOUNDRIES[0] && hourOfDay <= MORNING_BOUNDRIES[1] -> {
-                if (!isMorningOK) {
+                if (!lockScreenSharedPrefsHandler.isMorningOk()) {
                     Log.d(LOG_TAG, "We are in morning period morning is not preferred returning false")
                     return false
                 }
                 else { Log.d(LOG_TAG, "We are in morning period morning is preferred returning true") }
             }
             hourOfDay >= AFTERNOON_BOUNDRIES[0] && hourOfDay <= AFTERNOON_BOUNDRIES[1] -> {
-                if (!isAfternoonOK) {
+                if (!lockScreenSharedPrefsHandler.isAfternoonOk()) {
                     Log.d(LOG_TAG, "We are in afternoon period afternoon is not preferred returning false")
                     return false
                 } else {
@@ -113,7 +93,7 @@ class ScreenDisplayCoordinator(val activity: Context) {
                 }
             }
             hourOfDay >= EVENING_BOUNDRIES[0] && hourOfDay <= EVENING_BOUNDRIES[1] -> {
-                if (!isEveningOK) {
+                if (!lockScreenSharedPrefsHandler.isEveningOk()) {
                     Log.d(LOG_TAG, "We are in evening period evening is not preferred returning false")
                     return false
                 } else {
@@ -128,7 +108,7 @@ class ScreenDisplayCoordinator(val activity: Context) {
     private fun checkIfFactAmount(): Boolean {
         Log.d(LOG_TAG, "Looking for Fact Amounts")
 
-        return if (currentAmount < preferredAmount) {
+        return if (knowledgeSoFar < preferredAmount) {
             Log.d(LOG_TAG, "Current seen amount is less than preferred amount")
             true
         } else {
@@ -156,10 +136,10 @@ class ScreenDisplayCoordinator(val activity: Context) {
         //Check if new day
         if (today != lastDayOpened) {
             Log.d(LOG_TAG, "Making knowledge_education amount zero because it is different day")
-            lockScreenSharedPrefsHandler.applyPrefs(SEEN_FACTS_SUM_SO_FAR, 0)
+           lockScreenSharedPrefsHandler.setSeenFactCount(0)
         }
 
-        lockScreenSharedPrefsHandler.applyPrefs(LAST_DAY_OPENED, today)
+        lockScreenSharedPrefsHandler.setLastDayOpened(today)
         Log.d(LOG_TAG, "Last day 's today now")
 
         /*
@@ -178,7 +158,8 @@ class ScreenDisplayCoordinator(val activity: Context) {
                 "$minutesLeftPercentage NextShowInMinutes: $nextShowInMinutes Time Now: $currentTime Future Show Time: $futureShowTime")
 
         //Apply Time Future
-        lockScreenSharedPrefsHandler.applyPrefs(SHOW_TIME, futureShowTime)
+        lockScreenSharedPrefsHandler.setShowTime(futureShowTime)
+
         Log.d(LOG_TAG, "Future Show Time applied to prefs")
     }
 
@@ -189,21 +170,21 @@ class ScreenDisplayCoordinator(val activity: Context) {
             hourOfDay >= NIGHT_BOUNDRIES[0] && hourOfDay <= NIGHT_BOUNDRIES[1] -> {
                 Log.d(LOG_TAG, "Gece Saatindeyiz")
                 //Ad Full Times (If preferred)
-                if (isMorningOK) {
+                if (lockScreenSharedPrefsHandler.isMorningOk()) {
                     minutesLeft += fullTimeMorning
                     Log.d(LOG_TAG, "Sabah periyodu seçili eklendi")
                 }
-                if (isAfternoonOK) {
+                if (lockScreenSharedPrefsHandler.isAfternoonOk()) {
                     minutesLeft += fullTimeAfternoon
                     Log.d(LOG_TAG, "Öğle periyodu seçili eklendi")
                 }
-                if (isEveningOK) {
+                if (lockScreenSharedPrefsHandler.isEveningOk()) {
                     minutesLeft += fullTimeEvening
                     Log.d(LOG_TAG, "Akşam periyodu eklendi")
                 }
 
                 //Determine minutes left at this period
-                if (isNightOK) {
+                if (lockScreenSharedPrefsHandler.isNightOk()) {
                     val minutesLeftAtThisPeriod = (NIGHT_BOUNDRIES[1] - hourOfDay) * 60 + (60 - minuteOfHour)
                     minutesLeft += minutesLeftAtThisPeriod
                     Log.d(LOG_TAG, "Gece periyodu seçili, periyottan kalan dakikalar eklendi")
@@ -212,17 +193,17 @@ class ScreenDisplayCoordinator(val activity: Context) {
             hourOfDay >= MORNING_BOUNDRIES[0] && hourOfDay <= MORNING_BOUNDRIES[1] -> {
                 Log.d(LOG_TAG, "We are in Morning Time ")
                 //Ad Full Times (If preferred)
-                if (isAfternoonOK) {
+                if (lockScreenSharedPrefsHandler.isAfternoonOk()) {
                     minutesLeft += fullTimeAfternoon
                     Log.d(LOG_TAG, "Afternoon is selected period added")
                 }
-                if (isEveningOK) {
+                if (lockScreenSharedPrefsHandler.isEveningOk()) {
                     minutesLeft += fullTimeEvening
                     Log.d(LOG_TAG, "Evening is selected period added")
                 }
 
                 //Determine minutes left at this period
-                if (isMorningOK) {
+                if (lockScreenSharedPrefsHandler.isMorningOk()) {
                     val minutesLeftAtThisPeriod =
                         (MORNING_BOUNDRIES[1] - hourOfDay) * 60 + (60 - minuteOfHour)
                     minutesLeft += minutesLeftAtThisPeriod
@@ -232,13 +213,13 @@ class ScreenDisplayCoordinator(val activity: Context) {
             hourOfDay >= AFTERNOON_BOUNDRIES[0] && hourOfDay <= AFTERNOON_BOUNDRIES[1] -> {
                 Log.d(LOG_TAG, "We are in afternoon Time ")
                 //Ad Full Times (If preferred)
-                if (isEveningOK) {
+                if (lockScreenSharedPrefsHandler.isEveningOk()) {
                     minutesLeft += fullTimeEvening
                     Log.d(LOG_TAG, "Evening is selected period added")
                 }
 
                 //Determine minutes left at this period
-                if (isAfternoonOK) {
+                if (lockScreenSharedPrefsHandler.isAfternoonOk()) {
                     val minutesLeftAtThisPeriod =
                         (AFTERNOON_BOUNDRIES[1] - hourOfDay) * 60 + (60 - minuteOfHour)
                     minutesLeft += minutesLeftAtThisPeriod
@@ -248,7 +229,7 @@ class ScreenDisplayCoordinator(val activity: Context) {
             hourOfDay >= EVENING_BOUNDRIES[0] && hourOfDay <= EVENING_BOUNDRIES[1] -> {
                 Log.d(LOG_TAG, "We are in eveninng Time ")
                 //Determine minutes left at this period
-                if (isEveningOK) {
+                if (lockScreenSharedPrefsHandler.isEveningOk()) {
                     val minutesLeftAtThisPeriod =
                         (EVENING_BOUNDRIES[1] - hourOfDay) * 60 + (60 - minuteOfHour)
                     minutesLeft += minutesLeftAtThisPeriod

@@ -1,6 +1,8 @@
 package com.viyatek.billing.Interface
 
+import com.android.billingclient.api.Purchase
+
 
 interface IManagedProductPurchase {
-    fun ManagedProductPurchaseSucceded(purchaseId : String)
+    fun ManagedProductPurchaseSucceded(purchase : Purchase)
 }

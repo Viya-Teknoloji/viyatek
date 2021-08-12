@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent</item>
@@ -40,4 +40,59 @@
         <item name="android:fontFamily">@font/proximanovaregular</item>
         <item name="android:textSize">@dimen/special_offer_little_text_size</item>
     </style>
+
+
+    <style name="premium_button" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="iconGravity">textStart</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:contentInsetStart">0dp</item>
+        <item name="android:minWidth">48dp</item>
+        <item name="minHeight">0dp</item>
+        <item name="iconPadding">0dp</item>
+        <item name="shapeAppearance">@style/pro_button_shape_appereance</item>
+    </style>
+
+    <style name="pro_button_shape_appereance" parent="ShapeAppearance.App.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">24dp</item>
+    </style>
+
+    <style name="Theme.FacieNew" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="android:windowFullscreen">true</item>
+        <item name="colorPrimaryVariant">#ff5dc8</item>
+        <item name="colorOnPrimary">@android:color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSurface">@android:color/black</item>
+        <item name="colorOnSurface">@android:color/white</item>
+
+
+        <item name="colorSecondary">#a60069</item>
+        <item name="colorAccent">#a60069</item>
+        <item name="colorSecondaryVariant">#ff5dc8</item>
+        <item name="colorOnSecondary">@android:color/white</item>
+
+        <item name="hintTextColor">#888888</item>
+        <item name="colorPrimary">#dc1697</item>
+        <item name="android:textColorPrimary">#1f1f1f</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+
+    </style>
+
+    <style name="premium_text_style">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:drawableStart">@drawable/check</item>
+        <item name="android:drawablePadding">8dp</item>
+        <item name="android:fontFamily">@font/proximanovasemibold</item>
+        <item name="android:gravity">center|start</item>
+        <item name="android:paddingStart">8dp</item>
+        <item name="android:paddingEnd">0dp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">@dimen/premium_pack</item>
+    </style>
+
 </resources>

@@ -103,7 +103,7 @@
                     android:paddingBottom="4dp"
                     android:text="@string/access_to_all_features"
                     android:textColor="@android:color/black"
-                    android:textSize="@dimen/special_offer_title_text"
+                    android:textSize="@dimen/premium_pack"
                     app:drawableStartCompat="@drawable/check"
                     app:drawableTint="@android:color/black"
                     app:layout_constraintStart_toStartOf="parent"
@@ -111,81 +111,41 @@
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/premium_conditions2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:drawableStart="@drawable/check"
-                    android:drawablePadding="8dp"
-                    android:fontFamily="@font/proximanovasemibold"
-                    android:gravity="center|start"
-                    android:paddingStart="8dp"
-                    android:paddingEnd="0dp"
                     android:text="@string/premium_cond_1"
-                    android:textColor="@android:color/white"
-                    android:textSize="@dimen/special_offer_title_text"
                     app:drawableTint="@android:color/white"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/premium_conditions"
-                    app:layout_constraintTop_toBottomOf="@+id/premium_conditions" />
+                    app:layout_constraintTop_toBottomOf="@+id/premium_conditions"
+                    style="@style/premium_text_style" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/premium_conditions3"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:drawableStart="@drawable/check"
-                    android:drawablePadding="8dp"
-                    android:fontFamily="@font/proximanovasemibold"
-                    android:gravity="center|start"
-                    android:paddingStart="8dp"
-                    android:paddingEnd="0dp"
                     android:text="@string/premium_cond_2"
-                    android:textColor="@android:color/white"
-                    android:textSize="@dimen/special_offer_title_text"
                     app:drawableTint="@android:color/white"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/premium_conditions"
-                    app:layout_constraintTop_toBottomOf="@+id/premium_conditions2" />
+                    app:layout_constraintTop_toBottomOf="@+id/premium_conditions2"
+                    style="@style/premium_text_style" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/premium_conditions4"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:drawableStart="@drawable/check"
-                    android:drawablePadding="8dp"
-                    android:fontFamily="@font/proximanovasemibold"
-                    android:gravity="center|start"
-                    android:paddingStart="8dp"
-                    android:paddingEnd="0dp"
                     android:text="@string/premium_cond_3"
-                    android:textColor="@android:color/white"
-                    android:textSize="@dimen/special_offer_title_text"
                     app:drawableTint="@android:color/white"
                     app:layout_constraintEnd_toEndOf="@+id/premium_conditions2"
                     app:layout_constraintStart_toStartOf="@+id/premium_conditions"
-                    app:layout_constraintTop_toBottomOf="@+id/premium_conditions3" />
+                    app:layout_constraintTop_toBottomOf="@+id/premium_conditions3"
+                    style="@style/premium_text_style" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/premium_conditions5"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
                     android:layout_marginBottom="16dp"
-                    android:drawableStart="@drawable/check"
-                    android:drawablePadding="8dp"
-                    android:fontFamily="@font/proximanovasemibold"
-                    android:gravity="center|start"
-                    android:paddingStart="8dp"
-                    android:paddingEnd="0dp"
                     android:text="@string/premium_cond_4"
-                    android:textColor="@android:color/white"
-                    android:textSize="@dimen/special_offer_title_text"
                     app:drawableTint="@android:color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/premium_conditions"
-                    app:layout_constraintTop_toBottomOf="@+id/premium_conditions4" />
+                    app:layout_constraintTop_toBottomOf="@+id/premium_conditions4"
+                    style="@style/premium_text_style" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -199,7 +159,7 @@
                 android:gravity="start"
                 android:text="@string/select_plan_text_new_premium"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/special_offer_title_text"
+                android:textSize="@dimen/premium_pack"
                 android:visibility="invisible"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout3"

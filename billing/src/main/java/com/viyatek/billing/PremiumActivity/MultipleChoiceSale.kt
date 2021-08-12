@@ -7,6 +7,7 @@ import android.graphics.Paint
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
@@ -21,9 +22,11 @@ import com.google.android.material.card.MaterialCardView
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.viyatek.billing.BillingPrefHandlers
 import com.viyatek.billing.R
+import com.viyatek.billing.Statics
 import com.viyatek.billing.databinding.FragmentMultipleChoiceSaleBinding
 
 import java.time.Period
+import kotlin.time.days
 
 abstract class MultipleChoiceSale : Fragment() {
 
@@ -60,20 +63,17 @@ abstract class MultipleChoiceSale : Fragment() {
             binding.yearlyPrice.text = activeYearlySku?.price
             binding.lifetimePrice.text = activeLifeTimeSku?.price
 
-
             binding.premiumSaleButtonGroup.viyatekOtherPlans.visibility = View.GONE
-
             binding.premiumSaleButtonGroup.viyatekRestorePurchaseButton.setOnClickListener {
-                (requireActivity() as ViyatekPremiumActivity).queryPurchaseAsync()
+                (requireActivity() as ViyatekPremiumActivity).queryPurchaseAsync(true)
             }
 
             if (oldLifeTimeSku != activeLifeTimeSku) {
                 binding.lifetimeOldPrice.text = oldLifeTimeSku?.price
                 binding.lifetimeOldPrice.paintFlags =
                     binding.lifetimeOldPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-            } else {
-                binding.lifetimeOldPrice.visibility = View.GONE
-            }
+            } 
+            else { binding.lifetimeOldPrice.visibility = View.GONE }
 
             if (oldYearlySku != activeYearlySku) {
                 binding.oldYearlyPrice.text = oldYearlySku?.price
@@ -118,12 +118,21 @@ abstract class MultipleChoiceSale : Fragment() {
                     if ((requireActivity() as ViyatekPremiumActivity).subSkuListHelper.getSkuList()
                             .contains(oldPurchasedSkuId)
                     ) {
+
+                        Log.d(Statics.BILLING_LOGS, "Original Price ${activeSku?.originalPrice} normal price ${activeSku?.price}")
+
                         BillingFlowParams.newBuilder()
+                            .setObfuscatedAccountId((requireActivity() as ViyatekPremiumActivity).appsFlyerUUID)
+                            .setObfuscatedProfileId((requireActivity() as ViyatekPremiumActivity).gaid)
                             .setOldSku(oldPurchasedSkuId, oldPurchaseSkuToken)
                             .setSkuDetails(activeSku!!)
                             .build()
                     } else {
+                        Log.d(Statics.BILLING_LOGS, "Original Price ${activeSku?.originalPrice} normal price ${activeSku?.price}")
+
                         BillingFlowParams.newBuilder()
+                            .setObfuscatedAccountId((requireActivity() as ViyatekPremiumActivity).appsFlyerUUID)
+                            .setObfuscatedProfileId((requireActivity() as ViyatekPremiumActivity).gaid)
                             .setSkuDetails(activeSku!!)
                             .build()
                     }
@@ -133,24 +142,42 @@ abstract class MultipleChoiceSale : Fragment() {
                     flowParams
                 )
             }
-        } else {
+        }
+        else {
             binding.multipleChoiceGroup.visibility = View.INVISIBLE
             binding.loadingProgressbar.visibility = View.VISIBLE
             binding.premiumSaleButtonGroup.viyatekPremiumTrialButton.isEnabled = false
         }
 
+      
+        binding.monthlyClNew.setOnClickListener {
+            Log.d("Billing", "Monthly Card Clicked")
+            activeSku = activeMonthlySku
+            handleBackGrounds()
+        }
+
         binding.yearlyClNew.setOnClickListener {
+            Log.d("Billing", "Yearly Card Clicked")
             activeSku = activeYearlySku
             handleBackGrounds()
         }
         binding.lifeTimeClNew.setOnClickListener {
+            Log.d("Billing", "LifeTime Card Clicked")
             activeSku = activeLifeTimeSku
             handleBackGrounds()
         }
-        binding.monthlyClNew.setOnClickListener {
+
+        val monthlyClickListener = View.OnClickListener {
+            Log.d("Billing", "Monthly Card CL view Clicked")
             activeSku = activeMonthlySku
             handleBackGrounds()
         }
+
+        binding.monthlyClNew.setOnClickListener (monthlyClickListener)
+        binding.monthlyIdentifier.setOnClickListener (monthlyClickListener)
+        binding.monthlyPrice.setOnClickListener (monthlyClickListener)
+        binding.monthlyOldPrice.setOnClickListener (monthlyClickListener)
+            
     }
 
     private fun calculateBargainAmounts() {
@@ -169,7 +196,6 @@ abstract class MultipleChoiceSale : Fragment() {
                 baseSku = oldLifeTimeSku
             }
         }
-
 
         val baseMoneyPerDay = calculatePerDayCost(baseSku)
 
@@ -190,6 +216,7 @@ abstract class MultipleChoiceSale : Fragment() {
 
     private fun calculatePerDayCost(baseSku: SkuDetails?): Float {
         var baseMoneyPerDay: Float = -1f
+
         if (baseSku?.type == BillingClient.SkuType.SUBS) {
 
             val subscriptionPeriod = baseSku.subscriptionPeriod
@@ -209,7 +236,7 @@ abstract class MultipleChoiceSale : Fragment() {
                                 baseSku.priceAmountMicros.toFloat() / (thePeriod.months * 30)
                         }
                         else -> {
-                            thePeriodTime = thePeriod.days
+                            thePeriodTime = if(thePeriod.days == 7) 1 else thePeriod.days
                             baseMoneyPerDay = baseSku.priceAmountMicros.toFloat() / (thePeriod.days)
                         }
                     }
@@ -226,6 +253,7 @@ abstract class MultipleChoiceSale : Fragment() {
         handleTexts(activeSku)
 
         val passiveBGColor = Color.argb(136, 255, 255, 255)
+        
         for (view in cardList) {
             view.setCardBackgroundColor(passiveBGColor)
             view.strokeColor = passiveBGColor
@@ -321,11 +349,16 @@ abstract class MultipleChoiceSale : Fragment() {
         var thePeriodIdentifier = "Lifetime"
         var thePeriodTime = 1
 
+        Log.d(Statics.BILLING_LOGS, "Active sku : ${activeSku?.sku}")
+
         if (activeSku?.type == BillingClient.SkuType.SUBS) {
+
+            Log.d(Statics.BILLING_LOGS, "It is a subscription : ${activeSku?.sku}")
 
             val subscriptionPeriod = activeSku.subscriptionPeriod
             val thePeriod: Period?
 
+            Log.d(Statics.BILLING_LOGS, "subscription  period is: ${activeSku?.sku}")
 
             if (subscriptionPeriod.isNotBlank()) {
                 thePeriod = Period.parse(subscriptionPeriod)
@@ -343,6 +376,7 @@ abstract class MultipleChoiceSale : Fragment() {
                             thePeriodTime = thePeriod.days
 
                             thePeriodIdentifier = if (thePeriodTime == 7) {
+                                thePeriodTime = 1
                                 "Weekly"
                             } else {
                                 "Days"
@@ -352,11 +386,14 @@ abstract class MultipleChoiceSale : Fragment() {
                     }
                 }
             }
+            else{
+                Log.d(Statics.BILLING_LOGS, "subscription  period is: blank")
+            }
 
         }
 
         if (thePeriodIdentifier == "Days") {
-            appCompatTextView.text = "${thePeriodTime} ${thePeriodIdentifier}"
+            appCompatTextView.text = "$thePeriodTime $thePeriodIdentifier"
         } else {
             appCompatTextView.text = thePeriodIdentifier
         }
@@ -379,21 +416,27 @@ abstract class MultipleChoiceSale : Fragment() {
                 thePeriod.apply {
                     when {
                         years != 0 -> {
+                            Log.d(Statics.BILLING_LOGS, "The Period time in year ${thePeriod.years}")
                             thePeriodIdentifier = "year"
                             thePeriodTime = thePeriod.years
                         }
                         months != 0 -> {
+                            Log.d(Statics.BILLING_LOGS, "The Period time in year ${thePeriod.months}")
                             thePeriodIdentifier = "month"
                             thePeriodTime = thePeriod.months
                         }
                         else -> {
                             thePeriodTime = thePeriod.days
 
-                            if (thePeriodTime == 7) {
-                                thePeriodIdentifier = "week"
+                            Log.d(Statics.BILLING_LOGS, "The Period time ${thePeriod.days}")
+                            thePeriodIdentifier = if (thePeriodTime == 7) {
+                                thePeriodTime = 1
+                                "week"
+
                             } else {
-                                thePeriodIdentifier = "days"
+                                "days"
                             }
+                            Log.d(Statics.BILLING_LOGS, "The Period time after $thePeriodTime")
 
                         }
                     }
@@ -420,7 +463,10 @@ abstract class MultipleChoiceSale : Fragment() {
                     )
                 }
             } else {
-                binding.selectYourPlanText3.text = if (thePeriodTime == 1 && thePeriodTime != 7) {
+
+
+                Log.d(Statics.BILLING_LOGS, "The period time is $thePeriodTime")
+                binding.selectYourPlanText3.text = if (thePeriodTime == 1) {
                     getString(
                         R.string.plan_price_without_free_trial,
                         activeSku.price,
@@ -435,9 +481,10 @@ abstract class MultipleChoiceSale : Fragment() {
                     )
                 }
             }
-        } else {
-            binding.selectYourPlanText3.text =
-                getString(R.string.life_time_plan_price, activeSku?.price)
+        }
+        else {
+
+            binding.selectYourPlanText3.text = getString(R.string.life_time_plan_price, activeSku?.price)
             binding.cancelAnytimee.text = getString(R.string.lifetime_motto)
             binding.premiumSaleButtonGroup.viyatekPremiumTrialButton.text =
                 getString(R.string.start_subscription_button)
@@ -467,7 +514,8 @@ abstract class MultipleChoiceSale : Fragment() {
 
         binding.closeActivityButton2.setOnClickListener {
             ReportButonClick("closeButtonClicked")
-            requireActivity().finish()
+            requireActivity().onBackPressed()
+            //requireActivity().finish()
         }
 
         binding.premiumSaleButtonGroup.viyatekPrivacyPolicy.setOnClickListener {

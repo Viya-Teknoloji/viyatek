@@ -19,16 +19,14 @@ class BillingManager(
 
     private var isConnected: Boolean = false
     private var subs_skuList: List<String> = ArrayList()
-    private var managedProductsPremiumSkuList: List<String> = ArrayList()
+    var managedProductsPremiumSkuList: List<String> = ArrayList()
     private var oneTimeProductsSkuList: List<String> = ArrayList()
     private val billingPrefsHandler by lazy { BillingPrefHandlers(activity) }
 
     fun init(subscriptionSkuList: List<String>, managedProductsPremiumSkuList: List<String>, oneTimeManagedProductsSkuList: List<String>? = null) {
         this.subs_skuList = subscriptionSkuList
         this.managedProductsPremiumSkuList = managedProductsPremiumSkuList
-        oneTimeManagedProductsSkuList?.let {
-            this.oneTimeProductsSkuList = it
-        }
+        oneTimeManagedProductsSkuList?.let { this.oneTimeProductsSkuList = it }
         super.startProcess()
     }
 
@@ -41,14 +39,15 @@ class BillingManager(
         val sku = purchase.sku
 
         if (purchase.purchaseState == Purchase.PurchaseState.PURCHASED) {
+
             if (managedProductsPremiumSkuList.contains(sku)) {
 
-                Log.d("Billing", "Managed product contains the sku ${sku} made premium")
+                Log.d("Billing", "Managed product contains the sku $sku made premium")
 
                 billingPrefsHandler.setPremium(true)
 
                 AckHandler(billingClient).acknowledgePurchase(purchase)
-                inAppPurchaseListener.ManagedProductPurchaseSucceded(purchase.sku)
+                inAppPurchaseListener.ManagedProductPurchaseSucceded(purchase)
 
             }
             else {
@@ -66,6 +65,7 @@ class BillingManager(
                 inAppPurchaseListener.soldOneTimeProductsFetched(purchase)
                 AckHandler(billingClient).acknowledgePurchase(purchase)
             }
+
         } else if (purchase.purchaseState == Purchase.PurchaseState.PENDING) {
             //handle pending state
             Toast.makeText(activity, "You have a pending purchase", Toast.LENGTH_LONG).show()

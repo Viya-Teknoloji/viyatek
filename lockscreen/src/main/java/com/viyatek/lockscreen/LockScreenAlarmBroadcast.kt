@@ -24,12 +24,11 @@ abstract class LockScreenAlarmBroadcast : BroadcastReceiver() {
     lateinit var context: Context
     var intent: Intent? = null
 
+    private val lockScreenPrefsHandler by lazy { LockScreenPreferencesHandler(context) }
     private val sharedPrefsHandler by lazy { ViyatekSharedPrefsHandler(context, Statics.LOCK_SCREEN_PREFS) }
     private val lastDayOpened: Int by lazy { sharedPrefsHandler.getIntegerValue(LAST_DAY_OPENED, 0)  }
-    private val isLockScreenOK by lazy { sharedPrefsHandler.getBooleanValue(IS_LOCK_SCREEN_OK, true)  }
-    private val isLockScreenNotificationOK by lazy { sharedPrefsHandler.getBooleanValue(IS_LOCK_SCREEN_NOTIFICATION_OK, true)   }
-    //Get today
-    private val c: Calendar by lazy { Calendar.getInstance()  }
+
+      private val c: Calendar by lazy { Calendar.getInstance()  }
     private val today by lazy { c[Calendar.DAY_OF_MONTH] }
 
     private val screenDisplayCoordinator by lazy { ScreenDisplayCoordinator(context) }
@@ -49,21 +48,19 @@ abstract class LockScreenAlarmBroadcast : BroadcastReceiver() {
                 setNextAlarm()
             }
             else {
+                if(lockScreenPrefsHandler.isLockScreenOk() || lockScreenPrefsHandler.isLockScreenNotificationOk()) {
 
-                setSpareAlarm()
-                checkLastDayOpened()
+                    setSpareAlarm()
+                    checkLastDayOpened()
 
-                if (isLockScreenOK && screenDisplayCoordinator.checkIfDisplay()) {
-                    Log.d(LOG_TAG, "Starting Daily Quote Service")
-                    startLockScreenService()
+                    if (lockScreenPrefsHandler.isLockScreenOk() && screenDisplayCoordinator.checkIfDisplay()) {
+                        Log.d(LOG_TAG, "Starting Daily Quote Service")
+                        startLockScreenService()
+                    } else if (lockScreenPrefsHandler.isLockScreenNotificationOk() && screenDisplayCoordinator.checkIfDisplay()) {
+                        createNotification()
+                    } else  {
+                        setNextAlarm()
                     }
-                else if(isLockScreenNotificationOK && screenDisplayCoordinator.checkIfDisplay()){
-
-                    createNotification()
-                }
-                else
-                {
-                    setNextAlarm()
                 }
             }
 

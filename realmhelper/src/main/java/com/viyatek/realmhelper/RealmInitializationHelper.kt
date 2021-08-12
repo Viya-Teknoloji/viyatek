@@ -6,16 +6,21 @@ import android.util.Log
 import io.realm.Realm
 import java.io.File
 
-class RealmInitializationHelper(private val context: Context, private val defaultKey : String?, private val defaultSchemaVersion : Long = 11L) {
+class RealmInitializationHelper(private val context: Context,
+                                private val existedRealmKey : String?,
+                                private val populatedName : String = "populated.realm",
+                                private val destinationName : String = "default.realm",
+                                private val encPopulatedRealmKey : String = RealmHelperStatics.EncRealmKey,
+                                val defaultSchemaVersion : Long = 11L) {
 
     private val realmPrefManager by lazy { RealmPrefManager(context) }
-    private val file by lazy { File(context.filesDir.toString() + "/default.realm")  }
-    private val realmEncryption by lazy { RealmEncryption(context) }
+
+    private val file by lazy { File(context.filesDir, destinationName)  }
+
+    private val realmEncryption by lazy { RealmEncryption(context, encPopulatedRealmKey) }
 
     private val populatedRealmKey by lazy { realmEncryption.getPopulatedRealmKey().toByteArray() }
-    private val populatedRealmConfiguration by lazy {
-        HandleRealmInit.getPopulatedRealmConfig(populatedRealmKey, defaultSchemaVersion)
-         }
+    private val populatedRealmConfiguration by lazy {HandleRealmInit.getPopulatedRealmConfig(populatedRealmKey, defaultSchemaVersion,populatedName) }
     private val populatedRealm by lazy { Realm.getInstance(populatedRealmConfiguration) }
 
     fun init(iRealmCreation: iRealmCreation? = null)
@@ -39,7 +44,7 @@ class RealmInitializationHelper(private val context: Context, private val defaul
 
             iRealmCreation?.beforeRealmCreated(populatedRealm)
 
-            populatedRealm?.writeEncryptedCopyTo(File(context.filesDir, "default.realm"), key)
+            populatedRealm?.writeEncryptedCopyTo(file, key)
             populatedRealm?.close()
 
             Realm.deleteRealm(HandleRealmInit.getPopulatedRealmConfig(populatedRealmKey, defaultSchemaVersion))
@@ -49,7 +54,8 @@ class RealmInitializationHelper(private val context: Context, private val defaul
         {
             Log.d("Realm", "Key is transferred to the new Pref system")
 
-            defaultKey?.let { realmPrefManager.setRealmKey(it) } }
+            existedRealmKey?.let { realmPrefManager.setRealmKey(it) }
+        }
     }
 
 }

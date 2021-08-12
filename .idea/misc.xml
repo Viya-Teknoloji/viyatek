@@ -1,5 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="ads/src/main/res/drawable/ad_container_rounded_corner.xml" value="0.12927631578947368" />
+        <entry key="ads/src/main/res/layout/action_line.xml" value="0.19478827361563517" />
+        <entry key="ads/src/main/res/layout/action_line_dark.xml" value="0.19478827361563517" />
+        <entry key="ads/src/main/res/layout/admob_ad_card_layout.xml" value="0.19478827361563517" />
+        <entry key="ads/src/main/res/layout/admob_ad_card_layout_dark.xml" value="0.10277777777777777" />
+        <entry key="ads/src/main/res/layout/admob_ad_card_layout_feed.xml" value="0.19671052631578947" />
+        <entry key="ads/src/main/res/layout/admob_ad_card_layout_feed_dark.xml" value="0.19671052631578947" />
+        <entry key="ads/src/main/res/layout/admob_lock_screen_end_ad.xml" value="0.19478827361563517" />
+        <entry key="ads/src/main/res/layout/admob_standalone_feed.xml" value="0.19478827361563517" />
+        <entry key="ads/src/main/res/layout/admob_standalone_feed_dark.xml" value="0.19478827361563517" />
+        <entry key="ads/src/main/res/layout/admob_standalone_swipe.xml" value="0.13333333333333333" />
+        <entry key="ads/src/main/res/layout/advertiser_line.xml" value="0.19478827361563517" />
+        <entry key="ads/src/main/res/layout/advertiser_line_dark.xml" value="0.19478827361563517" />
+        <entry key="ads/src/main/res/layout/article_ad.xml" value="0.19671052631578947" />
+        <entry key="ads/src/main/res/layout/facebook_lock_screen_end_ad.xml" value="0.19671052631578947" />
+        <entry key="ads/src/main/res/layout/fb_ad_card_layout.xml" value="0.19478827361563517" />
+        <entry key="ads/src/main/res/layout/fb_ad_card_layout_dark.xml" value="0.19478827361563517" />
+        <entry key="ads/src/main/res/layout/fb_ad_card_layout_feed.xml" value="0.19478827361563517" />
+        <entry key="ads/src/main/res/layout/fb_ad_card_layout_feed_dark.xml" value="0.19478827361563517" />
+        <entry key="ads/src/main/res/layout/main_line.xml" value="0.19478827361563517" />
+        <entry key="ads/src/main/res/layout/main_line_dark.xml" value="0.19478827361563517" />
+        <entry key="ads/src/main/res/layout/pangle_ad_card_layout.xml" value="0.19478827361563517" />
+        <entry key="ads/src/main/res/layout/pangle_ad_card_layout_dark.xml" value="0.19671052631578947" />
+        <entry key="ads/src/main/res/layout/pangle_ad_card_layout_feed.xml" value="0.19671052631578947" />
+        <entry key="ads/src/main/res/layout/pangle_ad_card_layout_feed_dark.xml" value="0.19671052631578947" />
+        <entry key="ads/src/main/res/layout/pangle_lock_screen_end_ad.xml" value="0.19671052631578947" />
+        <entry key="ads/src/main/res/layout/pangle_lock_screen_end_ad_dark.xml" value="0.19478827361563517" />
+        <entry key="ads/src/main/res/layout/second_version_admob_ad_card_layout_feed.xml" value="0.19478827361563517" />
+        <entry key="ads/src/main/res/layout/second_version_admob_ad_card_layout_feed_dark.xml" value="0.19478827361563517" />
+        <entry key="ads/src/main/res/layout/second_version_admob_standlone_feed.xml" value="0.25" />
+        <entry key="ads/src/main/res/layout/second_version_admob_standlone_feed_dark.xml" value="0.19671052631578947" />
+        <entry key="ads/src/main/res/layout/second_version_admob_standlone_feed_flutter.xml" value="0.19671052631578947" />
+        <entry key="ads/src/main/res/layout/second_version_fb_ad_card_layout.xml" value="0.13333333333333333" />
+        <entry key="ads/src/main/res/layout/second_version_pangle_ad_card_layout_feed_dark.xml" value="0.1" />
+        <entry key="ads/src/main/res/layout/second_version_tw_ad_card_layout_feed_dark.xml" value="0.19671052631578947" />
+        <entry key="ads/src/main/res/layout/third_version_admob_standlone.xml" value="0.19671052631578947" />
+        <entry key="ads/src/main/res/layout/tw_ad_card_layout.xml" value="0.19478827361563517" />
+        <entry key="billing/src/main/res/layout/activity_viyatek_premium.xml" value="0.14868421052631578" />
+        <entry key="billing/src/main/res/layout/billing_dialogue_layout.xml" value="0.14868421052631578" />
+        <entry key="billing/src/main/res/layout/billing_progress_layout.xml" value="0.14868421052631578" />
+        <entry key="billing/src/main/res/layout/dialog_rounded_button.xml" value="0.14868421052631578" />
+        <entry key="billing/src/main/res/layout/facie_type_multiple_choice.xml" value="0.25" />
+        <entry key="billing/src/main/res/layout/facie_type_multiple_choice_new.xml" value="0.18472222222222223" />
+        <entry key="billing/src/main/res/layout/fragment_purchase_stand_alone_card.xml" value="0.165" />
+        <entry key="billing/src/main/res/layout/fragment_purchase_stand_alone_card_new.xml" value="0.18472222222222223" />
+        <entry key="billing/src/main/res/layout/fragment_stand_alone_sale.xml" value="0.18611111111111112" />
+        <entry key="billing/src/main/res/layout/premium_sale_button_group.xml" value="0.18611111111111112" />
+        <entry key="rate/src/main/res/drawable/ad_container_rounded_corner.xml" value="0.12927631578947368" />
+        <entry key="rate/src/main/res/drawable/rounded_corner.xml" value="0.12927631578947368" />
+        <entry key="rate/src/main/res/layout/facie_type_in_app_rate_us_dialog.xml" value="0.25" />
+        <entry key="rate/src/main/res/layout/in_app_rate_us_dialog.xml" value="0.17850162866449512" />
+        <entry key="rate/src/main/res/layout/in_app_rate_us_feed_card.xml" value="0.17850162866449512" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>

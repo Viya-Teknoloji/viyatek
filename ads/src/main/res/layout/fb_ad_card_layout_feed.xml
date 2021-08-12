@@ -10,7 +10,6 @@
         android:clipToPadding="false"
         app:layout_constraintWidth_percent=".95"
         app:cardCornerRadius="8dp"
-        app:cardBackgroundColor="#424242"
         app:cardElevation="4dp"
         app:cardPreventCornerOverlap="false"
         app:contentPadding="0dp"
@@ -83,14 +82,12 @@
                 android:text="TextView"
                 app:layout_constraintEnd_toEndOf="parent"
                 style="@style/ad_body_text_style"
-                android:textColor="@android:color/white"
                 app:layout_constraintTop_toBottomOf="@id/ad_card_head_line" />
 
             <TextView
                 android:id="@+id/ad_card_head_line"
                 style="@style/ad_title_style"
                 android:text="TextView"
-                android:textColor="@android:color/white"
                 app:autoSizeMaxTextSize="20sp"
                 app:autoSizeMinTextSize="14sp"
                 app:autoSizeTextType="uniform"

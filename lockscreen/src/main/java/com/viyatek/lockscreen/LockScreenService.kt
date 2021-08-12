@@ -24,20 +24,7 @@ abstract class LockScreenService : Service(){
 
     var callBackReceived = false
 
-    val sharedPrefsHandler by lazy { ViyatekSharedPrefsHandler(this, Statics.LOCK_SCREEN_PREFS) }
-    val isLockScreenOK by lazy {
-        sharedPrefsHandler.getBooleanValue(
-            Statics.IS_LOCK_SCREEN_OK,
-            true
-        )
-    }
-    val isLockScreenNotificationOK by lazy {
-        sharedPrefsHandler.getBooleanValue(
-            Statics.IS_LOCK_SCREEN_NOTIFICATION_OK,
-            true
-        )
-    }
-
+    val lockScreenPreferencesHandler by lazy { LockScreenPreferencesHandler(this) }
     val receiverManager: ReceiverManager? by lazy { ReceiverManager(applicationContext).init() }
 
     override fun onCreate() {
@@ -48,21 +35,28 @@ abstract class LockScreenService : Service(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             createNotificationChannel()
         }
+
+        startTheForegroundService()
     }
 
     abstract fun setRequiredVariables()
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         Log.d(LOG_TAG, "On start command")
+        startTheForegroundService()
+        return START_NOT_STICKY
+    }
+
+    private fun startTheForegroundService() {
         when {
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q -> {
                 when {
-                    Settings.canDrawOverlays(this) && isLockScreenOK -> {
+                    Settings.canDrawOverlays(this) && lockScreenPreferencesHandler.isLockScreenOk() -> {
                         val notification = showNotificationFor10Plus(NEW_CHANNEL_ID)
                         handleService()
                         Log.d(LOG_TAG, "Receiver created")
                         startForeground(2, notification)
-             
+
                     }
                     else -> {
                         val notification = showNotificationFor10Plus(NEW_CHANNEL_ID)
@@ -72,7 +66,7 @@ abstract class LockScreenService : Service(){
             }
             else -> {
                 when {
-                    isLockScreenOK -> {
+                    lockScreenPreferencesHandler.isLockScreenOk() -> {
 
                         val notification = showNotificationFor10Below(NEW_CHANNEL_ID)
 
@@ -87,7 +81,6 @@ abstract class LockScreenService : Service(){
                 }
             }
         }
-        return START_NOT_STICKY
     }
 
     private fun handleService() {
@@ -156,7 +149,7 @@ abstract class LockScreenService : Service(){
                 createNotificationChannelOPlus(NotificationManager.IMPORTANCE_MAX)
 
             }
-            Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && !isLockScreenOK && isLockScreenNotificationOK -> {
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && !lockScreenPreferencesHandler.isLockScreenOk() && lockScreenPreferencesHandler.isLockScreenNotificationOk() -> {
                 createNotificationChannelOPlus(NotificationManager.IMPORTANCE_HIGH)
             }
             else-> {

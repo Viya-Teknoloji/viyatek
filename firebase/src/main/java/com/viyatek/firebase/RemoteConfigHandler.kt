@@ -14,7 +14,8 @@ class RemoteConfigHandler ()
 
         val mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance()
         mFirebaseRemoteConfig.setConfigSettingsAsync(configSettings)
-        mFirebaseRemoteConfig.fetchAndActivate()
+        mFirebaseRemoteConfig.fetchAndActivate().addOnSuccessListener {
+        }
 
         return mFirebaseRemoteConfig
     }

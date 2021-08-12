@@ -33,11 +33,11 @@ import java.time.Period
 
 abstract class PurchaseStandAloneFragment : Fragment() {
 
-    var activeSkuType = ActiveSku.YEARLY
-    var otherSubscriptionPlansAvailable = false
-
     private var _binding: FragmentStandAloneSaleBinding? = null
     private val binding get() = _binding!!
+
+    var activeSkuType = ActiveSku.YEARLY
+    var otherSubscriptionPlansAvailable = false
     private var activeSkuDetail: SkuDetails? = null
     private var oldSkuDetail: SkuDetails? = null
     val billingPrefHandlers by lazy { BillingPrefHandlers(requireContext()) }
@@ -65,7 +65,8 @@ abstract class PurchaseStandAloneFragment : Fragment() {
 
         binding.closeActivityButton.setOnClickListener {
             ReportButonClick("closeButtonClicked")
-            requireActivity().finish()
+            requireActivity().onBackPressed()
+           // requireActivity().finish()
         }
 
         binding.saleButtonGroup.viyatekPrivacyPolicy.setOnClickListener {
@@ -83,7 +84,7 @@ abstract class PurchaseStandAloneFragment : Fragment() {
         }
 
         binding.saleButtonGroup.viyatekRestorePurchaseButton.setOnClickListener {
-            theActivity.queryPurchaseAsync()
+            theActivity.queryPurchaseAsync(true)
         }
 
         binding.saleButtonGroup.viyatekOtherPlans.apply {
@@ -223,7 +224,8 @@ abstract class PurchaseStandAloneFragment : Fragment() {
                 }
 
 
-            } else {
+            }
+            else {
                 binding.premiumConditions.text = getString(R.string.access_to_all_features)
                 if (activeSkuDetail != oldSkuDetail && oldSkuDetail != null) {
                     val calculateDiscount = calculateDiscount()
@@ -266,7 +268,8 @@ abstract class PurchaseStandAloneFragment : Fragment() {
             }
 
 
-        } else {
+        }
+        else {
             if (oldSkuDetail != activeSkuDetail && oldSkuDetail != null) {
                 val discountAmount = calculateDiscount()
                 binding.planPrice.text = getString(
@@ -291,7 +294,9 @@ abstract class PurchaseStandAloneFragment : Fragment() {
         binding.cancelAnytime.visibility = View.VISIBLE
         binding.saleButtonGroup.viyatekPremiumTrialButton.isEnabled = true
         binding.saleButtonGroup.viyatekPremiumTrialButton.setOnClickListener {
-            Log.d(billingLogs, "Selam Aleküm")
+
+            Log.d(billingLogs, "Started billing flow ${(requireActivity() as ViyatekPremiumActivity).appsFlyerUUID}")
+
             ReportButonClick("subscribeButtonClick")
 
             val oldPurchasedSkuId = billingPrefHandlers.getSubscriptionType()!!
@@ -302,11 +307,15 @@ abstract class PurchaseStandAloneFragment : Fragment() {
                         .contains(oldPurchasedSkuId)
                 ) {
                     BillingFlowParams.newBuilder()
+                        .setObfuscatedAccountId((requireActivity() as ViyatekPremiumActivity).appsFlyerUUID)
+                        .setObfuscatedProfileId((requireActivity() as ViyatekPremiumActivity).gaid)
                         .setOldSku(oldPurchasedSkuId, oldPurchaseSkuToken)
                         .setSkuDetails(activeSkuDetail!!)
                         .build()
                 } else {
                     BillingFlowParams.newBuilder()
+                        .setObfuscatedAccountId((requireActivity() as ViyatekPremiumActivity).appsFlyerUUID)
+                        .setObfuscatedProfileId((requireActivity() as ViyatekPremiumActivity).gaid)
                         .setSkuDetails(activeSkuDetail!!)
                         .build()
                 }

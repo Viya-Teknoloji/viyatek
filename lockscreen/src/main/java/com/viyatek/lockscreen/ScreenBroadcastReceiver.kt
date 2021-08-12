@@ -13,10 +13,11 @@ class ScreenBroadcastReceiver(private val activityBroadCastType: ActivityBroadCa
     var appcontext: Context? = null
     var lockScreenIntent: Intent? = null
 
+
     override fun onReceive(context: Context, intent: Intent) {
         appcontext = context.applicationContext
 
-
+        val lockScreenPreferencesHandler by lazy { LockScreenPreferencesHandler(context) }
         val scd = ScreenDisplayCoordinator(context)
 
         when {
@@ -24,7 +25,7 @@ class ScreenBroadcastReceiver(private val activityBroadCastType: ActivityBroadCa
                 Log.d(LOG_TAG, "In Method:  ACTION_SCREEN_OFF. Activity starts")
                 Log.d(LOG_TAG, "Is screen off called before $isScreenOfCalled ")
 
-                if (scd.checkIfDisplay() && activityBroadCastType == ActivityBroadCastType.SCREEN_OFF) {
+                if (scd.checkIfDisplay() && activityBroadCastType == ActivityBroadCastType.SCREEN_OFF && lockScreenPreferencesHandler.isLockScreenOk()) {
                     Log.d(LOG_TAG, "Inside Action Screen Off for new User")
                     val i = Intent(appcontext, activity)
                     i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)

@@ -15,8 +15,10 @@ class CampaignHandler(
     private val isRemoteCampaignEnabled: Boolean = true,
     private val isSpecialCampaignEnabled: Boolean = true,
     private val isLocalCampaignEnabled: Boolean = true,
-    private val startDate: Long = 0L,
-    private val duration: Long = 0L,
+    private val remoteCampaignStartDate: Long = 0L,
+    private val remoteCampaignDuration: Long = 0L,
+    private val specialDayCampaignStartDate : Long = 0L,
+    private val specialDayCampaignDuration : Long = 0L,
     private val localCampaignDuration: Long = 0L
 ) {
 
@@ -62,7 +64,7 @@ class CampaignHandler(
 
         campaignType = if (isRemoteCampaignEnabled) {
 
-            if (checkCampaignActive(startDate, duration)) {
+            if (checkCampaignActive(remoteCampaignStartDate, remoteCampaignDuration)) {
                 setActiveCampaign(
                     isRemoteCampaignActive = true,
                     isSpecialDayCampaignActive = false,
@@ -84,7 +86,7 @@ class CampaignHandler(
 
         if (campaignType == CampaignType.NO_CAMPAIGN) {
             if (isSpecialCampaignEnabled) {
-                if (checkCampaignActive(startDate, duration)) {
+                if (checkCampaignActive(specialDayCampaignStartDate, specialDayCampaignDuration)) {
                     setActiveCampaign(
                         isRemoteCampaignActive = false,
                         isSpecialDayCampaignActive = true,
@@ -151,7 +153,7 @@ class CampaignHandler(
         isSpecialDayCampaignActive: Boolean,
         isLocalCampaignActive: Boolean
     ) {
-       billingPrefHandlers.setRemoteCampaignActive(isRemoteCampaignActive)
+        billingPrefHandlers.setRemoteCampaignActive(isRemoteCampaignActive)
         billingPrefHandlers.setSpecialDayCampaignActive(isSpecialDayCampaignActive)
         billingPrefHandlers.setLocalCampaignActive(isLocalCampaignActive)
     }

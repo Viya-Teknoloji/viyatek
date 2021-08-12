@@ -78,14 +78,28 @@ class BillingSubscribeManager(
                     BILLING_LOGS,
                     "Package info : ${activity.applicationContext.applicationInfo.packageName}"
                 )
+
+                val theString = if(activity.applicationContext.packageName == "com.viyatek.facefind")
+                {
+                    activity.getString(
+                        R.string.face_find_subscription_check,
+                        purchase.purchaseToken,
+                        purchase.sku
+                    )
+                }
+                else
+                {
+                    activity.getString(
+                        R.string.viyatek_subscription_validation,
+                        purchase.purchaseToken,
+                        purchase.sku,
+                        activity.applicationContext.applicationInfo.packageName
+                    )
+                }
+
                 SubscriptionVerification(activity, subscriptionVerificationDataFetched)
                     .executeNetworkCall(
-                        activity.getString(
-                            R.string.viyatek_subscription_validation,
-                            purchase.purchaseToken,
-                            purchase.sku,
-                            activity.applicationContext.applicationInfo.packageName
-                        ),
+                        theString,
                         purchase
                     )
 

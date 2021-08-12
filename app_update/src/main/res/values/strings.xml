@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="sync">Synchronizing Database\n\nPlease Wait…</string>
+    <string name="app_has_downloaded">An update has just been downloaded.</string>
+    <string name="restart">RESTART</string>
 </resources>
