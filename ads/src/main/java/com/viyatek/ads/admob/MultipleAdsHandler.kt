@@ -28,7 +28,7 @@ class MultipleAdsHandler (
     var finalindex: Int = 0
     private var adloaded = false
 
-    override fun loadNativeAds() {
+    override fun loadNativeAds(multipleAdsCount : Int) {
 
             val videoOptions = VideoOptions.Builder()
                 .setStartMuted(true)
@@ -54,6 +54,11 @@ class MultipleAdsHandler (
                 object : AdListener() {
                     override fun onAdFailedToLoad(adError: LoadAdError?) {
                         super.onAdFailedToLoad(adError)
+
+                        Log.d("Ads","AdMob ad load failed ${adError?.message}"  )
+                        Log.d("Ads","AdMob ad load failed cause ${adError?.cause?.message}"  )
+                        Log.d("Ads","AdMob ad load failed response id${adError?.responseInfo?.responseId}"  )
+                        Log.d("Ads","AdMob ad load failed response id${adError?.code}")
 
                         adMobAdListener?.adFailedToLoad(adError)
 
@@ -87,9 +92,17 @@ class MultipleAdsHandler (
 
             val index: Int = (mRecyclerView.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
 
+            Log.d("MESAJLARIM", "index : $index is ad loaded : $adloaded my native ads size ${mNativeAds.size}")
+
             if (index > mNativeAds.size * 5 && adloaded) {
                 adloaded = false
-                loadNativeAds() }
+                Log.d("MESAJLARIM", "Loading new ads in mah")
+                loadNativeAds()
+            }
+            else if (!adLoader?.isLoading!! && index > mNativeAds.size * 5) {
+                adloaded = true
+                insertAds()
+            }
         }
 
         override fun insertAdsInMenuItems() {

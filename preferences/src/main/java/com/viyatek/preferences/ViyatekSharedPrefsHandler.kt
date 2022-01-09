@@ -92,7 +92,6 @@ class ViyatekSharedPrefsHandler(private val context: Context, private val prefNa
     }
 
     fun getFloatValue(tag: String, defaultValue : Float): Float {
-
         return if(sharedPrefs.contains(tag)) {
             sharedPrefs.getFloat(tag, defaultValue)
         } else {

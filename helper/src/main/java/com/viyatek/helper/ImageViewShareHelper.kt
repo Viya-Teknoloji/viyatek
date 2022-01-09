@@ -19,22 +19,18 @@ class ImageViewShareHelper(val activity: Activity) {
 
         val mCanvas = Canvas(bitmap)
 
-         activity.runOnUiThread {
+        view.measure(
+            View.MeasureSpec.makeMeasureSpec(
+                width,
+                View.MeasureSpec.EXACTLY
+            ),
+            View.MeasureSpec.makeMeasureSpec(
+                height,
+                View.MeasureSpec.EXACTLY
+            )
+        )
 
-             view.measure(
-                 View.MeasureSpec.makeMeasureSpec(
-                     width,
-                     View.MeasureSpec.EXACTLY
-                 ),
-                 View.MeasureSpec.makeMeasureSpec(
-                     height,
-                     View.MeasureSpec.EXACTLY
-                 )
-             )
-
-         }
-
-
+  
          Log.d("MESAJLARIM", "The view height ${view.measuredHeight} width : ${view.measuredWidth}")
         view.layout(0, 0, view.measuredWidth, view.measuredHeight);
         // view.layout(0, 0, view.layoutParams.width, view.layoutParams.height)

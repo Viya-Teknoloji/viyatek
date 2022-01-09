@@ -44,7 +44,6 @@ internal class QuerySubscriptionHandler(
         val purchasesResult = billingClient.queryPurchases(BillingClient.SkuType.SUBS)
 
         var activePurchase: Purchase
-
         val boughtPurchases = purchasesResult.purchasesList
 
         Log.d(ViyatekPremiumActivity.billingLogs, "querying subscriptions")

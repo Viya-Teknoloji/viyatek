@@ -15,6 +15,4 @@ class UpdatePrefsHandler(val context: Context) {
 
     fun setUpdateRequireHandled(isHandled : Boolean) = sharedPrefsHandler.applyPrefs(Statics.IS_UPDATE_REQUIRE_HANDLED, isHandled)
     fun isUpdateRequireHandled() : Boolean = sharedPrefsHandler.getBooleanValue(Statics.IS_UPDATE_REQUIRE_HANDLED, false)
-
-
 }

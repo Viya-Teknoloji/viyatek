@@ -25,6 +25,7 @@ import com.viyatek.billing.BillingPrefHandlers
 import com.viyatek.billing.Campaign.ActiveSku
 import com.viyatek.billing.R
 import com.viyatek.billing.databinding.FragmentPurchaseStandAloneCardNewBinding
+import kotlinx.coroutines.Dispatchers
 import java.time.Period
 
 abstract class FacieTypePurchaseStandAloneFragment : Fragment() {
@@ -118,260 +119,312 @@ abstract class FacieTypePurchaseStandAloneFragment : Fragment() {
         mFireBaseAnalytics.logEvent(eventName, bundle)
     }
 
-    private fun bindData() = if (activeSkuDetail != null) {
+    private fun bindData() {
+        requireActivity().runOnUiThread {
+            if (activeSkuDetail != null) {
 
-        if (activeSkuDetail?.type == BillingClient.SkuType.SUBS) {
+                Log.d("MESAJ", "Active sku is $activeSkuDetail")
 
-            val subscriptionPeriod = activeSkuDetail?.subscriptionPeriod
-            var thePeriod: Period? = null
-            var thePeriodIdentifier = ""
-            var thePeriodTime = 1
 
-            if (activeSkuDetail?.subscriptionPeriod != null && activeSkuDetail?.subscriptionPeriod!!.isNotBlank()) {
-                thePeriod = Period.parse(subscriptionPeriod)
-                thePeriod.apply {
-                    when {
-                        years != 0 -> {
-                            thePeriodIdentifier = "year"
-                            thePeriodTime = thePeriod.years
-                        }
-                        months != 0 -> {
-                            thePeriodIdentifier = "month"
-                            thePeriodTime = thePeriod.months
-                        }
-                        else -> {
-                            thePeriodIdentifier = "days"
-                            thePeriodTime = thePeriod.days
+
+                if (activeSkuDetail?.type == BillingClient.SkuType.SUBS) {
+
+
+                    val subscriptionPeriod = activeSkuDetail?.subscriptionPeriod
+                    var thePeriod: Period? = null
+                    var thePeriodIdentifier = ""
+                    var thePeriodTime = 1
+
+                    if (activeSkuDetail?.subscriptionPeriod != null && activeSkuDetail?.subscriptionPeriod!!.isNotBlank()) {
+                        thePeriod = Period.parse(subscriptionPeriod)
+                        thePeriod.apply {
+                            when {
+                                years != 0 -> {
+                                    thePeriodIdentifier = "year"
+                                    thePeriodTime = thePeriod.years
+                                }
+                                months != 0 -> {
+                                    thePeriodIdentifier = "month"
+                                    thePeriodTime = thePeriod.months
+                                }
+                                else -> {
+                                    thePeriodIdentifier = "days"
+                                    thePeriodTime = thePeriod.days
+                                }
+                            }
                         }
                     }
-                }
-            }
 
-            // Log.d(Statics.BILLING_LOGS,"Subscription Period ${}" )
-            Log.d(ViyatekPremiumActivity.billingLogs, "Free Trial ${activeSkuDetail?.freeTrialPeriod!!}")
-            Log.d(ViyatekPremiumActivity.billingLogs, "Subscription Period ${thePeriod?.years} ")
+                    // Log.d(Statics.BILLING_LOGS,"Subscription Period ${}" )
+                    Log.d(ViyatekPremiumActivity.billingLogs, "Free Trial ${activeSkuDetail?.freeTrialPeriod!!}")
+                    Log.d(ViyatekPremiumActivity.billingLogs, "Subscription Period ${thePeriod?.years} ")
 
-            if(thePeriodIdentifier == "year" || (thePeriodIdentifier == "month" && thePeriodTime != 1))
-            {
-                binding.priceMonthlyInfo.visibility = View.VISIBLE
-                val bargainAmount =  calculateDiscountAmount(activeSkuDetail)
-                when(thePeriodIdentifier)
-                {
+                    if(thePeriodIdentifier == "year" || (thePeriodIdentifier == "month" && thePeriodTime != 1))
+                    {
+                        Log.d(ViyatekPremiumActivity.billingLogs,"First if")
 
-                    "year" -> {
-                        binding.priceMonthlyInfo.text = getString(R.string.monthly_price_info,
-                            12,
-                            "${activeSkuDetail?.priceCurrencyCode}${
-                                String.format(
-                                    "%.2f",
-                                    (BaseMoneyCalculator.calculatePerDayCost(activeSkuDetail) * 30) / 1000000
-                                )
-                            }",
-                            "%${bargainAmount}")
+                        binding.priceMonthlyInfo.visibility = View.VISIBLE
+                        val bargainAmount = calculateDiscountAmount(activeSkuDetail)
+                        Log.d(ViyatekPremiumActivity.billingLogs, "Bargain amount $bargainAmount")
+                        try {
+
+                            when (thePeriodIdentifier) {
+                                "year" -> {
+                                    Log.d(ViyatekPremiumActivity.billingLogs, "First if year")
+                                    binding.priceMonthlyInfo.text = getString(
+                                        R.string.monthly_price_info,
+                                        12,
+                                        "${activeSkuDetail?.priceCurrencyCode}${
+                                            String.format(
+                                                "%.2f",
+                                                (BaseMoneyCalculator.calculatePerDayCost(activeSkuDetail) * 30) / 1000000
+                                            )
+                                        }",
+                                        "%${bargainAmount}"
+                                    )
+                                }
+                                "month" -> {
+                                    binding.priceMonthlyInfo.text = getString(
+                                        R.string.monthly_price_info,
+                                        thePeriodTime,
+                                        "${activeSkuDetail?.priceCurrencyCode}${
+                                            String.format(
+                                                "%.2f",
+                                                (BaseMoneyCalculator.calculatePerDayCost(activeSkuDetail) * 30) / 1000000
+                                            )
+                                        }",
+                                        "%${bargainAmount}"
+                                    )
+                                }
+                            }
+                        } catch (e: Exception) {
+                            Log.d(ViyatekPremiumActivity.billingLogs, "First if problem ${e.message}")
+
+                            e.printStackTrace()
+                        }
+
+
+
+                        Log.d(ViyatekPremiumActivity.billingLogs,"First if end $thePeriodIdentifier")
                     }
-                    "month" -> {
-                        binding.priceMonthlyInfo.text = getString(R.string.monthly_price_info,
-                            thePeriodTime,
-                            "${activeSkuDetail?.priceCurrencyCode}${
-                                String.format(
-                                    "%.2f",
-                                    (BaseMoneyCalculator.calculatePerDayCost(activeSkuDetail) * 30) / 1000000
-                                )
-                            }",
-                            "%${bargainAmount}")
+                    else
+                    {
+                        Log.d(ViyatekPremiumActivity.billingLogs,"First else")
+
+                        binding.priceMonthlyInfo.visibility = View.GONE
                     }
-                }
-            }
-            else
-            {
-                binding.priceMonthlyInfo.visibility = View.GONE
-            }
 
 
 
-            if (activeSkuDetail?.freeTrialPeriod != null
-                && activeSkuDetail?.freeTrialPeriod?.isNotBlank()!!
-                && !billingPrefHandlers.isSubscriptionTrialModeUsed()
-            ) {
-                val freeTrial = Period.parse(activeSkuDetail?.freeTrialPeriod)
-                binding.freeTrialDays.text = getString(R.string.try_3_days_for_free,freeTrial.days)
-                binding.freeTrialDays.visibility = View.VISIBLE
+                    if (activeSkuDetail?.freeTrialPeriod != null
+                        && activeSkuDetail?.freeTrialPeriod?.isNotBlank()!!
+                        && !billingPrefHandlers.isSubscriptionTrialModeUsed()
+                    ) {
 
-                if (activeSkuDetail != oldSkuDetail && oldSkuDetail != null) {
+                        Log.d(ViyatekPremiumActivity.billingLogs,"Second if")
 
-                    /*                      val desiredText = SpannableStringBuilder(
-                          "${
-                              getString(
-                                  R.string.save_50,
-                                  "%$bargainAmount"
+                        val freeTrial = Period.parse(activeSkuDetail?.freeTrialPeriod)
+                        binding.freeTrialDays.text = getString(R.string.try_3_days_for_free,freeTrial.days)
+                        binding.freeTrialDays.visibility = View.VISIBLE
+
+                        if (activeSkuDetail != oldSkuDetail && oldSkuDetail != null) {
+
+                            /*                      val desiredText = SpannableStringBuilder(
+                                  "${
+                                      getString(
+                                          R.string.save_50,
+                                          "%$bargainAmount"
+                                      )
+                                  } just"
                               )
-                          } just"
-                      )
-                      val strikethroughSpan = StrikethroughSpan()
+                              val strikethroughSpan = StrikethroughSpan()
 
-                      desiredText.append(oldSkuDetail?.price)
-                      desiredText.setSpan(
-                          strikethroughSpan,
-                          desiredText.length - oldSkuDetail?.price?.length!!,
-                          desiredText.length,
-                          Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                      )*/
-                    binding.priceInfo.text = if (thePeriodTime != 1) {
+                              desiredText.append(oldSkuDetail?.price)
+                              desiredText.setSpan(
+                                  strikethroughSpan,
+                                  desiredText.length - oldSkuDetail?.price?.length!!,
+                                  desiredText.length,
+                                  Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                              )*/
+                            binding.priceInfo.text = if (thePeriodTime != 1) {
 
-                        getString(
-                            R.string.then_price_campaign_if_not_canceled_custom_time,
-                            oldSkuDetail?.price,
-                            activeSkuDetail?.price,
-                            thePeriodTime,
-                            thePeriodIdentifier
-                        )
+                                getString(
+                                    R.string.then_price_campaign_if_not_canceled_custom_time,
+                                    oldSkuDetail?.price,
+                                    activeSkuDetail?.price,
+                                    thePeriodTime,
+                                    thePeriodIdentifier
+                                )
 
 
+                            }
+                            else {
+                                getString(
+                                    R.string.then_price_campaign_if_not_canceled,
+                                    oldSkuDetail?.price,
+                                    activeSkuDetail?.price,
+                                    thePeriodIdentifier
+                                )
+                            }
+
+                            drawTheLineOnOldPrice(binding.priceInfo)
+
+                            Log.d(ViyatekPremiumActivity.billingLogs,"Third if end")
+
+                        }
+                        else {
+
+                            Log.d(ViyatekPremiumActivity.billingLogs,"Second else start")
+
+                            binding.priceInfo.text = if (thePeriodTime != 1) {
+                                getString(
+                                    R.string.then_price_if_not_canceled_custom_time,
+                                    activeSkuDetail?.price,
+                                    thePeriodTime,
+                                    thePeriodIdentifier
+                                )
+                            } else {
+                                getString(
+                                    R.string.then_price_if_not_canceled,
+                                    activeSkuDetail?.price,
+                                    thePeriodIdentifier
+                                )
+                            }
+
+                            Log.d(ViyatekPremiumActivity.billingLogs,"Second else end")
+
+                        }
                     }
                     else {
-                        getString(
-                            R.string.then_price_campaign_if_not_canceled,
-                            oldSkuDetail?.price,
-                            activeSkuDetail?.price,
-                            thePeriodIdentifier
-                        )
+
+                        Log.d(ViyatekPremiumActivity.billingLogs,"Third else start")
+
+                        binding.freeTrialDays.visibility = View.GONE
+
+                        if (activeSkuDetail != oldSkuDetail && oldSkuDetail != null) {
+
+                            Log.d(ViyatekPremiumActivity.billingLogs,"Fourth if start")
+
+                            val calculateDiscount = calculateDiscount()
+                            binding.priceInfo.text = if (thePeriodTime == 1) {
+                                getString(
+                                    R.string.stand_alone_save_string,
+                                    "%$calculateDiscount",
+                                    oldSkuDetail?.price,
+                                    activeSkuDetail?.price,
+                                    thePeriodIdentifier
+                                )
+
+                            } else {
+                                getString(
+                                    R.string.stand_alone_save_string_custom_time,
+                                    "%$calculateDiscount",
+                                    oldSkuDetail?.price,
+                                    activeSkuDetail?.price,
+                                    thePeriodTime,
+                                    thePeriodIdentifier
+                                )
+                            }
+                            drawTheLineOnOldPrice(binding.priceInfo)
+
+                            Log.d(ViyatekPremiumActivity.billingLogs,"Fourth if end")
+                        }
+                        else {
+                            binding.priceInfo.text = if (thePeriodTime == 1) {
+                                getString(
+                                    R.string.plan_price_without_free_trial,
+                                    activeSkuDetail?.price,
+                                    thePeriodIdentifier
+                                )
+                            } else {
+                                getString(
+                                    R.string.plan_price_without_free_trial_custom_time,
+                                    activeSkuDetail?.price,
+                                    thePeriodTime,
+                                    thePeriodIdentifier
+                                )
+                            }
+
+                        }
                     }
 
-                    drawTheLineOnOldPrice(binding.priceInfo)
 
                 }
                 else {
 
+                    Log.d(ViyatekPremiumActivity.billingLogs,"Last else start")
 
-
-                    binding.priceInfo.text = if (thePeriodTime != 1) {
-                        getString(
-                            R.string.then_price_if_not_canceled_custom_time,
-                            activeSkuDetail?.price,
-                            thePeriodTime,
-                            thePeriodIdentifier
+                    if (oldSkuDetail != activeSkuDetail && oldSkuDetail != null) {
+                        val discountAmount = calculateDiscount()
+                        binding.priceInfo.text = getString(
+                            R.string.stand_alone_save_string_pay_once,
+                            "½$discountAmount", oldSkuDetail?.price, activeSkuDetail?.price
                         )
+                        drawTheLineOnOldPrice(binding.priceInfo)
                     } else {
-                        getString(
-                            R.string.then_price_if_not_canceled,
-                            activeSkuDetail?.price,
-                            thePeriodIdentifier
-                        )
+                        binding.priceInfo.text =
+                            getString(R.string.life_time_plan_price, activeSkuDetail?.price)
                     }
 
+                    binding.priceMonthlyInfo.text = getString(R.string.lifetime_motto)
+                    binding.subscribeButton.text = getString(R.string.start_subscription_button)
+
+                    Log.d(ViyatekPremiumActivity.billingLogs,"Last else end")
                 }
-            }
-            else {
 
-                binding.freeTrialDays.visibility = View.GONE
+                val theIndex = binding.priceInfo.text.indexOf("just", 0, true)
+                Log.d(ViyatekPremiumActivity.billingLogs, "The index in ${binding.priceInfo.text} $theIndex")
 
-                if (activeSkuDetail != oldSkuDetail && oldSkuDetail != null) {
-                    val calculateDiscount = calculateDiscount()
-                    binding.priceInfo.text = if (thePeriodTime == 1) {
-                        getString(
-                            R.string.stand_alone_save_string,
-                            "%$calculateDiscount",
-                            oldSkuDetail?.price,
-                            activeSkuDetail?.price,
-                            thePeriodIdentifier
-                        )
-                    } else {
-                        getString(
-                            R.string.stand_alone_save_string_custom_time,
-                            "%$calculateDiscount",
-                            oldSkuDetail?.price,
-                            activeSkuDetail?.price,
-                            thePeriodTime,
-                            thePeriodIdentifier
-                        )
-                    }
-                    drawTheLineOnOldPrice(binding.priceInfo)
+                binding.loadingProgressbar.visibility = View.GONE
+                binding.viyatekOtherPlans.visibility = View.VISIBLE
+                binding.priceInfo.visibility = View.VISIBLE
+                binding.priceMonthlyInfo.visibility = View.VISIBLE
+                binding.subscribeButton.isEnabled = true
+                binding.subscribeButton.setOnClickListener {
+
+                    Log.d(ViyatekPremiumActivity.billingLogs, "Started billing flow ${(requireActivity() as ViyatekPremiumActivity).appsFlyerUUID}")
+
+                    ReportButonClick("subscribeButtonClick")
+
+                    val oldPurchasedSkuId = billingPrefHandlers.getSubscriptionType()!!
+                    val oldPurchaseSkuToken = billingPrefHandlers.getSubscriptionToken()!!
+
+                    val flowParams =
+                        if (theActivity.subSkuListHelper.getSkuList()
+                                .contains(oldPurchasedSkuId)
+                        ) {
+                            BillingFlowParams.newBuilder()
+                                .setObfuscatedAccountId((requireActivity() as ViyatekPremiumActivity).appsFlyerUUID)
+                                .setObfuscatedProfileId((requireActivity() as ViyatekPremiumActivity).gaid)
+                                .setOldSku(oldPurchasedSkuId, oldPurchaseSkuToken)
+                                .setSkuDetails(activeSkuDetail!!)
+                                .build()
+                        } else {
+                            BillingFlowParams.newBuilder()
+                                .setObfuscatedAccountId((requireActivity() as ViyatekPremiumActivity).appsFlyerUUID)
+                                .setObfuscatedProfileId((requireActivity() as ViyatekPremiumActivity).gaid)
+                                .setSkuDetails(activeSkuDetail!!)
+                                .build()
+                        }
+
+
+                    theActivity.billingManager.billingClient.launchBillingFlow(
+                        requireActivity(),
+                        flowParams
+                    )
                 }
-                else {
-                    binding.priceInfo.text = if (thePeriodTime == 1) {
-                        getString(
-                            R.string.plan_price_without_free_trial,
-                            activeSkuDetail?.price,
-                            thePeriodIdentifier
-                        )
-                    } else {
-                        getString(
-                            R.string.plan_price_without_free_trial_custom_time,
-                            activeSkuDetail?.price,
-                            thePeriodTime,
-                            thePeriodIdentifier
-                        )
-                    }
-
-                }
-            }
-
-
-        }
-        else {
-            if (oldSkuDetail != activeSkuDetail && oldSkuDetail != null) {
-                val discountAmount = calculateDiscount()
-                binding.priceInfo.text = getString(
-                    R.string.stand_alone_save_string_pay_once,
-                    "½$discountAmount", oldSkuDetail?.price, activeSkuDetail?.price
-                )
-                drawTheLineOnOldPrice(binding.priceInfo)
             } else {
-                binding.priceInfo.text =
-                    getString(R.string.life_time_plan_price, activeSkuDetail?.price)
+
+                Log.d("MESAJ", "Active sku is null")
+
+                binding.priceInfo.visibility = View.INVISIBLE
+                binding.priceMonthlyInfo.visibility = View.INVISIBLE
+                binding.loadingProgressbar.visibility = View.VISIBLE
+                binding.viyatekOtherPlans.visibility = View.GONE
+                binding.subscribeButton.isEnabled = false
             }
-
-            binding.priceMonthlyInfo.text = getString(R.string.lifetime_motto)
-            binding.subscribeButton.text = getString(R.string.start_subscription_button)
         }
 
-        val theIndex = binding.priceInfo.text.indexOf("just", 0, true)
-        Log.d(ViyatekPremiumActivity.billingLogs, "The index in ${binding.priceInfo.text} $theIndex")
-
-        binding.loadingProgressbar.visibility = View.GONE
-        binding.viyatekOtherPlans.visibility = View.VISIBLE
-        binding.priceInfo.visibility = View.VISIBLE
-        binding.priceMonthlyInfo.visibility = View.VISIBLE
-        binding.subscribeButton.isEnabled = true
-        binding.subscribeButton.setOnClickListener {
-
-            Log.d(ViyatekPremiumActivity.billingLogs, "Started billing flow ${(requireActivity() as ViyatekPremiumActivity).appsFlyerUUID}")
-
-            ReportButonClick("subscribeButtonClick")
-
-            val oldPurchasedSkuId = billingPrefHandlers.getSubscriptionType()!!
-            val oldPurchaseSkuToken = billingPrefHandlers.getSubscriptionToken()!!
-
-            val flowParams =
-                if (theActivity.subSkuListHelper.getSkuList()
-                        .contains(oldPurchasedSkuId)
-                ) {
-                    BillingFlowParams.newBuilder()
-                        .setObfuscatedAccountId((requireActivity() as ViyatekPremiumActivity).appsFlyerUUID)
-                        .setObfuscatedProfileId((requireActivity() as ViyatekPremiumActivity).gaid)
-                        .setOldSku(oldPurchasedSkuId, oldPurchaseSkuToken)
-                        .setSkuDetails(activeSkuDetail!!)
-                        .build()
-                } else {
-                    BillingFlowParams.newBuilder()
-                        .setObfuscatedAccountId((requireActivity() as ViyatekPremiumActivity).appsFlyerUUID)
-                        .setObfuscatedProfileId((requireActivity() as ViyatekPremiumActivity).gaid)
-                        .setSkuDetails(activeSkuDetail!!)
-                        .build()
-                }
-
-
-            theActivity.billingManager.billingClient.launchBillingFlow(
-                requireActivity(),
-                flowParams
-            )
-        }
-    } else {
-        binding.priceInfo.visibility = View.INVISIBLE
-        binding.priceMonthlyInfo.visibility = View.INVISIBLE
-        binding.loadingProgressbar.visibility = View.VISIBLE
-        binding.viyatekOtherPlans.visibility = View.GONE
-        binding.subscribeButton.isEnabled = false
     }
 
     private fun calculateDiscountAmount(theSku: SkuDetails?): Int{

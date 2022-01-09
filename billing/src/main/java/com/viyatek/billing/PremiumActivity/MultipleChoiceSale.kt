@@ -1,5 +1,7 @@
 package com.viyatek.billing.PremiumActivity
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
@@ -7,6 +9,8 @@ import android.graphics.Paint
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
@@ -44,6 +48,9 @@ abstract class MultipleChoiceSale : Fragment() {
 
     var activeSku: SkuDetails? = null
     var cardList: ArrayList<MaterialCardView> = ArrayList()
+
+    var isCloseButtonAnimationEnabled = false
+    var closeButtonAnimationTime = 1000L
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -512,12 +519,35 @@ abstract class MultipleChoiceSale : Fragment() {
         binding.yearlyClNew.isChecked = true
         binding.yearlyClNew.setCardBackgroundColor(Color.WHITE)
 
-        binding.closeActivityButton2.setOnClickListener {
-            ReportButonClick("closeButtonClicked")
-            requireActivity().onBackPressed()
-            //requireActivity().finish()
-        }
+        binding.closeActivityButton2.apply {
+            if(isCloseButtonAnimationEnabled)
+            {
+                alpha = 0f
+                Handler(Looper.getMainLooper()).postDelayed(Runnable {
+                    animate().alpha(1f).setDuration(1000L).setListener(object  : AnimatorListenerAdapter(){
+                        override fun onAnimationEnd(animation: Animator?) {
+                            super.onAnimationEnd(animation)
 
+                            setOnClickListener {
+                                ReportButonClick("closeButtonClicked")
+                                requireActivity().onBackPressed()
+                                // requireActivity().finish()
+                            }
+                        }
+                    })
+                }, closeButtonAnimationTime)
+
+            }
+            else
+            {
+                setOnClickListener {
+                    ReportButonClick("closeButtonClicked")
+                    requireActivity().onBackPressed()
+                    // requireActivity().finish()
+                }
+            }
+
+        }
         binding.premiumSaleButtonGroup.viyatekPrivacyPolicy.setOnClickListener {
             ReportButonClick("privacyPolicyClicked")
             val browserIntent =

@@ -14,7 +14,6 @@ import com.android.billingclient.api.PurchaseHistoryRecord
 import com.android.billingclient.api.SkuDetails
 import com.android.volley.VolleyError
 import com.google.android.gms.ads.identifier.AdvertisingIdClient
-import com.google.android.gms.common.GooglePlayServicesNotAvailableException
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.viyatek.billing.BillingPrefHandlers
 import com.viyatek.billing.Campaign.CampaignHandler
@@ -27,7 +26,6 @@ import com.viyatek.billing.R
 import com.viyatek.billing.Statics
 import com.viyatek.billing.SubscriptionNetworkHelpers.SubscriptionDataFetch
 import com.viyatek.billing.databinding.ActivityViyatekPremiumBinding
-import java.io.IOException
 import java.lang.Exception
 
 
@@ -42,6 +40,10 @@ abstract class ViyatekPremiumActivity : AppCompatActivity(), InAppPurchaseListen
     var appsFlyerUUID = ""
     var gaid =""
 
+
+    var standAloneSku:String = "premium"
+    var standAloneCampaignSku: String = "premium"
+    var standAloneLocalCampaignSku: String = "premium"
 
     var secondSlotSku: String = "premium"
     var secondSlotCampaignSku: String = "premium"
@@ -82,10 +84,14 @@ abstract class ViyatekPremiumActivity : AppCompatActivity(), InAppPurchaseListen
     var activeMonthlySku: SkuDetails? = null
     var activeYearlySku: SkuDetails? = null
     var activeLifeTimeSku: SkuDetails? = null
+    var activeStandAloneSku : SkuDetails? = null
 
     var oldMonthlySku: SkuDetails? = null
     var oldYearlySku: SkuDetails? = null
     var oldLifeTimeSku: SkuDetails? = null
+    var oldStandAloneSku : SkuDetails? = null
+
+
 
     companion object {
         val billingLogs = "Billing"
@@ -125,8 +131,7 @@ abstract class ViyatekPremiumActivity : AppCompatActivity(), InAppPurchaseListen
         subSkuListHelper.addSku(thirdSlotSku)
         subSkuListHelper.addSku(thirdSlotCampaignSku)
         subSkuListHelper.addSku(thirdSlotLifeTimeSku)
-
-
+        subSkuListHelper.addSku(standAloneSku)
 
         subSkuListHelper.addSku(secondSlotSku)
         subSkuListHelper.addSku(firstSlotSku)
@@ -134,6 +139,8 @@ abstract class ViyatekPremiumActivity : AppCompatActivity(), InAppPurchaseListen
         subSkuListHelper.addSku(firstSlotMonthlySku)
         subSkuListHelper.addSku(firstSlotLocalCampaignSku)
         subSkuListHelper.addSku(secondSlotLocalCampaignSku)
+        subSkuListHelper.addSku(standAloneCampaignSku)
+        subSkuListHelper.addSku(standAloneLocalCampaignSku)
 
         premiumSkuHelper.addSku(thirdSlotSku)
         premiumSkuHelper.addSku(thirdSlotCampaignSku)
@@ -259,6 +266,7 @@ abstract class ViyatekPremiumActivity : AppCompatActivity(), InAppPurchaseListen
     open fun setPremiumActivityVariables(navInflater: NavInflater) {}
 
     override fun SubSkuFetched(subsciptionSkuDetailsList: List<SkuDetails>) {
+
         subscriptionSkuDetailsList.clear()
         subscriptionSkuDetailsList.addAll(subsciptionSkuDetailsList)
         isSubscriptionSkuFetched = true
@@ -283,6 +291,10 @@ abstract class ViyatekPremiumActivity : AppCompatActivity(), InAppPurchaseListen
                 firstSlotSku -> {
                     activeMonthlySku = skuDetails
                     oldMonthlySku = skuDetails
+                }
+                standAloneSku -> {
+                    activeStandAloneSku = skuDetails
+                    oldStandAloneSku = skuDetails
                 }
             }
         }
@@ -325,6 +337,7 @@ abstract class ViyatekPremiumActivity : AppCompatActivity(), InAppPurchaseListen
         val shouldBeYearlySku: String
         val shouldBeMonthlySku: String
         val shouldBeLifeTimeSku: String
+        val shouldBeStandAloneSku : String
 
         when (theCampaignType) {
             CampaignType.REMOTE_CAMPAIGN, CampaignType.SPECIAL_DAY_CAMPAIGN -> {
@@ -332,17 +345,20 @@ abstract class ViyatekPremiumActivity : AppCompatActivity(), InAppPurchaseListen
                 shouldBeYearlySku = secondSlotCampaignSku
                 shouldBeMonthlySku = firstSlotMonthlySku
                 shouldBeLifeTimeSku = thirdSlotCampaignSku
+                shouldBeStandAloneSku = standAloneCampaignSku
             }
 
             CampaignType.LOCAL_CAMPAIGN -> {
                 shouldBeMonthlySku = firstSlotLocalCampaignSku
                 shouldBeYearlySku = secondSlotLocalCampaignSku
                 shouldBeLifeTimeSku = thirdSlotLifeTimeSku
+                shouldBeStandAloneSku = standAloneLocalCampaignSku
             }
             else -> {
                 shouldBeYearlySku = secondSlotSku
                 shouldBeMonthlySku = firstSlotSku
                 shouldBeLifeTimeSku = thirdSlotSku
+                shouldBeStandAloneSku = standAloneSku
             }
         }
 
@@ -357,6 +373,9 @@ abstract class ViyatekPremiumActivity : AppCompatActivity(), InAppPurchaseListen
                 shouldBeMonthlySku -> {
                     activeMonthlySku = skuDetail
                 }
+                shouldBeStandAloneSku -> {
+                    activeStandAloneSku = skuDetail
+                }
             }
         }
 
@@ -370,6 +389,9 @@ abstract class ViyatekPremiumActivity : AppCompatActivity(), InAppPurchaseListen
                 }
                 shouldBeLifeTimeSku -> {
                     activeLifeTimeSku = skuDetail
+                }
+                shouldBeStandAloneSku -> {
+                    activeStandAloneSku = skuDetail
                 }
             }
         }
@@ -409,7 +431,7 @@ abstract class ViyatekPremiumActivity : AppCompatActivity(), InAppPurchaseListen
                 }
                 is PurchaseStandAloneFragment -> {
                     val (oldSkuDetail: SkuDetails?, activeSkuDetail) = handleSkuDetails()
-                    fragment.skuDetailsFetched(activeSkuDetail, oldSkuDetail)
+                    fragment.skuDetailsFetched(activeStandAloneSku, oldStandAloneSku)
                 }
 
             }
@@ -484,7 +506,6 @@ abstract class ViyatekPremiumActivity : AppCompatActivity(), InAppPurchaseListen
         }
 
         return null
-
     }
 
 }

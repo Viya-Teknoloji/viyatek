@@ -33,17 +33,19 @@ class QuerySubscriptionSkuHandler(
 
         Log.d("Subscription", "Sent Sku Names to Server " + subs_skuList.size)
 
-        val params = SkuDetailsParams.newBuilder()
-        params.setSkusList(subs_skuList).setType(BillingClient.SkuType.SUBS)
+        if(subs_skuList.isNotEmpty()) {
+            val params = SkuDetailsParams.newBuilder()
+            params.setSkusList(subs_skuList).setType(BillingClient.SkuType.SUBS)
 
-        billingClient.querySkuDetailsAsync(
-            params.build()
-        ) { billingResult, skuDetailsList ->
-            // Process the result.
-            if (billingResult.responseCode == BillingClient.BillingResponseCode.OK && skuDetailsList != null) {
-                listener.SubSkuFetched(skuDetailsList)
-            } else {
-                listener.SubSkuFetchedError(billingResult.responseCode)
+            billingClient.querySkuDetailsAsync(
+                params.build()
+            ) { billingResult, skuDetailsList ->
+                // Process the result.
+                if (billingResult.responseCode == BillingClient.BillingResponseCode.OK && skuDetailsList != null) {
+                    listener.SubSkuFetched(skuDetailsList)
+                } else {
+                    listener.SubSkuFetchedError(billingResult.responseCode)
+                }
             }
         }
 

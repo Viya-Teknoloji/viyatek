@@ -116,7 +116,7 @@
                         android:background="@color/gnt_blue"
                         android:lines="1"
                         android:textSize="@dimen/gnt_text_size_small"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         app:layout_constraintBottom_toBottomOf="@id/body"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@id/primary"
