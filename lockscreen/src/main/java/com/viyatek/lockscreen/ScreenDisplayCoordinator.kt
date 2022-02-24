@@ -59,7 +59,7 @@ class ScreenDisplayCoordinator(val activity: Context) {
     {
         Log.d(LOG_TAG, "Looking for User Prefs")
 
-        if (!lockScreenSharedPrefsHandler.isAfternoonOk() && !lockScreenSharedPrefsHandler.isLockScreenNotificationOk())
+        if (!lockScreenSharedPrefsHandler.isLockScreenOk() && !lockScreenSharedPrefsHandler.isLockScreenNotificationOk())
         {
             Log.d(LOG_TAG, "User don't want to take reminders. So it is not elligible to show")
             return false
