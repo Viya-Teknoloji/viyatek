@@ -18,6 +18,8 @@
         <entry key="ads/src/main/res/layout/admob_standalone_swipe_dark.xml" value="0.2493421052631579" />
         <entry key="ads/src/main/res/layout/advertiser_line.xml" value="0.19478827361563517" />
         <entry key="ads/src/main/res/layout/advertiser_line_dark.xml" value="0.19478827361563517" />
+        <entry key="ads/src/main/res/layout/applovin_ad_card_layout_feed.xml" value="0.24901315789473685" />
+        <entry key="ads/src/main/res/layout/applovin_lock_screen_end_ad.xml" value="0.2493421052631579" />
         <entry key="ads/src/main/res/layout/article_ad.xml" value="0.19671052631578947" />
         <entry key="ads/src/main/res/layout/facebook_lock_screen_end_ad.xml" value="0.19671052631578947" />
         <entry key="ads/src/main/res/layout/facebook_lock_screen_end_ad_dark.xml" value="0.2469055374592834" />
@@ -40,11 +42,13 @@
         <entry key="ads/src/main/res/layout/second_version_admob_standlone_feed_flutter.xml" value="0.19671052631578947" />
         <entry key="ads/src/main/res/layout/second_version_fb_ad_card_layout.xml" value="0.13333333333333333" />
         <entry key="ads/src/main/res/layout/second_version_pangle_ad_card_layout_feed_dark.xml" value="0.1" />
+        <entry key="ads/src/main/res/layout/second_version_pangle_card_layout_feed.xml" value="0.13256578947368422" />
         <entry key="ads/src/main/res/layout/second_version_tw_ad_card_layout_feed.xml" value="0.2469055374592834" />
         <entry key="ads/src/main/res/layout/second_version_tw_ad_card_layout_feed_dark.xml" value="0.19671052631578947" />
         <entry key="ads/src/main/res/layout/third_version_admob_standlone.xml" value="0.19671052631578947" />
         <entry key="ads/src/main/res/layout/third_version_tw_ad_card_layout_feed_dark.xml" value="0.2493421052631579" />
         <entry key="ads/src/main/res/layout/tw_ad_card_layout.xml" value="0.19478827361563517" />
+        <entry key="ads/src/main/res/layout/tw_ad_card_layout_feed.xml" value="0.2469055374592834" />
         <entry key="ads/src/main/res/layout/tw_lock_screen_end_ad.xml" value="0.2493421052631579" />
         <entry key="app_update/src/main/res/layout/fragment_whats_new.xml" value="0.2493421052631579" />
         <entry key="billing/src/main/res/layout/activity_viyatek_premium.xml" value="0.14868421052631578" />
@@ -55,8 +59,11 @@
         <entry key="billing/src/main/res/layout/facie_type_multiple_choice_new.xml" value="0.18472222222222223" />
         <entry key="billing/src/main/res/layout/fragment_purchase_stand_alone_card.xml" value="0.165" />
         <entry key="billing/src/main/res/layout/fragment_purchase_stand_alone_card_new.xml" value="0.18472222222222223" />
-        <entry key="billing/src/main/res/layout/fragment_stand_alone_sale.xml" value="0.18611111111111112" />
+        <entry key="billing/src/main/res/layout/fragment_stand_alone_sale.xml" value="0.25" />
         <entry key="billing/src/main/res/layout/premium_sale_button_group.xml" value="0.18611111111111112" />
+        <entry key="helper/src/main/res/font/rub.xml" value="0.26842105263157895" />
+        <entry key="inappads/src/main/res/layout/social_media.xml" value="0.24657980456026057" />
+        <entry key="lockscreen/src/main/res/layout/fragment_lock_screen_info.xml" value="0.24657980456026057" />
         <entry key="lockscreen/src/main/res/layout/lock_screen_fragments_action_button.xml" value="0.2469055374592834" />
         <entry key="lockscreen/src/main/res/layout/period_fragment.xml" value="0.2469055374592834" />
         <entry key="rate/src/main/res/drawable/ad_container_rounded_corner.xml" value="0.12927631578947368" />

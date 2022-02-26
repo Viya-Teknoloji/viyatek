@@ -160,7 +160,7 @@ abstract class ViyatekPremiumActivity : AppCompatActivity(), InAppPurchaseListen
             e.printStackTrace()
             null
         }
-        adInfo?.let { gaid = it.id }
+        adInfo?.let { it.id?.let { gaid = it  }  }
 
         Log.d(Statics.BILLING_LOGS, "Gaid $gaid")
 
@@ -182,7 +182,7 @@ abstract class ViyatekPremiumActivity : AppCompatActivity(), InAppPurchaseListen
                         Log.d(billingLogs, "Purchase History Record : $purchaseHistoryRecord")
 
                         if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
-                            if (subSkuListHelper.getSkuList().contains(purchaseHistoryRecord.sku)
+                            if (subSkuListHelper.getSkuList().contains(purchaseHistoryRecord.skus[0])
                             ) {
                                 billingPrefsHandler.setSubscriptionTrialModeUsed(true)
 
@@ -215,7 +215,7 @@ abstract class ViyatekPremiumActivity : AppCompatActivity(), InAppPurchaseListen
                             )
                                 .executeNetWorkCall(
                                     getString(R.string.viyatek_subscription_check_endpoint),
-                                    it.sku,
+                                    it.skus[0],
                                     it.purchaseToken
                                 )
                         }
@@ -228,7 +228,7 @@ abstract class ViyatekPremiumActivity : AppCompatActivity(), InAppPurchaseListen
                                 for (purchaseHistoryRecord in purchaseHistoryRecords) {
                                     if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
 
-                                        if (premiumSkuHelper.getSkuList().contains(purchaseHistoryRecord.sku))
+                                        if (premiumSkuHelper.getSkuList().contains(purchaseHistoryRecord.skus[0]))
                                         {
 
                                             Log.d("Billing", "Made Premium in Premium Activity async restore func")

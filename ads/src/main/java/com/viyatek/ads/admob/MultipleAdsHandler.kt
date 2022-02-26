@@ -39,7 +39,6 @@ class MultipleAdsHandler (
                 .setRequestMultipleImages(true)
                 .build()
 
-
             val builder = AdLoader.Builder(theContext, nativeAdID)
 
             adLoader = builder.forNativeAd { nativeAd -> // A native ad loaded successfully, check if the ad loader has finished loading
@@ -112,7 +111,7 @@ class MultipleAdsHandler (
             var indexInCellData: Int
             var finalindex: Int
 
-            for ((i, ad) in mNativeAds.withIndex()) {
+            for ((i, _) in mNativeAds.withIndex()) {
 
                 index = min(i, adFrequency.size - 1)
 
@@ -140,7 +139,7 @@ class MultipleAdsHandler (
                 indexInCellData = adFrequency[mNativeAds.size - 1]
                 finalindex += indexInCellData
 
-                if(mRecyclerViewList.size > finalindex)
+                if(mRecyclerViewList.size > finalindex && mRecyclerViewList[finalindex] !is NativeAd)
                 {
                     mRecyclerViewList.add(finalindex, mNativeAds.last())
                     mRecyclerView.adapter?.notifyItemInserted(finalindex)
@@ -150,7 +149,7 @@ class MultipleAdsHandler (
 
             else {
                 finalindex += adAfterFrequencyArray
-                if (finalindex < mRecyclerViewList.size) {
+                if (finalindex < mRecyclerViewList.size && mRecyclerViewList[finalindex] !is NativeAd) {
 
                     mRecyclerViewList.add(finalindex, mNativeAds.last())
                     mRecyclerView.adapter?.notifyItemInserted(finalindex)

@@ -90,19 +90,19 @@ class ProcessStandAloneAd(
                 .build()
         )
 
-        val pangleAdRenderer = PangleAdRenderer(
+/*        val pangleAdRenderer = PangleAdRenderer(
             PangleAdViewBinder.Builder(R.layout.pangle_lock_screen_end_ad)
                 .callToActionId(R.id.tw_lock_screen_ad_button)
                 .decriptionTextId(R.id.tw_lock_screen_ad_text) //.iconImageId(R.id.native_icon_image)
                 .titleId(R.id.tw_lock_screen_ad_headline)
                 .mediaViewIdId(R.id.pangle_media) // Bind to <com.bytedance.sdk.openadsdk.adapter.MediaView /> in XML
                 .build()
-        )
+        )*/
 
         moPubNative.registerAdRenderer(facebookAdRenderer)
         moPubNative.registerAdRenderer(moPubStaticNativeAdRenderer)
         moPubNative.registerAdRenderer(googlePlayServicesAdRenderer)
-        moPubNative.registerAdRenderer(pangleAdRenderer)
+       // moPubNative.registerAdRenderer(pangleAdRenderer)
         moPubNative.makeRequest()
 
         adapterHelper = AdapterHelper(context, 0, 5)

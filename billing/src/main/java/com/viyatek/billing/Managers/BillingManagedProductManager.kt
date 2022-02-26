@@ -44,7 +44,7 @@ class BillingManagedProductManager(
 
     override fun handlePurchase(purchase: Purchase) {
 
-        val sku = purchase.sku
+        val sku = purchase.skus[0]
 
         if (purchase.purchaseState == Purchase.PurchaseState.PURCHASED) {
             if (managedProductSkuList.contains(sku)) {

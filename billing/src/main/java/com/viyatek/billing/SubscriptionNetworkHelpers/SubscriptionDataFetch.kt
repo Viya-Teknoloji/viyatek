@@ -70,7 +70,7 @@ class SubscriptionDataFetch(
 
         Log.d(ViyatekPremiumActivity.billingLogs, "Subs Data Fetch")
 
-        val theSku =purchase.sku
+        val theSku =purchase.skus[0]
 
         val url = Uri.parse(endpoint)
             .buildUpon()

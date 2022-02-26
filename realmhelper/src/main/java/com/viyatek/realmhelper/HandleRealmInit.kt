@@ -125,7 +125,6 @@ abstract class HandleRealmInit(private val context: Context,
 
         } catch (e: RealmFileException) {
             Log.d(realmTag, "Realm File Exception ${realmPrefManager.getRealmKey()}")
-            Realm.deleteRealm(defaultRealmConfiguration)
             initRealmWhenUpdateOrCreate()
             Realm.getInstance(defaultRealmConfiguration)
         }

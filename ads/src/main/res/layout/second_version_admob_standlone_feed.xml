@@ -65,7 +65,7 @@
                         android:id="@+id/icon"
                         android:layout_width="0dp"
                         android:layout_height="48dp"
-                        android:layout_marginTop="@dimen/gnt_default_margin"
+                        android:layout_marginTop="8dp"
                         android:layout_marginBottom="@dimen/gnt_no_margin"
                         android:layout_weight="0"
                         android:scaleType="fitCenter"
@@ -73,7 +73,7 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintDimensionRatio="H,1:1"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/ad_notification_view"
+                        app:layout_constraintTop_toTopOf="@+id/primary"
                         app:layout_constraintVertical_bias="0.0" />
 
                     <TextView
@@ -85,7 +85,8 @@
                         android:lines="1"
                         android:textSize="@dimen/gnt_text_size_large"
                         android:textStyle="bold"
-                        app:layout_constraintEnd_toStartOf="@id/cta"
+
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/icon"
                         app:layout_constraintTop_toBottomOf="@+id/ad_notification_view"
                         tools:text="Ultimate Facts" />
@@ -102,24 +103,25 @@
                         app:autoSizeMaxTextSize="16sp"
                         app:autoSizeMinTextSize="12sp"
                         app:autoSizeTextType="uniform"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintBottom_toBottomOf="@+id/icon"
                         app:layout_constraintEnd_toEndOf="@id/primary"
                         app:layout_constraintStart_toStartOf="@id/primary"
                         app:layout_constraintTop_toBottomOf="@id/primary"
                         tools:text="Learn Sth New EveryDay" />
 
 
-                    <Button
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/cta"
-                        android:layout_width="wrap_content"
+                        style="@style/Widget.MaterialComponents.Button"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:background="@color/gnt_blue"
                         android:lines="1"
                         android:textSize="@dimen/gnt_text_size_small"
+                        app:cornerRadius="8dp"
                         android:visibility="visible"
-                        app:layout_constraintBottom_toBottomOf="@id/body"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/primary"
+                        app:layout_constraintStart_toStartOf="@+id/icon"
+                        app:layout_constraintTop_toBottomOf="@+id/icon"
                         tools:text=" Install" />
 
 

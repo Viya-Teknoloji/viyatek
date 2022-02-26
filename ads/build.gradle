@@ -9,13 +9,16 @@ githubProperties.load(new FileInputStream(rootProject.file("github.properties"))
 
 
 def getVersionName = { ->
-    return "2.4.4" // Replace with version Name
+    return "2.5.9" // Replace with version Name
 }
 
 def getArtifactId = { ->
     return "ads" // Replace with library name ID
 }
 
+repositories {
+    maven { url 'https://artifact.bytedance.com/repository/pangle' }
+}
 publishing {
     publications {
         bar(MavenPublication) {
@@ -66,6 +69,7 @@ publishing {
                 password = githubProperties['gpr.key'] ?: System.getenv("GPR_API_KEY")
             }
         }
+
     }
 }
 
@@ -74,7 +78,7 @@ android {
 
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 30
+        targetSdkVersion 31
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -103,26 +107,25 @@ dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.appcompat:appcompat:1.4.0'
-    implementation 'com.google.android.material:material:1.4.0'
+    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation 'com.google.android.material:material:1.5.0'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
-
     implementation('com.mopub:mopub-sdk:5.18.0@aar') {transitive = true}
 
     implementation 'com.facebook.android:audience-network-sdk:6.8.0'
     implementation 'com.mopub.mediation:facebookaudiencenetwork:6.6.0.0'
 
-    implementation 'com.bytedance.sdk:pangle-sdk:3.4.1.1'
-    implementation 'com.mopub.mediation:pangle:3.4.1.1.1'
 
-    implementation 'com.google.android.gms:play-services-ads:20.4.0'
+    implementation 'com.pangle.global:ads-sdk:4.1.1.2'
+    implementation 'com.mopub.mediation:pangle:4.1.1.2.0'
+
+    implementation 'com.google.android.gms:play-services-ads:20.5.0'
     implementation 'com.mopub.mediation:admob:20.2.0.0'
 
-    implementation 'com.google.android.gms:play-services-ads-identifier:17.1.0'
-    implementation 'com.google.android.gms:play-services-base:17.6.0'
+    implementation 'com.google.android.gms:play-services-ads-identifier:18.0.1'
+    implementation 'com.google.android.gms:play-services-base:18.0.1'
 
-    implementation 'com.mopub.volley:mopub-volley:2.1.0'
-    implementation 'com.applovin:applovin-sdk:11.0.0'
-}
+    implementation 'com.applovin:applovin-sdk:11.1.0'
+  }

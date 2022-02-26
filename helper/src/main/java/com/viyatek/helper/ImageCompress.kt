@@ -146,7 +146,15 @@ class ImageCompress(val context : Context) {
         return if(cursor != null && cursor.moveToFirst())
         {
             val index: Int = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA)
-            cursor.getString(index)
+
+            try {
+                cursor.getString(index)
+            }
+            catch (e:android.database.CursorIndexOutOfBoundsException)
+            {
+                contentURI.path!!
+            }
+
         }
         else
         {

@@ -124,9 +124,10 @@ abstract class FacieTypeMultipleChoiceSale : Fragment() {
                         BillingFlowParams.newBuilder()
                             .setObfuscatedAccountId((requireActivity() as ViyatekPremiumActivity).appsFlyerUUID)
                             .setObfuscatedProfileId((requireActivity() as ViyatekPremiumActivity).gaid)
-                            .setOldSku(oldPurchasedSkuId, oldPurchaseSkuToken)
+                            .setSubscriptionUpdateParams(BillingFlowParams.SubscriptionUpdateParams.newBuilder().setOldSkuPurchaseToken(oldPurchaseSkuToken).build())
                             .setSkuDetails(activeSku!!)
                             .build()
+
                     } else {
                         Log.d(Statics.BILLING_LOGS, "Original Price ${activeSku?.originalPrice} normal price ${activeSku?.price}")
 

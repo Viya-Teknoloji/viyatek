@@ -29,7 +29,7 @@ internal class QueryManagedProductsHandler(
         if (boughtManagedProducts != null && boughtManagedProducts.size > 0) {
             for (purchase in boughtManagedProducts) {
 
-                Log.d("Bill", "Consuming managed products what purchase ${purchase.sku}")
+                Log.d("Bill", "Consuming managed products what purchase ${purchase.skus[0]}")
 
                 if(managedProductsListener == null)
                 {

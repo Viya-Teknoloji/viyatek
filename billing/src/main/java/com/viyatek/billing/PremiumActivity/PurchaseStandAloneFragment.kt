@@ -343,7 +343,7 @@ abstract class PurchaseStandAloneFragment : Fragment() {
                     BillingFlowParams.newBuilder()
                         .setObfuscatedAccountId((requireActivity() as ViyatekPremiumActivity).appsFlyerUUID)
                         .setObfuscatedProfileId((requireActivity() as ViyatekPremiumActivity).gaid)
-                        .setOldSku(oldPurchasedSkuId, oldPurchaseSkuToken)
+                        .setSubscriptionUpdateParams(BillingFlowParams.SubscriptionUpdateParams.newBuilder().setOldSkuPurchaseToken(oldPurchaseSkuToken).build())
                         .setSkuDetails(activeSkuDetail!!)
                         .build()
                 } else {
