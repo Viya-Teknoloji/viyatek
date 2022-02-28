@@ -2,14 +2,19 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.viyatek.lockscreen">
 
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
 
     <application>
-        <activity android:name=".LockScreenActivity"></activity>
+        <activity
+            android:exported="true"
+            android:name=".LockScreenActivity" />
 
-        <service android:name=".LockScreenService" />
+        <service
+            android:exported="true"
+            android:name=".LockScreenService" />
     </application>
 
 </manifest>

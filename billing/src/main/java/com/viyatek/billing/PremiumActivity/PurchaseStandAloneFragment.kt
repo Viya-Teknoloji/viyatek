@@ -1,9 +1,13 @@
 package com.viyatek.billing.PremiumActivity
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.SpannableStringBuilder
@@ -42,6 +46,8 @@ abstract class PurchaseStandAloneFragment : Fragment() {
     private var oldSkuDetail: SkuDetails? = null
     val billingPrefHandlers by lazy { BillingPrefHandlers(requireContext()) }
     val mFireBaseAnalytics by lazy { FirebaseAnalytics.getInstance(requireContext()) }
+    var isCloseButtonAnimationEnabled = false
+    var closeButtonAnimationTime = 1000L
 
     private val theActivity by lazy { (requireActivity() as ViyatekPremiumActivity) }
     override fun onCreateView(
@@ -55,18 +61,46 @@ abstract class PurchaseStandAloneFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        activeSkuDetail = when (activeSkuType) {
+        activeSkuDetail = theActivity.activeStandAloneSku
+
+/*        activeSkuDetail = when (activeSkuType) {
             ActiveSku.MONTHLY -> { theActivity.activeMonthlySku }
             ActiveSku.YEARLY -> { theActivity.activeYearlySku }
             ActiveSku.LIFETIME -> { theActivity.activeLifeTimeSku }
-        }
+        }*/
 
         bindData()
 
-        binding.closeActivityButton.setOnClickListener {
-            ReportButonClick("closeButtonClicked")
-            requireActivity().onBackPressed()
-           // requireActivity().finish()
+        binding.closeActivityButton.apply {
+
+            if(isCloseButtonAnimationEnabled)
+            {
+                alpha = 0f
+
+                Handler(Looper.getMainLooper()).postDelayed(Runnable {
+                    animate().alpha(1f).setDuration(1000L).setListener(object  : AnimatorListenerAdapter(){
+                        override fun onAnimationEnd(animation: Animator?) {
+                            super.onAnimationEnd(animation)
+
+                            setOnClickListener {
+                                ReportButonClick("closeButtonClicked")
+                                requireActivity().onBackPressed()
+                                // requireActivity().finish()
+                            }
+                        }
+                    })
+                }, closeButtonAnimationTime)
+
+            }
+            else
+            {
+                setOnClickListener {
+                    ReportButonClick("closeButtonClicked")
+                    requireActivity().onBackPressed()
+                    // requireActivity().finish()
+                }
+            }
+
         }
 
         binding.saleButtonGroup.viyatekPrivacyPolicy.setOnClickListener {
@@ -309,7 +343,7 @@ abstract class PurchaseStandAloneFragment : Fragment() {
                     BillingFlowParams.newBuilder()
                         .setObfuscatedAccountId((requireActivity() as ViyatekPremiumActivity).appsFlyerUUID)
                         .setObfuscatedProfileId((requireActivity() as ViyatekPremiumActivity).gaid)
-                        .setOldSku(oldPurchasedSkuId, oldPurchaseSkuToken)
+                        .setSubscriptionUpdateParams(BillingFlowParams.SubscriptionUpdateParams.newBuilder().setOldSkuPurchaseToken(oldPurchaseSkuToken).build())
                         .setSkuDetails(activeSkuDetail!!)
                         .build()
                 } else {

@@ -47,7 +47,7 @@ class SubscriptionVerification(
         val url = Uri.parse(endpoint)
             .buildUpon()
             .appendQueryParameter("token", purchase.purchaseToken)
-            .appendQueryParameter("subscriptionId", purchase.sku)
+            .appendQueryParameter("subscriptionId", purchase.skus[0])
             .appendQueryParameter("packageName", activity.applicationContext.packageName)
             .build()
 
@@ -143,7 +143,7 @@ class SubscriptionVerification(
                 returnedToken,
                 expiryTimeMillis,
                 1,
-                purchase.sku
+                purchase.skus[0]
             )
 
             if (isSubscribed) {
@@ -154,7 +154,7 @@ class SubscriptionVerification(
 
                 billingPrefHandlers.apply {
                     setSubscribed(true)
-                    setSubscriptionType(purchase.sku)
+                    setSubscriptionType(purchase.skus[0])
                 }
 
                 listener.SubscriptionVerified()

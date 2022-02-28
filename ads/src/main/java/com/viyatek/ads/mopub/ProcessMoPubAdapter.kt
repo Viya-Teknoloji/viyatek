@@ -15,11 +15,15 @@ class ProcessMoPubAdapter(private val activity: Activity,
                           private val designVersionNumber : Int = 1
 ) {
 
+    val myMoPubAdapter = MoPubRecyclerAdapter(activity, adapter)
+
+    fun getMoPubAdapter() : MoPubRecyclerAdapter{
+        return myMoPubAdapter
+    }
+
     fun init() {
 
-        val myMoPubAdapter = MoPubRecyclerAdapter(activity, adapter)
-
-            val myViewBinder = if(isSwipe) {
+             val myViewBinder = if(isSwipe) {
                 ViewBinder.Builder(
                     if(isDark) { R.layout.tw_ad_card_layout_dark }
                     else { R.layout.tw_ad_card_layout })

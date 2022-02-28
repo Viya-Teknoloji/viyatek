@@ -9,6 +9,7 @@ class AnalyticsHandler(private val context: Context) {
 
     private val firebaseAnalytics by lazy { FirebaseAnalytics.getInstance(context) }
 
+
     fun logEvent(eventName:String, eventBundle: Bundle?)
     { firebaseAnalytics.logEvent(eventName, eventBundle) }
 

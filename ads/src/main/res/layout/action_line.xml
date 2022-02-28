@@ -14,6 +14,7 @@
     app:layout_constraintTop_toBottomOf="@id/main_line"
     tools:showIn="@layout/tw_ad_card_layout">
 
+
     <TextView
         android:id="@+id/ad_price"
         android:layout_width="wrap_content"

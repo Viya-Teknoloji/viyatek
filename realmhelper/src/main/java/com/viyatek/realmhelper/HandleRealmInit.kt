@@ -16,7 +16,8 @@ import java.io.File
 abstract class HandleRealmInit(private val context: Context,
                                private val migration : RealmMigration,
                                private val defaultSchemaVersion : Long,
-                               private val destinationName: String = "default.realm") {
+                               private val destinationName: String = "default.realm",
+                               private val shoulMigrationAppliedToThePopulatedRealm : Boolean = false) {
 
     private val realmTag = "Realm"
     private val realmPrefManager by lazy {RealmPrefManager(context) }
@@ -24,7 +25,11 @@ abstract class HandleRealmInit(private val context: Context,
 
     //private val mFirebaseAnalytics by lazy { AnalyticsHandler(context) }
 
-    private val populatedRealmConfiguration by lazy { getPopulatedRealmConfig(populatedRealmKey, defaultSchemaVersion)}
+    private val populatedRealmConfiguration by lazy {
+        if(shoulMigrationAppliedToThePopulatedRealm) {getPopulatedRealmConfig(populatedRealmKey, defaultSchemaVersion,migrationClass = migration)}
+        else getPopulatedRealmConfig(populatedRealmKey, defaultSchemaVersion)
+        }
+
     private val defaultRealmConfiguration by lazy { getDefaultRealmConfig(key, migration, defaultSchemaVersion, destinationName) }
 
     private val backgroundRealm by lazy { Realm.getInstance(defaultRealmConfiguration) }
@@ -64,12 +69,12 @@ abstract class HandleRealmInit(private val context: Context,
             }
         }
 
-        fun getPopulatedRealmConfig(populatedKey: ByteArray, schemaVersion: Long = 11L, assetName : String = "populated.realm") : RealmConfiguration {
+        fun getPopulatedRealmConfig(populatedKey: ByteArray, schemaVersion: Long = 11L, assetName : String = "populated.realm", migrationClass : RealmMigration? = null) : RealmConfiguration {
             return when {
                 populatedRealmConfigInstance != null -> populatedRealmConfigInstance!!
 
                 else -> {
-                    populatedRealmConfigInstance = RealmConfiguration.Builder()
+                    populatedRealmConfigInstance = if(migrationClass == null) RealmConfiguration.Builder()
                         .schemaVersion(schemaVersion)
                         .compactOnLaunch()
                         .encryptionKey(populatedKey)
@@ -77,7 +82,19 @@ abstract class HandleRealmInit(private val context: Context,
                         .name(assetName)
                         .allowQueriesOnUiThread(true)
                         .allowWritesOnUiThread(true)
-                        .build()
+                        .build() else
+                    {
+                        RealmConfiguration.Builder()
+                            .schemaVersion(schemaVersion)
+                            .compactOnLaunch()
+                            .encryptionKey(populatedKey)
+                            .assetFile(assetName)
+                            .name(assetName)
+                            .migration(migrationClass)
+                            .allowQueriesOnUiThread(true)
+                            .allowWritesOnUiThread(true)
+                            .build()
+                    }
 
                     return populatedRealmConfigInstance!!
                 }
@@ -102,14 +119,12 @@ abstract class HandleRealmInit(private val context: Context,
             setDefault()
             Realm.getInstance(defaultRealmConfiguration)
         } catch (e: RealmMigrationNeededException) {
-
             Log.d(realmTag, "Migration Needed Exception $e")
             logMigrationNeededExceptionRealm()
             Realm.getInstance(defaultRealmConfiguration)
 
         } catch (e: RealmFileException) {
             Log.d(realmTag, "Realm File Exception ${realmPrefManager.getRealmKey()}")
-            Realm.deleteRealm(defaultRealmConfiguration)
             initRealmWhenUpdateOrCreate()
             Realm.getInstance(defaultRealmConfiguration)
         }

@@ -47,16 +47,16 @@
     <string name="access_to_all_features">Access to All Features</string>
     <string name="unlock_premium">UNLOCK PREMIUM</string>
 
-    <string name="thousands_of_new_facts_articles"><![CDATA[Thousands of New Facts & Articles]]></string>
+    <string name="thousands_of_new_facts_articles" translatable="false"><![CDATA[Thousands of New Facts & Articles]]></string>
 
-    <string name="backup_premium_text">Backup your bookmarks and seen facts.</string>
+    <string name="backup_premium_text" translatable="false">Backup your bookmarks and seen facts.</string>
     <string name="close_premium_sale_page" translatable="false">Close Premium Sale Page</string>
-    <string name="regularly_updated_content">Regularly Updated Content</string>
+    <string name="regularly_updated_content" translatable="false">Regularly Updated Content</string>
 
-    <string name="premium_cond_1">Thousands of handpicked quotes</string>
-    <string name="premium_cond_2">Unlock All Premium Themes</string>
-    <string name="premium_cond_3">Ad Free Experience</string>
-    <string name="premium_cond_4">Remove Watermark</string>
+    <string name="premium_cond_1" translatable="false">Thousands of handpicked quotes</string>
+    <string name="premium_cond_2" translatable="false">Unlock All Premium Themes</string>
+    <string name="premium_cond_3" translatable="false">Ad Free Experience</string>
+    <string name="premium_cond_4" translatable="false">Remove Watermark</string>
 
     <string name="select_plan_text">Select your plan to start your 3-day trial or lifetime purchase</string>
     <string name="select_plan_text_new_premium">Try %1$s-days free, then %2$s/year</string>
@@ -65,7 +65,7 @@
     <string name="premium_sale_page_background" translatable="false">Premium Sale Page Background</string>
     <string name="privacy_policy">Privacy Policy</string>
     <string name="terms_of_use">Terms of Use</string>
-    <string name="divider">|</string>
+    <string name="divider" translatable="false">|</string>
     <string name="see_other_subscription_plans">See other subscription plans</string>
     <string name="subscribe_now">SUBSCRIBE NOW</string>
     <string name="pay_once">Pay once</string>
@@ -79,26 +79,26 @@
     <string name="restore_purchase">Restore Purchase</string>
     <string name="premium_purchase">Thank you for your purchase. You are premium member now.</string>
 
-    <string name="subscription_term_of_use">
+    <string name="subscription_term_of_use" translatable="false">
         By starting your subscription, your payment will be charged to your Google Play Account, and your subscription will automatically renew
         at the same price until you cancel in settings in Google Play store. By tapping "Upgrade Premium" you agree
         to our &lt;a href="http://www.viyateknoloji.com/ultimate-facts-terms-of-use/">Terms of Service&lt;/a>
     </string>
 
-    <string name="premium_purchase_terms">
+    <string name="premium_purchase_terms" translatable="false">
 By tapping "Upgrade Premium" you agree
         to our &lt;a href="http://www.viyateknoloji.com/ultimate-facts-terms-of-use/">Terms of Service&lt;/a>
     </string>
 
-    <string name="subscription_term_of_use_free">
+    <string name="subscription_term_of_use_free" translatable="false">
         By clicking "Start My Free Trial", you will begin your 3-day free trial. Your payment will be charged to your Google
         Play Account after free trial. Your subscription will automatically renew at the same price until you cancel in
         settings in Google Play store. By tapping "Start My Free Trial" you agree to our &lt;a href="http://www.viyateknoloji.com/ultimate-facts-terms-of-use/">Terms of Service&lt;/a>
     </string>
-    <string name="uf_premium_second">45+ Topics</string>
-    <string name="uf_premium_third">Regularly Updated Content</string>
-    <string name="uf_premium_forth">Ad Free Experience</string>
-    <string name="uf_premium_fifth">Access Audio Content of All Facts</string>
+    <string name="uf_premium_second" translatable="false">45+ Topics</string>
+    <string name="uf_premium_third" translatable="false">Regularly Updated Content</string>
+    <string name="uf_premium_forth" translatable="false">Ad Free Experience</string>
+    <string name="uf_premium_fifth" translatable="false">Access Audio Content of All Facts</string>
 
     <string name="premium_subtitle">Unlimited Access</string>
     <string name="facie">Facie</string>

@@ -2,6 +2,8 @@ package com.viyatek.billing
 
 import android.content.Context
 import com.google.android.gms.ads.identifier.AdvertisingIdClient
+
+
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -14,8 +16,19 @@ class GetAdvertisementId(val context: Context) {
                 //Connect with start(), disconnect with finish()
                 adInfo.start()
                 val adIdInfo = adInfo.info
-                adInfo.finish()
-                adIdInfo.id
+
+                adInfo.zza()
+
+                if(adIdInfo.id.isNullOrEmpty()) {
+                    ""
+                }
+                else
+                {
+                    adIdInfo.id!!
+                }
+
+
+
             }
 
     }

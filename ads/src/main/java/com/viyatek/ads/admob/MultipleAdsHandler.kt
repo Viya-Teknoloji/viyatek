@@ -28,7 +28,7 @@ class MultipleAdsHandler (
     var finalindex: Int = 0
     private var adloaded = false
 
-    override fun loadNativeAds() {
+    override fun loadNativeAds(multipleAdsCount : Int) {
 
             val videoOptions = VideoOptions.Builder()
                 .setStartMuted(true)
@@ -38,7 +38,6 @@ class MultipleAdsHandler (
                 .setVideoOptions(videoOptions)
                 .setRequestMultipleImages(true)
                 .build()
-
 
             val builder = AdLoader.Builder(theContext, nativeAdID)
 
@@ -54,6 +53,11 @@ class MultipleAdsHandler (
                 object : AdListener() {
                     override fun onAdFailedToLoad(adError: LoadAdError?) {
                         super.onAdFailedToLoad(adError)
+
+                        Log.d("Ads","AdMob ad load failed ${adError?.message}"  )
+                        Log.d("Ads","AdMob ad load failed cause ${adError?.cause?.message}"  )
+                        Log.d("Ads","AdMob ad load failed response id${adError?.responseInfo?.responseId}"  )
+                        Log.d("Ads","AdMob ad load failed response id${adError?.code}")
 
                         adMobAdListener?.adFailedToLoad(adError)
 
@@ -87,9 +91,17 @@ class MultipleAdsHandler (
 
             val index: Int = (mRecyclerView.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
 
+            Log.d("MESAJLARIM", "index : $index is ad loaded : $adloaded my native ads size ${mNativeAds.size}")
+
             if (index > mNativeAds.size * 5 && adloaded) {
                 adloaded = false
-                loadNativeAds() }
+                Log.d("MESAJLARIM", "Loading new ads in mah")
+                loadNativeAds()
+            }
+            else if (!adLoader?.isLoading!! && index > mNativeAds.size * 5) {
+                adloaded = true
+                insertAds()
+            }
         }
 
         override fun insertAdsInMenuItems() {
@@ -99,7 +111,7 @@ class MultipleAdsHandler (
             var indexInCellData: Int
             var finalindex: Int
 
-            for ((i, ad) in mNativeAds.withIndex()) {
+            for ((i, _) in mNativeAds.withIndex()) {
 
                 index = min(i, adFrequency.size - 1)
 
@@ -127,7 +139,7 @@ class MultipleAdsHandler (
                 indexInCellData = adFrequency[mNativeAds.size - 1]
                 finalindex += indexInCellData
 
-                if(mRecyclerViewList.size > finalindex)
+                if(mRecyclerViewList.size > finalindex && mRecyclerViewList[finalindex] !is NativeAd)
                 {
                     mRecyclerViewList.add(finalindex, mNativeAds.last())
                     mRecyclerView.adapter?.notifyItemInserted(finalindex)
@@ -137,7 +149,7 @@ class MultipleAdsHandler (
 
             else {
                 finalindex += adAfterFrequencyArray
-                if (finalindex < mRecyclerViewList.size) {
+                if (finalindex < mRecyclerViewList.size && mRecyclerViewList[finalindex] !is NativeAd) {
 
                     mRecyclerViewList.add(finalindex, mNativeAds.last())
                     mRecyclerView.adapter?.notifyItemInserted(finalindex)

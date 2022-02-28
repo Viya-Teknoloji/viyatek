@@ -45,7 +45,7 @@ class BillingSubscribeManager(
     }
 
     override fun handlePurchase(purchase: Purchase) {
-        val sku = purchase.sku
+        val sku = purchase.skus[0]
 
         if (purchase.purchaseState == Purchase.PurchaseState.PURCHASED) {
             if (subscriptionSkuList.contains(sku)) {
@@ -84,7 +84,7 @@ class BillingSubscribeManager(
                     activity.getString(
                         R.string.face_find_subscription_check,
                         purchase.purchaseToken,
-                        purchase.sku
+                        purchase.skus[0]
                     )
                 }
                 else
@@ -92,7 +92,7 @@ class BillingSubscribeManager(
                     activity.getString(
                         R.string.viyatek_subscription_validation,
                         purchase.purchaseToken,
-                        purchase.sku,
+                        purchase.skus[0],
                         activity.applicationContext.applicationInfo.packageName
                     )
                 }

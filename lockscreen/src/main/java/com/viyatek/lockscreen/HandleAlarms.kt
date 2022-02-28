@@ -9,9 +9,6 @@ import android.util.Log
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequest
 import androidx.work.WorkManager
-import com.viyatek.lockscreen.Statics.IS_LOCK_SCREEN_NOTIFICATION_OK
-import com.viyatek.lockscreen.Statics.IS_LOCK_SCREEN_OK
-import com.viyatek.lockscreen.Statics.SHOW_TIME
 import com.viyatek.preferences.ViyatekSharedPrefsHandler
 import java.text.SimpleDateFormat
 import java.util.*
@@ -37,12 +34,17 @@ class HandleAlarms(private val context: Context, private val intent: Intent) {
 
 
     val pendingIntent: PendingIntent by lazy {
-        PendingIntent.getBroadcast(
-            context,
-            Statics.pendingIntentRequestCode,
-            intent,
-            PendingIntent.FLAG_UPDATE_CURRENT
-        )
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            PendingIntent.getBroadcast(context, 0, intent,PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+        }
+        else{
+            PendingIntent.getBroadcast(
+                context,
+                Statics.pendingIntentRequestCode,
+                intent,
+                PendingIntent.FLAG_UPDATE_CURRENT
+            )
+        }
     }
 
     fun updateAlarmTime()

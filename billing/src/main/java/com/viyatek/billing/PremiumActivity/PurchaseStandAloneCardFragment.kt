@@ -113,7 +113,7 @@ abstract class PurchaseStandAloneCardFragment : Fragment(), SubscriptionListener
                         Log.d(ViyatekPremiumActivity.billingLogs, "Purchase History Record : $purchaseHistoryRecord")
 
                         if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
-                            if (subSkuListHelper.getSkuList().contains(purchaseHistoryRecord.sku)
+                            if (subSkuListHelper.getSkuList().contains(purchaseHistoryRecord.skus[0])
                             ) {
                                 billingPrefsHandler.setSubscriptionTrialModeUsed(true)
 
@@ -145,7 +145,7 @@ abstract class PurchaseStandAloneCardFragment : Fragment(), SubscriptionListener
                         )
                             .executeNetWorkCall(
                                 getString(R.string.viyatek_subscription_check_endpoint),
-                                it.sku,
+                                it.skus[0],
                                 it.purchaseToken
                             )
                         }
@@ -304,15 +304,21 @@ abstract class PurchaseStandAloneCardFragment : Fragment(), SubscriptionListener
             val oldPurchaseSkuToken = billingPrefHandlers.getSubscriptionToken()!!
 
             val flowParams =
-                if (subSkuListHelper.getSkuList().contains(oldPurchasedSkuId)
+                if (subSkuListHelper.getSkuList().contains(oldPurchasedSkuId) && !oldPurchaseSkuToken.isEmpty()
                 ) {
+
+
                     BillingFlowParams.newBuilder()
-                        .setOldSku(oldPurchasedSkuId, oldPurchaseSkuToken)
-                        .setObfuscatedAccountId(appsFlyerUUID)
+                        .setObfuscatedAccountId((requireActivity() as ViyatekPremiumActivity).appsFlyerUUID)
+                        .setObfuscatedProfileId((requireActivity() as ViyatekPremiumActivity).gaid)
+                        .setSubscriptionUpdateParams(BillingFlowParams.SubscriptionUpdateParams.newBuilder().setOldSkuPurchaseToken(oldPurchaseSkuToken).build())
                         .setSkuDetails(activeSkuDetail!!)
                         .build()
+
                 } else {
                     BillingFlowParams.newBuilder()
+                        .setObfuscatedAccountId((requireActivity() as ViyatekPremiumActivity).appsFlyerUUID)
+                        .setObfuscatedProfileId((requireActivity() as ViyatekPremiumActivity).gaid)
                         .setSkuDetails(activeSkuDetail!!)
                         .setObfuscatedAccountId(appsFlyerUUID)
                         .build()
