@@ -74,7 +74,7 @@ class MaxInterstitialAdViewModel : ViewModel(){
 
     fun loadInterstitialAd(adUnitId : String = "91a7a38265d70a40", theActivity: Activity)
     {
-        setTheInterstitialAd(theActivity = theActivity)
+        setTheInterstitialAd(adUnitId,theActivity = theActivity)
         theInterstitialAd.value?.loadAd()
     }
 
@@ -136,7 +136,7 @@ class MaxInterstitialAdViewModel : ViewModel(){
                 it.showAd()
             }
             else
-            isOnAdLoadedActive = true
+                isOnAdLoadedActive = true
         }
 
     }
