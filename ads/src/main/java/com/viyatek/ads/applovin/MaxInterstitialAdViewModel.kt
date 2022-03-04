@@ -3,6 +3,7 @@ package com.viyatek.ultimatefacts.ViewModels
 import android.app.Activity
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.applovin.mediation.MaxAd
@@ -70,16 +71,22 @@ class MaxInterstitialAdViewModel : ViewModel(){
         theInterstitialAd.value?.setListener( object : MaxAdListener{
             override fun onAdLoaded(ad: MaxAd?) {
                 retryAttempt = 0;
+                Log.d("onAdLoaded_Applovin","$ad")
             }
 
-            override fun onAdDisplayed(ad: MaxAd?) {}
+            override fun onAdDisplayed(ad: MaxAd?) {
+                Log.d("onAdDisplayed_Applovin","$ad")
+            }
 
             override fun onAdHidden(ad: MaxAd?) {
                 theInterstitialAd.value?.loadAd();
                 onInterstitialAdHidden?.onInterstitialDismissed()
+                Log.d("onAdHidden_Applovin","$ad")
             }
 
-            override fun onAdClicked(ad: MaxAd?) {}
+            override fun onAdClicked(ad: MaxAd?) {
+                Log.d("onAdClicked_Applovin","$ad")
+            }
 
             override fun onAdLoadFailed(adUnitId: String?, error: MaxError?) {
                 // Interstitial ad failed to load
@@ -94,11 +101,13 @@ class MaxInterstitialAdViewModel : ViewModel(){
                 )
 
                 Handler(Looper.getMainLooper()).postDelayed(Runnable {theInterstitialAd.value?.loadAd() }, delayMillis)
+                Log.d("onAdLoadFailed_Applovin","$error")
             }
 
             override fun onAdDisplayFailed(ad: MaxAd?, error: MaxError?) {
                 // Interstitial ad failed to display. AppLovin recommends that you load the next ad.
                 theInterstitialAd.value?.loadAd();
+                Log.d("onAdDisplayFailed_Applo","$error")
             }
 
         });
