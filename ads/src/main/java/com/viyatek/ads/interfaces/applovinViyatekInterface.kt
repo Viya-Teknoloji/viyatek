@@ -1,6 +1,7 @@
 package com.viyatek.ultimatefacts.Interfaces
 
-interface OnInterstitialAdHidden {
+interface applovinViyatekInterface {
 
+    fun onInterstitialLoaded()
     fun onInterstitialDismissed()
 }
