@@ -51,6 +51,7 @@
         <entry key="ads/src/main/res/layout/tw_ad_card_layout_feed.xml" value="0.2469055374592834" />
         <entry key="ads/src/main/res/layout/tw_lock_screen_end_ad.xml" value="0.2493421052631579" />
         <entry key="app_update/src/main/res/layout/fragment_whats_new.xml" value="0.2493421052631579" />
+        <entry key="billing/src/main/res/drawable/circular_progress_bar.xml" value="0.2405" />
         <entry key="billing/src/main/res/layout/activity_viyatek_premium.xml" value="0.14868421052631578" />
         <entry key="billing/src/main/res/layout/billing_dialogue_layout.xml" value="0.14868421052631578" />
         <entry key="billing/src/main/res/layout/billing_progress_layout.xml" value="0.14868421052631578" />
@@ -61,6 +62,8 @@
         <entry key="billing/src/main/res/layout/fragment_purchase_stand_alone_card_new.xml" value="0.18472222222222223" />
         <entry key="billing/src/main/res/layout/fragment_stand_alone_sale.xml" value="0.25" />
         <entry key="billing/src/main/res/layout/premium_sale_button_group.xml" value="0.18611111111111112" />
+        <entry key="billing/src/main/res/layout/special_offer_dialogue.xml" value="0.2469055374592834" />
+        <entry key="billing/src/main/res/layout/special_offer_dialogue_local.xml" value="0.2469055374592834" />
         <entry key="helper/src/main/res/font/rub.xml" value="0.26842105263157895" />
         <entry key="inappads/src/main/res/layout/social_media.xml" value="0.24657980456026057" />
         <entry key="lockscreen/src/main/res/layout/fragment_lock_screen_info.xml" value="0.24657980456026057" />
