@@ -72,7 +72,7 @@ class MaxRewardedAdViewModel : ViewModel(){
 
     fun loadRewardedAd(adUnitId : String = "96e7fa3b1abeb546", theActivity: Activity)
     {
-        setTheRewardedAd(theActivity = theActivity)
+        setTheRewardedAd(adUnitId, theActivity = theActivity)
         theRewardedAd.value?.loadAd()
     }
 
