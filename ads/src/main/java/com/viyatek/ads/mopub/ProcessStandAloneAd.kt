@@ -71,15 +71,6 @@ class ProcessStandAloneAd(
 
         Log.d("Ads", "Handling the ads")
 
-        val googlePlayServicesAdRenderer = GooglePlayServicesAdRenderer(
-            GooglePlayServicesViewBinder.Builder(R.layout.admob_lock_screen_end_ad)
-                .mediaLayoutId(R.id.admob_media_layout) // bind to your `com.mopub.nativeads.MediaLayout` element
-                .titleId(R.id.tw_lock_screen_ad_headline)
-                .textId(R.id.tw_lock_screen_ad_text)
-                .callToActionId(R.id.tw_lock_screen_ad_button)
-                .privacyInformationIconImageId(R.id.ad_choices_overlay)
-                .build())
-
         val facebookAdRenderer = FacebookAdRenderer(
             FacebookViewBinder.Builder(R.layout.facebook_lock_screen_end_ad)
                 .titleId(R.id.tw_lock_screen_ad_headline)
@@ -90,19 +81,8 @@ class ProcessStandAloneAd(
                 .build()
         )
 
-/*        val pangleAdRenderer = PangleAdRenderer(
-            PangleAdViewBinder.Builder(R.layout.pangle_lock_screen_end_ad)
-                .callToActionId(R.id.tw_lock_screen_ad_button)
-                .decriptionTextId(R.id.tw_lock_screen_ad_text) //.iconImageId(R.id.native_icon_image)
-                .titleId(R.id.tw_lock_screen_ad_headline)
-                .mediaViewIdId(R.id.pangle_media) // Bind to <com.bytedance.sdk.openadsdk.adapter.MediaView /> in XML
-                .build()
-        )*/
-
         moPubNative.registerAdRenderer(facebookAdRenderer)
         moPubNative.registerAdRenderer(moPubStaticNativeAdRenderer)
-        moPubNative.registerAdRenderer(googlePlayServicesAdRenderer)
-       // moPubNative.registerAdRenderer(pangleAdRenderer)
         moPubNative.makeRequest()
 
         adapterHelper = AdapterHelper(context, 0, 5)

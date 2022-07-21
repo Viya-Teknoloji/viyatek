@@ -23,10 +23,10 @@ allprojects {
         jcenter()
         maven {
             name = "GithubPackages"
-            url = uri("https://maven.pkg.github.com/tfkci/viyatek")
+            url = uri("https://maven.pkg.github.com/Viya-Teknoloji/viyatek")
             credentials {
                 username = '57030280'
-                password = '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'
+                password = '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'
             }
         }
     }

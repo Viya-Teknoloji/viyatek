@@ -16,7 +16,7 @@ class NativeAdGeneration {
         private var adapterHelper: AdapterHelper? = null
 
         fun createMoPubNative(frameLayout: FrameLayout) {
-            localExtras[GooglePlayServicesNative.KEY_EXTRA_AD_CHOICES_PLACEMENT] = NativeAdOptions.ADCHOICES_BOTTOM_RIGHT
+
             val viewBinder = ViewBinder.Builder(R.layout.tw_lock_screen_end_ad)
                 .mainImageId(R.id.tw_lock_screen_ad_image)
                 .titleId(R.id.tw_lock_screen_ad_headline)
@@ -59,17 +59,8 @@ class NativeAdGeneration {
 
             val moPubStaticNativeAdRenderer = MoPubStaticNativeAdRenderer(viewBinder)
 
-            val googlePlayServicesAdRenderer = GooglePlayServicesAdRenderer(
-                GooglePlayServicesViewBinder.Builder(R.layout.admob_lock_screen_end_ad)
-                    .mediaLayoutId(R.id.admob_media_layout) // bind to your `com.mopub.nativeads.MediaLayout` element
-                    .titleId(R.id.tw_lock_screen_ad_headline)
-                    .textId(R.id.tw_lock_screen_ad_text)
-                    .callToActionId(R.id.tw_lock_screen_ad_button)
-                    .privacyInformationIconImageId(R.id.ad_choices_overlay)
-                    .build())
 
             moPubNative.registerAdRenderer(moPubStaticNativeAdRenderer)
-            moPubNative.registerAdRenderer(googlePlayServicesAdRenderer)
             moPubNative.makeRequest()
 
             adapterHelper = AdapterHelper(activity, 0, 5)

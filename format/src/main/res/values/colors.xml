@@ -17,4 +17,13 @@
         <item>#cce2cb</item>
     </array>
 
+    <array name="dark_colors">
+        <item>#ffffff</item>
+        <item>#ffeb3b</item>
+        <item>#ff5722</item>
+        <item>#4caf50</item>
+        <item>#c298ed</item>
+        <item>#64afed</item>
+    </array>
+
 </resources>

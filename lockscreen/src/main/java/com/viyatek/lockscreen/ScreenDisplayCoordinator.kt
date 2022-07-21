@@ -14,12 +14,11 @@ class ScreenDisplayCoordinator(val activity: Context) {
     val EVENING_BOUNDRIES = intArrayOf(18, 23)
     val NIGHT_BOUNDRIES = intArrayOf(0, 6)
 
+    var theReminderInterval : Int = 10
     val LOG_TAG = "Display Coordinator"
     private val lockScreenSharedPrefsHandler by lazy { LockScreenPreferencesHandler(activity)}
 
     private val preferredAmount by lazy { lockScreenSharedPrefsHandler.getMustShowFactCount()}
-
-
     private val lastDayOpened by lazy { lockScreenSharedPrefsHandler.getLastDayOpened() }
     private val knowledgeSoFar by lazy { lockScreenSharedPrefsHandler.getSeenFactCount()}
     val quoteLeft by lazy {  preferredAmount - knowledgeSoFar }
@@ -45,7 +44,7 @@ class ScreenDisplayCoordinator(val activity: Context) {
     private val minutesLeft by lazy {  calculateMinutesleft() }
     private val minutesLeftPercentage by lazy { minutesLeft.toDouble() * EARLY_TIME_PERCENTAGE }
 
-    val nextShowInMinutes : Number by lazy {  (minutesLeftPercentage / quoteLeft.toDouble()).let { if(it<10) 1 else it }}
+    val nextShowInMinutes : Number by lazy {  (minutesLeftPercentage / quoteLeft.toDouble()).let { if(it<10) theReminderInterval else it }}
     val futureShowTime by lazy { currentTime + nextShowInMinutes.toLong() * 60 * 1000 }
 
     fun checkIfDisplay(): Boolean {

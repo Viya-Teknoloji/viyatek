@@ -39,7 +39,7 @@ class RealmEncryption(val context: Context, val encRealmKey : String = EncRealmK
                 return num.toChar()
             }
 
-        private fun resolveEncrypt(encryptedText: String): String {
+    fun resolveEncrypt(encryptedText: String): String {
             var normalText = ""
             var canStart = false
             var atStart = true

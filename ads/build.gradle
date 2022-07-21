@@ -9,7 +9,7 @@ githubProperties.load(new FileInputStream(rootProject.file("github.properties"))
 
 
 def getVersionName = { ->
-    return "2.6.6" // Replace with version Name
+    return "2.7.6" // Replace with version Name
 }
 
 def getArtifactId = { ->
@@ -117,15 +117,11 @@ dependencies {
     implementation 'com.facebook.android:audience-network-sdk:6.8.0'
     implementation 'com.mopub.mediation:facebookaudiencenetwork:6.6.0.0'
 
-
-    implementation 'com.pangle.global:ads-sdk:4.1.1.2'
-    implementation 'com.mopub.mediation:pangle:4.1.1.2.0'
-
-    implementation 'com.google.android.gms:play-services-ads:20.5.0'
-    implementation 'com.mopub.mediation:admob:20.2.0.0'
+    implementation 'com.pangle.global:ads-sdk:4.2.5.2'
+    implementation 'com.google.android.gms:play-services-ads:20.6.0'
 
     implementation 'com.google.android.gms:play-services-ads-identifier:18.0.1'
     implementation 'com.google.android.gms:play-services-base:18.0.1'
 
-    implementation 'com.applovin:applovin-sdk:11.1.0'
+    implementation 'com.applovin:applovin-sdk:11.3.1'
   }

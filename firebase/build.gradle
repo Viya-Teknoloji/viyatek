@@ -9,7 +9,7 @@ githubProperties.load(new FileInputStream(rootProject.file("github.properties"))
 
 
 def getVersionName = { ->
-    return "1.0.8" // Replace with version Name
+    return "1.1.0" // Replace with version Name
 }
 
 def getArtifactId = { ->
@@ -48,7 +48,6 @@ publishing {
                         }
                     }
                 }
-                configurations.compile.getDependencies().each { dep -> addDependency(dep, "implementation") }
                 configurations.api.getDependencies().each { dep -> addDependency(dep, "implementation") }
                 configurations.implementation.getDependencies().each { dep -> addDependency(dep, "runtime") }
             }
@@ -59,7 +58,7 @@ publishing {
     repositories {
         maven {
             name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/tfkci/viyatek")
+            url = uri("https://maven.pkg.github.com/Viya-Teknoloji/viyatek")
             credentials {
                 /** Create github.properties in root project folder file with
                  ** gpr.usr=GITHUB_USER_ID & gpr.key=PERSONAL_ACCESS_TOKEN
@@ -118,4 +117,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-dynamic-links-ktx'
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.firebase:firebase-config-ktx'
+
+    // Add these lines in `dependencies`
+    implementation 'com.amplifyframework:aws-analytics-pinpoint:1.35.1'
+    implementation 'com.amplifyframework:aws-auth-cognito:1.35.1'
 }

@@ -15,6 +15,7 @@ import com.google.android.gms.ads.nativead.NativeAdOptions
 
 import com.viyatek.ads.databinding.ArticleAdBinding
 import com.viyatek.ads.databinding.SecondVersionAdmobStandloneFeedBinding
+import com.viyatek.ads.interfaces.AdLoaderInterface
 import com.viyatek.ads.interfaces.AdMobAdListener
 
 class StandAloneAdsHandler(
@@ -75,6 +76,12 @@ class StandAloneAdsHandler(
             override fun onAdLoaded() {
                 Log.d("Ads","AdMob Ad is Loaded" )
                 super.onAdLoaded()
+
+
+                if(adMobAdListener!=null && adMobAdListener is AdLoaderInterface)
+                {
+                    adMobAdListener.onAdLoaded()
+                }
             }
 
             override fun onAdClicked() {
@@ -87,10 +94,10 @@ class StandAloneAdsHandler(
                 Log.d("Ads","AdMob Ad IImpression" )
             }
 
-            override fun onAdFailedToLoad(adError: LoadAdError?) {
+            override fun onAdFailedToLoad(adError: LoadAdError) {
                 super.onAdFailedToLoad(adError)
 
-                Log.d("Ads","AdMob Ad Load Failed here ${adError?.message}" )
+                Log.d("Ads","AdMob Ad Load Failed here ${adError.message}" )
 
                 adMobAdListener?.adFailedToLoad(adError)
             }

@@ -1,12 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.gms.ads.nativead.NativeAdView android:id="@+id/native_ad_view"
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/ad_container_rounded_corner"
     android:padding="8dp"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
+<com.google.android.gms.ads.nativead.NativeAdView android:id="@+id/native_ad_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp"
+    android:background="@drawable/ad_container_rounded_corner"
+
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    >
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/background"
@@ -50,6 +61,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_marginStart="@dimen/gnt_default_margin"
+                    android:layout_marginTop="8dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
@@ -218,6 +230,7 @@
                         app:autoSizeMaxTextSize="@dimen/ad_button_text_size"
                         app:autoSizeMinTextSize="@dimen/gnt_text_size_small"
                         app:autoSizeTextType="uniform"
+                        android:layout_marginBottom="8dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
@@ -229,4 +242,4 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.gms.ads.nativead.NativeAdView>
-
+</androidx.constraintlayout.widget.ConstraintLayout>

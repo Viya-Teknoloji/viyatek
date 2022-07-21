@@ -1,10 +1,9 @@
 package com.viyatek.helper
 
-import android.content.Context
 import android.content.res.Resources
 import android.util.TypedValue
 
-class DpPxConverter(val context: Context) {
+object DpPxConverter {
 
     fun pxToDp(px: Float): Int {
         return (px / Resources.getSystem().displayMetrics.density).toInt()
@@ -19,7 +18,7 @@ class DpPxConverter(val context: Context) {
     }
 
     fun spToPx(sp: Float): Int {
-        val fontScale = context.resources.configuration.fontScale
+        val fontScale = Resources.getSystem().configuration.fontScale
         return TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_SP,
             sp / fontScale,

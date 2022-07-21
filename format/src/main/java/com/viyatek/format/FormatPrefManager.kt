@@ -54,4 +54,9 @@ class FormatPrefManager(val context: Context) {
     fun setTextColorIndex(theColorIndex : Int) = mPrefsManager.applyPrefs(Statics.COLOR_INDEX, theColorIndex)
 
     fun getColors() : IntArray = context.resources.getIntArray(R.array.colors)
+
+    fun getDarkColors() : IntArray = context.resources.getIntArray(R.array.dark_colors)
+    fun getDarkTextColor() : Int  {
+        return getDarkColors()[mPrefsManager.getIntegerValue(Statics.COLOR_INDEX, 0)]
+    }
 }

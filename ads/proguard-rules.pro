@@ -61,3 +61,5 @@
 }
 
  -keep public class com.bytedance.sdk.openadsdk.*{ public *; }
+  -keep class com.bytedance.sdk.** { *; }
+  -keep class com.pgl.sys.ces.* {*;}

@@ -14,9 +14,15 @@ class RemoteConfigHandler ()
 
         val mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance()
         mFirebaseRemoteConfig.setConfigSettingsAsync(configSettings)
-        mFirebaseRemoteConfig.fetchAndActivate()
-
         return mFirebaseRemoteConfig
+    }
+
+    fun fetchAndActivate(iRemoteConfigFetch: iRemoteConfigFetch? = null)
+    {
+        val theInstance = getConfigInstance()
+        theInstance.fetchAndActivate().addOnCompleteListener {
+            iRemoteConfigFetch?.remoteValuesFetched()
+        }
     }
 
     private fun getConfig(): FirebaseRemoteConfigSettings {

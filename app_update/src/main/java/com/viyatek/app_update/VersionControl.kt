@@ -16,7 +16,7 @@ class VersionControl(private val context: Context, private val defaultValue: Int
     val version: String by lazy { pInfo.versionName }
     private val verCode by lazy { PackageInfoCompat.getLongVersionCode(pInfo).toInt() }
 
-    fun checkVersion(): Boolean {
+    fun checkVersion(iUserOpenedFirstTime : iFirstOpen? = null): Boolean {
         //Get App Version
 
         return try {
@@ -31,6 +31,7 @@ class VersionControl(private val context: Context, private val defaultValue: Int
             if (verCodeOld == 0) {
                 verCodeOld = verCode
                 updatePrefsHandler.setVersionCode(verCode)
+                iUserOpenedFirstTime?.userOpenedAppFirstTime()
             }
 
             verCode > verCodeOld

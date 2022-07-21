@@ -106,9 +106,9 @@ class MultipleApplovinAdsHandler (
         if(adLoader == null ) {adLoader = MaxNativeAdLoader(nativeAdID, theContext)}
 
         adLoader?.setNativeAdListener(object : MaxNativeAdListener() {
-            override fun onNativeAdLoaded(nativeAdView: MaxNativeAdView, ad: MaxAd) {
+            override fun onNativeAdLoaded(nativeAdView: MaxNativeAdView?, ad: MaxAd?) {
                 adloaded = true
-                mNativeAds.add(ad)
+                ad?.let { mNativeAds.add(it) }
                 insertAds()
             }
 

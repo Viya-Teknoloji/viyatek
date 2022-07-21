@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     app:cardCornerRadius="5dp"
     app:cardElevation="0dp"
     app:cardPreventCornerOverlap="true">
@@ -17,19 +18,20 @@
         app:layout_constraintTop_toTopOf="parent">
 
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/linearLayout7"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:weightSum="1">
+            android:orientation="horizontal">
 
             <com.google.android.gms.ads.nativead.MediaView
                 android:id="@+id/lock_screen_ad_image"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_margin="0dp"
-                android:layout_weight=".45"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent=".4"
                 android:padding="0dp">
 
             </com.google.android.gms.ads.nativead.MediaView>
@@ -38,8 +40,9 @@
                 android:id="@+id/linearLayout4"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight=".55"
-                android:weightSum="1">
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/lock_screen_ad_image"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
                     android:id="@+id/lock_screen_ad_headline"
@@ -47,7 +50,7 @@
                     android:layout_height="0dp"
                     android:fontFamily="@font/proximanovasemibold"
                     android:gravity="center_vertical"
-                    android:text="Kıbrıs'ta Tatil Fırsatı"
+                    tools:text="Kıbrıs'ta Tatil Fırsatı"
                     android:textSize="@dimen/article_ad_title_text_size"
                     app:autoSizeMaxTextSize="@dimen/article_ad_title_text_size"
                     app:autoSizeMinTextSize="8sp"
@@ -68,30 +71,35 @@
                     android:fontFamily="@font/proximanovalight"
                     android:gravity="center_vertical"
                     android:maxLines="2"
-                    android:text="Placeholder tw"
                     android:textSize="@dimen/article_ad_text_size"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHeight_percent=".4"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/lock_screen_ad_headline"
-                    app:layout_constraintWidth_percent=".95" />
+                    app:layout_constraintWidth_percent=".95"
+                    tools:text="Placeholder tw" />
 
                 <Button
                     android:id="@+id/lock_screen_ad_button"
-                    style="@style/lock_screen_button_ad"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:background="@color/ad_yellow"
+                    android:padding="0dp"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:backgroundTint="@color/ad_yellow"
+                    android:minHeight="0dp"
+                    android:textAllCaps="false"
                     android:textColor="@android:color/black"
-                    android:text="VISIT SITE"
                     android:textSize="@dimen/article_ad_text_size"
+                    app:cornerRadius="4dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintHeight_percent=".3"
+                    app:layout_constraintEnd_toEndOf="@+id/lock_screen_ad_text"
                     app:layout_constraintStart_toStartOf="@+id/lock_screen_ad_text"
-                    app:layout_constraintTop_toBottomOf="@+id/lock_screen_ad_text" />
+                    app:layout_constraintTop_toBottomOf="@+id/lock_screen_ad_text"
+                    tools:text="Visit Site" />
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
             android:id="@+id/lock_screen_ad_place"
@@ -105,4 +113,4 @@
             android:textSize="@dimen/article_end_ad_attribution_text_size" />
     </com.google.android.gms.ads.nativead.NativeAdView>
 
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

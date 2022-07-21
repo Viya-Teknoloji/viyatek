@@ -6,7 +6,6 @@ import com.applovin.sdk.AppLovinSdk
 import com.mopub.common.MoPub
 import com.mopub.common.SdkConfiguration
 import com.mopub.common.logging.MoPubLog
-import com.mopub.mobileads.PangleAdapterConfiguration
 
 
 class MoPubInitializer(private val context: Context,
@@ -41,8 +40,6 @@ class MoPubInitializer(private val context: Context,
         configBuilder.withLogLevel(MoPubLog.LogLevel.DEBUG)
 
         val sdkConfiguration = configBuilder
-            .withAdditionalNetwork(PangleAdapterConfiguration::class.java.name)
-            .withMediatedNetworkConfiguration(PangleAdapterConfiguration::class.java.name, pangleConfig)
             .withLegitimateInterestAllowed(true)
             .build()
 
