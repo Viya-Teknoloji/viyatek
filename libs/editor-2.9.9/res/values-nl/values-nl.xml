@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_photo">Voeg foto toe</string>
+    <string name="app_name">Daynote</string>
+    <string name="audio_permision_denied_text">Omdat je geen toestemming gaf, zal spraak naar tekst functie van de toepassing niet werken</string>
+    <string name="audio_recording_permision_denied_text">Omdat je geen toestemming hebt gegeven, zal de audio-opnamefunctie van de applicatie niet werken</string>
+    <string name="choose_from_gallery">Kies Foto van Galerij</string>
+    <string name="permission_denied">Toestemming geweigerd</string>
+    <string name="recording">Audio-opname</string>
+    <string name="recording_time">Opnametijd</string>
+    <string name="save_the_record">Wilt u het record opslaan?</string>
+    <string name="say_something">Zeg iets…</string>
+    <string name="take_photo">Neem Photo</string>
+    <string name="tap_to_start_recording">Tik om de opname te starten</string>
+    <string name="the_delete_button">Verwijderen</string>
+    <string name="the_save_button">Opslaan</string>
+    <string name="title">Titel</string>
+    <string name="write_more">Schrijf hier meer</string>
+    <string name="write_your_diary">Lief Dagboek…</string>
+</resources>

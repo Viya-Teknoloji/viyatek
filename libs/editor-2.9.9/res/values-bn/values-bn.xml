@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_photo">ছবি যোগ কর</string>
+    <string name="app_name">Daynote</string>
+    <string name="audio_permision_denied_text">অ্যাপের বক্তৃতা-টু-টেক্সট ফাংশন কাজ করবে না কারণ আপনি এটি অনুমতি দেয় না।</string>
+    <string name="audio_recording_permision_denied_text">যেহেতু আপনি অনুমতি দেননি, তাই অ্যাপ্লিকেশনের অডিও রেকর্ডিং ফাংশন কাজ করবে না</string>
+    <string name="choose_from_gallery">গ্যালারি থেকে ছবি নির্বাচন করুন</string>
+    <string name="permission_denied">অনুমতি অস্বীকার করা হয়েছে</string>
+    <string name="recording">অডিও রেকর্ড</string>
+    <string name="recording_time"> েকর্ডিং সময়</string>
+    <string name="save_the_record">আপনি কি রেকর্ড সংরক্ষণ করতে চান?</string>
+    <string name="say_something">কিছু বলো</string>
+    <string name="take_photo">ছবি তোলো</string>
+    <string name="tap_to_start_recording">রেকর্ডিং শুরু করতে ট্যাপ করুন</string>
+    <string name="the_delete_button">মুছুন</string>
+    <string name="the_save_button">সংরক্ষণ করুন</string>
+    <string name="title">শিরোনাম</string>
+    <string name="write_more">এখানে আরো লিখুন</string>
+    <string name="write_your_diary">প্রিয় ডায়েরি…</string>
+</resources>

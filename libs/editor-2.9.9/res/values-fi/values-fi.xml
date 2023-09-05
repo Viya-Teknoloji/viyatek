@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_photo">Lisää valokuva</string>
+    <string name="app_name">Daynote</string>
+    <string name="audio_permision_denied_text">Koska et myöntänyt lupaa, sovelluksen puhe tekstiksi -toiminto ei toimi</string>
+    <string name="audio_recording_permision_denied_text">Koska et myöntänyt lupaa, sovelluksen äänitallennustoiminto ei toimi</string>
+    <string name="choose_from_gallery">Valitse kuva galleriasta</string>
+    <string name="permission_denied">Suojattu alue</string>
+    <string name="recording">Äänitallenne</string>
+    <string name="recording_time">Tallennusaika</string>
+    <string name="save_the_record">Haluatko tallentaa tietueen?</string>
+    <string name="say_something">Sano jotain…</string>
+    <string name="take_photo">Ota valokuva</string>
+    <string name="tap_to_start_recording">Aloita tallennus napauttamalla</string>
+    <string name="the_delete_button">Poista</string>
+    <string name="the_save_button">Tallenna</string>
+    <string name="title">Otsikko</string>
+    <string name="write_more">Kirjoita lisää täältä</string>
+    <string name="write_your_diary">Rakas päiväkirja…</string>
+</resources>

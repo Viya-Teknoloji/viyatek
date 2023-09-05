@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_photo">사진 추가</string>
+    <string name="app_name">노트</string>
+    <string name="audio_permision_denied_text">권한을 부여하지 않았으므로 응용 프로그램의 음성을 텍스트로 변환하는 기능이 작동하지 않습니다.</string>
+    <string name="audio_recording_permision_denied_text">권한을 부여하지 않았기 때문에 애플리케이션의 오디오 녹음 기능이 작동하지 않습니다</string>
+    <string name="choose_from_gallery">갤러리 선택</string>
+    <string name="permission_denied">권한이 거부되었습니다.</string>
+    <string name="recording">오디오 녹음</string>
+    <string name="recording_time">녹화 시간</string>
+    <string name="save_the_record">오디오 녹음을 저장하시겠습니까?</string>
+    <string name="say_something">말해봐…</string>
+    <string name="take_photo">사진 찍기</string>
+    <string name="tap_to_start_recording">탭하여 녹음 시작</string>
+    <string name="the_delete_button">삭제</string>
+    <string name="the_save_button">구하다</string>
+    <string name="title">제목</string>
+    <string name="write_more">여기에 더 쓰기</string>
+    <string name="write_your_diary">일기 쓰기</string>
+</resources>

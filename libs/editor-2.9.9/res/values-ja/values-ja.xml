@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_photo">写真追加</string>
+    <string name="app_name">デイノート</string>
+    <string name="audio_permision_denied_text">許可を与えていないため、アプリケーションの音声認識機能が機能しません</string>
+    <string name="audio_recording_permision_denied_text">許可を与えていないため、アプリケーションの録音機能が動作しません</string>
+    <string name="choose_from_gallery">ギャラリーから選択</string>
+    <string name="permission_denied">アクセス拒否</string>
+    <string name="recording">Registrazione audio</string>
+    <string name="recording_time">録音時間</string>
+    <string name="save_the_record">オーディオレコードを保存しますか？</string>
+    <string name="say_something">何か言って…</string>
+    <string name="take_photo">写真を撮る</string>
+    <string name="tap_to_start_recording">タップして録音を開始します</string>
+    <string name="the_delete_button">消去</string>
+    <string name="the_save_button">保存する</string>
+    <string name="title">タイトル</string>
+    <string name="write_more">ここにもっと書く</string>
+    <string name="write_your_diary">貴方の日記を書きましょう</string>
+</resources>

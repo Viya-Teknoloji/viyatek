@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_photo">Bæta við mynd</string>
+    <string name="app_name">Daynote</string>
+    <string name="audio_permision_denied_text">Þar sem þú veittir ekki leyfið mun textaaðgerð forritsins ekki virka</string>
+    <string name="audio_recording_permision_denied_text">Þar sem þú veittir ekki leyfið mun hljóðritunaraðgerð forritsins ekki virka</string>
+    <string name="choose_from_gallery">Veldu mynd úr myndasafni</string>
+    <string name="permission_denied">Aðgangi er hafnað</string>
+    <string name="recording">Hljóðupptaka</string>
+    <string name="recording_time">Upptökutími</string>
+    <string name="save_the_record">Viltu vista færsluna?</string>
+    <string name="say_something">Segðu eitthvað ...</string>
+    <string name="take_photo">Taktu mynd</string>
+    <string name="tap_to_start_recording">Bankaðu til að hefja upptöku</string>
+    <string name="the_delete_button">Eyða</string>
+    <string name="the_save_button">Vista</string>
+    <string name="title">Titill</string>
+    <string name="write_more">Skrifaðu meira hér</string>
+    <string name="write_your_diary">Kæra dagbók</string>
+</resources>

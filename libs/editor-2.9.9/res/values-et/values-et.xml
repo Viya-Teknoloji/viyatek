@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_photo">Lisa pilt</string>
+    <string name="app_name">Daynote</string>
+    <string name="audio_permision_denied_text">Kuna te ei andnud luba, siis rakenduse kõneks muutumise funktsioon ei tööta</string>
+    <string name="audio_recording_permision_denied_text">Kuna te ei andnud luba, ei tööta rakenduse helisalvestusfunktsioon</string>
+    <string name="choose_from_gallery">Vali pilt galeriist</string>
+    <string name="permission_denied">Juurdepääs on tagasi lükatud</string>
+    <string name="recording">Helisalvestis </string>
+    <string name="recording_time">Salvestusaeg</string>
+    <string name="save_the_record">Kas soovite kirje salvestada?</string>
+    <string name="say_something">Ütle midagi …</string>
+    <string name="take_photo">Tee pilt</string>
+    <string name="tap_to_start_recording">Salvestamise alustamiseks puudutage</string>
+    <string name="the_delete_button">Kustuta</string>
+    <string name="the_save_button">Salvesta</string>
+    <string name="title">Pealkiri</string>
+    <string name="write_more">Kirjuta siia rohkem</string>
+    <string name="write_your_diary">Kallis päevik</string>
+</resources>

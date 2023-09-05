@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_photo">Tambahkan foto</string>
+    <string name="app_name">Catatan Harian</string>
+    <string name="audio_permision_denied_text">Fungsionalitas ucapan-ke-teks aplikasi tidak akan berfungsi karena Anda tidak memberikan izin.</string>
+    <string name="audio_recording_permision_denied_text">Karena Anda tidak memberikan izin, fungsi perekaman audio aplikasi tidak akan berfungsi</string>
+    <string name="choose_from_gallery">Pilih dari galeri</string>
+    <string name="permission_denied">Izin ditolak</string>
+    <string name="recording">Rekaman Audio</string>
+    <string name="recording_time">Waktu Perekaman</string>
+    <string name="save_the_record">Apakah Anda ingin menyimpan rekaman audio?</string>
+    <string name="say_something">Katakan sesuatu…</string>
+    <string name="take_photo">Ambil foto</string>
+    <string name="tap_to_start_recording">Ketuk untuk mulai merekam</string>
+    <string name="the_delete_button">Menghapus</string>
+    <string name="the_save_button">Menyimpan</string>
+    <string name="title">Judul</string>
+    <string name="write_more">Tulis Lebih Banyak Di Sini</string>
+    <string name="write_your_diary">Tulis catatan harian kamu</string>
+</resources>

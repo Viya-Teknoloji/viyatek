@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_photo">Lägg till foto</string>
+    <string name="app_name">Daynote</string>
+    <string name="audio_permision_denied_text">Eftersom du inte beviljade tillståndet fungerar inte tal till text -funktionen i programmet</string>
+    <string name="audio_recording_permision_denied_text">Eftersom du inte beviljade tillståndet fungerar inte ljudinspelningsfunktionen för programmet</string>
+    <string name="choose_from_gallery">Välj från Photo Gallery</string>
+    <string name="permission_denied">Åtkomst nekad</string>
+    <string name="recording">Ljudinspelning</string>
+    <string name="recording_time">Inspelningstid</string>
+    <string name="save_the_record">Vill du spara posten?</string>
+    <string name="say_something">Säg något …</string>
+    <string name="take_photo">Ta ett foto</string>
+    <string name="tap_to_start_recording">Tryck för att börja spela in</string>
+    <string name="the_delete_button">Radera</string>
+    <string name="the_save_button">Spara</string>
+    <string name="title">Titel</string>
+    <string name="write_more">Skriva mer här</string>
+    <string name="write_your_diary">Kära dagbok …</string>
+</resources>

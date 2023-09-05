@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/entry_navigation"
+    app:startDestination="@id/editorFragment">
+
+    <fragment
+        android:id="@+id/editorFragment"
+        android:name="com.ertech.editor.EditorFragments.DayNoteBaseEditorFragment"
+        android:label="EditorFragment" >
+        <action
+            android:id="@+id/action_editorFragment_to_photoChooser"
+            app:destination="@id/photoChooser" />
+    </fragment>
+    <dialog
+        android:id="@+id/photoChooser"
+        android:name="com.ertech.editor.EditorFragments.PhotoChooser"
+        android:label="PhotoChooser" />
+</navigation>

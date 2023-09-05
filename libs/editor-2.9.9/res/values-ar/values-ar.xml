@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_photo">إضافة صورة</string>
+    <string name="app_name">مذكرات</string>
+    <string name="audio_permision_denied_text">نظرًا لأنك لم تمنح الإذن ، فلن تعمل وظيفة الكلام إلى نص للتطبيق</string>
+    <string name="audio_recording_permision_denied_text">نظرًا لأنك لم تمنح الإذن ، فلن تعمل وظيفة التسجيل الصوتي للتطبيق</string>
+    <string name="choose_from_gallery">اختر من معرض</string>
+    <string name="permission_denied">طلب الاذن مرفوض</string>
+    <string name="recording">تسجيل صوتي</string>
+    <string name="recording_time">وقت التسجيل</string>
+    <string name="save_the_record">هل تريد حفظ التسجيل الصوتي؟</string>
+    <string name="say_something">قل شيئا…</string>
+    <string name="take_photo">تصوير</string>
+    <string name="tap_to_start_recording">انقر لبدء التسجيل</string>
+    <string name="the_delete_button">حذف</string>
+    <string name="the_save_button">يحفظ</string>
+    <string name="title">لقب</string>
+    <string name="write_more">اكتب المزيد هنا</string>
+    <string name="write_your_diary">كتابة مذكرات الخاص بك</string>
+</resources>

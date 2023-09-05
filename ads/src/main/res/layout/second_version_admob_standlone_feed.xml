@@ -41,6 +41,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
+                    android:paddingHorizontal="8dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
@@ -61,54 +62,60 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <ImageView
-                        android:id="@+id/icon"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/ad_asset_container"
                         android:layout_width="0dp"
-                        android:layout_height="48dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="@dimen/gnt_no_margin"
-                        android:layout_weight="0"
-                        android:scaleType="fitCenter"
-                        android:visibility="visible"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintDimensionRatio="H,1:1"
+                        android:layout_height="wrap_content"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/primary"
-                        app:layout_constraintVertical_bias="0.0" />
-
-                    <TextView
-                        android:id="@+id/primary"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/gnt_default_margin"
-                        android:gravity="center|start"
-                        android:lines="1"
-                        android:textSize="@dimen/gnt_text_size_large"
-                        android:textStyle="bold"
-
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/icon"
-                        app:layout_constraintTop_toBottomOf="@+id/ad_notification_view"
-                        tools:text="Ultimate Facts" />
+                        app:layout_constraintTop_toBottomOf="@id/ad_notification_view">
 
-                    <TextView
-                        android:id="@+id/body"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/gnt_no_size"
-                        android:fontFamily="@font/proximanovasemibold"
-                        android:gravity="center|start"
-                        android:lines="2"
-                        android:textSize="14sp"
-                        app:autoSizeMaxTextSize="16sp"
-                        app:autoSizeMinTextSize="12sp"
-                        app:autoSizeTextType="uniform"
-                        app:layout_constraintBottom_toBottomOf="@+id/icon"
-                        app:layout_constraintEnd_toEndOf="@id/primary"
-                        app:layout_constraintStart_toStartOf="@id/primary"
-                        app:layout_constraintTop_toBottomOf="@id/primary"
-                        tools:text="Learn Sth New EveryDay" />
+                        <ImageView
+                            android:id="@+id/icon"
+                            android:layout_width="0dp"
+                            android:layout_height="48dp"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="@dimen/gnt_no_margin"
+                            android:layout_weight="0"
+                            android:scaleType="fitCenter"
+                            android:visibility="visible"
+                            app:layout_constraintDimensionRatio="H,1:1"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.0" />
 
+                        <TextView
+                            android:id="@+id/primary"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/gnt_default_margin"
+
+                            android:gravity="center|start"
+                            android:lines="1"
+                            android:textSize="@dimen/gnt_text_size_large"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/icon"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="Ultimate Facts" />
+
+                        <TextView
+                            android:id="@+id/body"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/gnt_no_size"
+                            android:gravity="center|start"
+                            android:lines="2"
+                            android:textSize="14sp"
+                            app:autoSizeMaxTextSize="16sp"
+                            app:autoSizeMinTextSize="12sp"
+                            app:autoSizeTextType="uniform"
+                            app:layout_constraintEnd_toEndOf="@id/primary"
+                            app:layout_constraintStart_toStartOf="@id/primary"
+                            app:layout_constraintTop_toBottomOf="@id/primary"
+                            tools:text="Learn Sth New EveryDay" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/cta"
@@ -120,10 +127,9 @@
                         app:cornerRadius="8dp"
                         android:visibility="visible"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="@+id/icon"
-                        app:layout_constraintTop_toBottomOf="@+id/icon"
+                        app:layout_constraintStart_toStartOf="@+id/ad_asset_container"
+                        app:layout_constraintTop_toBottomOf="@+id/ad_asset_container"
                         tools:text=" Install" />
-
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

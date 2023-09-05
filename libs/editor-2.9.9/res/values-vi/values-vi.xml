@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_photo">Thêm ảnh</string>
+    <string name="app_name">Daynote.</string>
+    <string name="audio_permision_denied_text">Vì bạn không được cấp quyền nên chức năng chuyển giọng nói thành văn bản của ứng dụng này sẽ không hoạt động</string>
+    <string name="audio_recording_permision_denied_text">Vì bạn không cấp quyền nên chức năng ghi âm của ứng dụng sẽ không hoạt động</string>
+    <string name="choose_from_gallery">Chọn ảnh từ thư viện</string>
+    <string name="permission_denied">quyền truy cập bị từ chối</string>
+    <string name="recording">Bản ghi âm thanh</string>
+    <string name="recording_time">Thời gian ghi</string>
+    <string name="save_the_record">Bạn có muốn lưu bản ghi không?</string>
+    <string name="say_something">Nói gì đó đi…</string>
+    <string name="take_photo">Chụp hình</string>
+    <string name="tap_to_start_recording">Nhấn để bắt đầu ghi</string>
+    <string name="the_delete_button">Xóa</string>
+    <string name="the_save_button">Lưu</string>
+    <string name="title">Tiêu đề</string>
+    <string name="write_more">Viết nhiều hơn ở đây</string>
+    <string name="write_your_diary">Nhật ký thân yêu</string>
+</resources>

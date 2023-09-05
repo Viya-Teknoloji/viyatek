@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/text_selection_bar"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    app:cardCornerRadius="10dp"
+    app:cardBackgroundColor="?colorSurface"
+    android:visibility="gone"
+    tools:visibility="visible"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/selection_bar_cl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible">
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/bold_icon"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:src="@drawable/ic_daynote_editor_bold"
+            app:tint="?colorOnSurface"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/pro_identifier_for_action_mode"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintWidth_percent=".12"
+            app:layout_constraintHeight_percent=".4"
+            android:text="Pro"
+            android:gravity="center"
+            android:background="@drawable/one_side_rounded"
+            android:padding="0dp"
+            android:textAllCaps="true"
+            android:textSize="12sp"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:textColor="?colorOnSurface"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/italic_icon"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:tint="?colorOnSurface"
+            app:layout_constraintBottom_toBottomOf="@+id/bold_icon"
+            app:layout_constraintDimensionRatio="w,1:1"
+            app:layout_constraintStart_toEndOf="@+id/bold_icon"
+            app:layout_constraintTop_toTopOf="@+id/bold_icon"
+            app:srcCompat="@drawable/ic_daynote_editor_italic" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/underline_icon"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:tint="?colorOnSurface"
+            app:layout_constraintWidth_percent=".25"
+            app:layout_constraintDimensionRatio="w,1:1"
+            app:layout_constraintBottom_toBottomOf="@+id/italic_icon"
+            app:layout_constraintStart_toEndOf="@+id/italic_icon"
+            app:layout_constraintTop_toTopOf="@+id/italic_icon"
+            app:srcCompat="@drawable/ic_daynote_editor_underline" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/color_rv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            app:tint="?colorOnSurface"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="@+id/underline_icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/underline_icon"
+            app:layout_constraintTop_toTopOf="@+id/underline_icon"
+            tools:itemCount="10"
+            tools:listitem="@layout/toolbar_color_item_layout" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

@@ -16,7 +16,8 @@ class OpenInstagram(val context: Context) {
         likeIng.setPackage("com.instagram.android")
         try {
             context.startActivity(likeIng)
-        } catch (e: ActivityNotFoundException) {
+        }
+        catch (e: ActivityNotFoundException) {
             try {
                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.instagram.com/$accountName/"))
                 context.startActivity(intent)

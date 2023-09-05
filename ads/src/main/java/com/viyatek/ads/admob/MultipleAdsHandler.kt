@@ -51,14 +51,10 @@ class MultipleAdsHandler (
                 }
             }.withAdListener(
                 object : AdListener() {
-                    override fun onAdFailedToLoad(adError: LoadAdError?) {
+                    override fun onAdFailedToLoad(adError: LoadAdError) {
                         super.onAdFailedToLoad(adError)
 
-                        Log.d("Ads","AdMob ad load failed ${adError?.message}"  )
-                        Log.d("Ads","AdMob ad load failed cause ${adError?.cause?.message}"  )
-                        Log.d("Ads","AdMob ad load failed response id${adError?.responseInfo?.responseId}"  )
-                        Log.d("Ads","AdMob ad load failed response id${adError?.code}")
-
+                        Log.d("Ads","AdMob ad load failed ${adError.message}"  )
                         adMobAdListener?.adFailedToLoad(adError)
 
                         if (!adLoader?.isLoading!!) {
@@ -66,6 +62,7 @@ class MultipleAdsHandler (
                             insertAds()
                         }
                     }
+
 
                     override fun onAdClicked() {
                         super.onAdClicked()

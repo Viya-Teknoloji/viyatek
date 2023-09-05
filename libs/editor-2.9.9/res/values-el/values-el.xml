@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_photo">προσθήκη φωτογραφίας</string>
+    <string name="app_name">Daynote</string>
+    <string name="audio_permision_denied_text">Εφόσον δεν παραχωρήσατε την άδεια, η λειτουργία ομιλίας σε κείμενο της εφαρμογής δεν θα λειτουργήσει</string>
+    <string name="audio_recording_permision_denied_text">Δεδομένου ότι δεν δώσατε την άδεια, η λειτουργία εγγραφής ήχου της εφαρμογής δεν θα λειτουργήσει</string>
+    <string name="choose_from_gallery">Επιλέξτε από τη συλλογή</string>
+    <string name="permission_denied">Άδεια αρνιέται</string>
+    <string name="recording">Εγγραφή ήχου</string>
+    <string name="recording_time">Χρόνος εγγραφής</string>
+    <string name="save_the_record">Θέλετε να αποθηκεύσετε την εγγραφή ήχου;</string>
+    <string name="say_something">Πες κάτι!</string>
+    <string name="take_photo">Πάρε φωτογραφία</string>
+    <string name="tap_to_start_recording">Πατήστε για να ξεκινήσει η εγγραφή</string>
+    <string name="the_delete_button">Διαγράφω</string>
+    <string name="the_save_button">Σώσει</string>
+    <string name="title">Τίτλος</string>
+    <string name="write_more">Γράψτε περισσότερα εδώ</string>
+    <string name="write_your_diary">Αγαπητό ημερολόγιοβ€¦</string>
+</resources>

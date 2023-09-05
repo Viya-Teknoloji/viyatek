@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_photo">عکس اضافه کن</string>
+    <string name="app_name">یادداشت روزانه</string>
+    <string name="audio_permision_denied_text">به این دلیل که مجوز نگرفتی، عملکرد صحبت به متن (بخش شنیداری) اپلیکیشن کار نخواهد کرد</string>
+    <string name="audio_recording_permision_denied_text">از آنجایی که شما اجازه نداده اید، عملکرد ضبط صدا برنامه کار نخواهد کرد</string>
+    <string name="choose_from_gallery">عکس از گالری انتخاب کن</string>
+    <string name="permission_denied">اجازه نداری یا اجازه صادر نشد</string>
+    <string name="recording">ضبط صدا</string>
+    <string name="recording_time">زمان ضبط</string>
+    <string name="save_the_record">آیا می خواهید رکورد را ذخیره کنید؟</string>
+    <string name="say_something">چیزی بگو</string>
+    <string name="take_photo">عکس بگیر</string>
+    <string name="tap_to_start_recording">برای شروع ضبط ضربه بزنید</string>
+    <string name="the_delete_button">حذف</string>
+    <string name="the_save_button">صرفه جویی</string>
+    <string name="title">عنوان</string>
+    <string name="write_more">اینجا بیشتر بنویس</string>
+    <string name="write_your_diary">یادداشت روزانه عزیز</string>
+</resources>
