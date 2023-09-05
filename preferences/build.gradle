@@ -9,7 +9,7 @@ githubProperties.load(new FileInputStream(rootProject.file("github.properties"))
 
 
 def getVersionName = { ->
-    return "1.1.1" // Replace with version Name
+    return "1.1.2" // Replace with version Name
 }
 
 def getArtifactId = { -> return "preferences"}
@@ -60,7 +60,7 @@ publishing {
                 /** Create github.properties in root project folder file with
                  ** gpr.usr=GITHUB_USER_ID & gpr.key=PERSONAL_ACCESS_TOKEN
                  ** Set env variable GPR_USER & GPR_API_KEY if not adding a properties file**/
-
+build gradle
                 username = githubProperties['gpr.usr'] ?: System.getenv("GPR_USER")
                 password = githubProperties['gpr.key'] ?: System.getenv("GPR_API_KEY")
             }
@@ -69,11 +69,11 @@ publishing {
 }
 
 android {
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 33
+        targetSdkVersion 34
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -85,13 +85,12 @@ android {
            }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '17'
     }
-    buildToolsVersion '30.0.3'
     ndkVersion '22.0.7026061'
 }
 
