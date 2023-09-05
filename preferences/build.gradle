@@ -9,64 +9,67 @@ githubProperties.load(new FileInputStream(rootProject.file("github.properties"))
 
 
 def getVersionName = { ->
-    return "1.1.2" // Replace with version Name
+    return "1.1.3" // Replace with version Name
 }
 
 def getArtifactId = { -> return "preferences"}
+afterEvaluate {
+    publishing {
+        publications {
 
-publishing {
-    publications {
-        bar(MavenPublication) {
-            groupId 'com.viyatek.libraries' // Replace with group ID
-            artifactId getArtifactId()
-            version getVersionName()
-            artifact("$buildDir/outputs/aar/${getArtifactId()}-release.aar")
+            release(MavenPublication) {
+                components.getByName('release')
+                groupId 'com.viyatek.libraries' // Replace with group ID
+                artifactId getArtifactId()
+                version getVersionName()
+                artifact("$buildDir/outputs/aar/${getArtifactId()}-release.aar")
 
-            pom.withXml {
-                final dependenciesNode = asNode().appendNode('dependencies')
-                ext.addDependency = { Dependency dep, String scope ->
-                    if (dep.group == null || dep.version == null || dep.name == null || dep.name == "unspecified")
-                        return
-                    final dependencyNode = dependenciesNode.appendNode('dependency')
-                    dependencyNode.appendNode('groupId', dep.group)
-                    dependencyNode.appendNode('artifactId', dep.name)
-                    dependencyNode.appendNode('version', dep.version)
-                    dependencyNode.appendNode('scope', scope)
-                    if (!dep.transitive) {
-                        final exclusionNode = dependencyNode.appendNode('exclusions').appendNode('exclusion')
-                        exclusionNode.appendNode('groupId', '*')
-                        exclusionNode.appendNode('artifactId', '*')
-                    } else if (!dep.properties.excludeRules.empty) {
-                        final exclusionNode = dependencyNode.appendNode('exclusions').appendNode('exclusion')
-                        dep.properties.excludeRules.each { ExcludeRule rule ->
-                            exclusionNode.appendNode('groupId', rule.group ?: '*')
-                            exclusionNode.appendNode('artifactId', rule.module ?: '*')
+                pom.withXml {
+                    final dependenciesNode = asNode().appendNode('dependencies')
+                    ext.addDependency = { Dependency dep, String scope ->
+                        if (dep.group == null || dep.version == null || dep.name == null || dep.name == "unspecified")
+                            return
+                        final dependencyNode = dependenciesNode.appendNode('dependency')
+                        dependencyNode.appendNode('groupId', dep.group)
+                        dependencyNode.appendNode('artifactId', dep.name)
+                        dependencyNode.appendNode('version', dep.version)
+                        dependencyNode.appendNode('scope', scope)
+                        if (!dep.transitive) {
+                            final exclusionNode = dependencyNode.appendNode('exclusions').appendNode('exclusion')
+                            exclusionNode.appendNode('groupId', '*')
+                            exclusionNode.appendNode('artifactId', '*')
+                        } else if (!dep.properties.excludeRules.empty) {
+                            final exclusionNode = dependencyNode.appendNode('exclusions').appendNode('exclusion')
+                            dep.properties.excludeRules.each { ExcludeRule rule ->
+                                exclusionNode.appendNode('groupId', rule.group ?: '*')
+                                exclusionNode.appendNode('artifactId', rule.module ?: '*')
+                            }
                         }
                     }
+                    configurations.api.getDependencies().each { dep -> addDependency(dep, "implementation") }
+                    configurations.implementation.getDependencies().each { dep -> addDependency(dep, "runtime") }
                 }
-                configurations.api.getDependencies().each { dep -> addDependency(dep, "implementation") }
-                configurations.implementation.getDependencies().each { dep -> addDependency(dep, "runtime") }
             }
+
+
         }
 
-
-    }
-
-    repositories {
-        maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/Viya-Teknoloji/viyatek")
-            credentials {
-                /** Create github.properties in root project folder file with
-                 ** gpr.usr=GITHUB_USER_ID & gpr.key=PERSONAL_ACCESS_TOKEN
-                 ** Set env variable GPR_USER & GPR_API_KEY if not adding a properties file**/
-build gradle
-                username = githubProperties['gpr.usr'] ?: System.getenv("GPR_USER")
-                password = githubProperties['gpr.key'] ?: System.getenv("GPR_API_KEY")
+        repositories {
+            maven {
+                name = "GitHubPackages"
+                url = uri("https://maven.pkg.github.com/Viya-Teknoloji/viyatek")
+                credentials {
+                    /** Create github.properties in root project folder file with
+                     ** gpr.usr=GITHUB_USER_ID & gpr.key=PERSONAL_ACCESS_TOKEN
+                     ** Set env variable GPR_USER & GPR_API_KEY if not adding a properties file**/
+                    username = githubProperties['gpr.usr'] ?: System.getenv("GPR_USER")
+                    password = githubProperties['gpr.key'] ?: System.getenv("GPR_API_KEY")
+                }
             }
         }
     }
 }
+
 
 android {
     compileSdk 34
@@ -92,6 +95,18 @@ android {
         jvmTarget = '17'
     }
     ndkVersion '22.0.7026061'
+    namespace 'com.viyatek.preferences'
+    publishing {
+        singleVariant('release') {
+            withSourcesJar()
+            withJavadocJar()
+        }
+
+        singleVariant('debug') {
+            withSourcesJar()
+            withJavadocJar()
+        }
+    }
 }
 
 dependencies {
