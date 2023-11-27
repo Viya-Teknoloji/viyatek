@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_photo">Adicionar foto</string>
+    <string name="app_name">Nota do dia</string>
+    <string name="audio_permision_denied_text">Como você não concedeu a permissão, a função de voz para texto do aplicativo não funcionará</string>
+    <string name="audio_recording_permision_denied_text">Como você não concedeu a permissão, a função de gravação de áudio do aplicativo não funcionará</string>
+    <string name="choose_from_gallery">escolher da galeria </string>
+    <string name="permission_denied">Permissão negada</string>
+    <string name="recording">Gravação de audio</string>
+    <string name="recording_time">Tempo de gravação</string>
+    <string name="save_the_record">Você quer salvar o registro de áudio?</string>
+    <string name="say_something">Diga algo…</string>
+    <string name="take_photo">tirar foto</string>
+    <string name="tap_to_start_recording">Toque para começar a gravar</string>
+    <string name="the_delete_button">Excluir</string>
+    <string name="the_save_button">Salvar</string>
+    <string name="title">título </string>
+    <string name="write_more">Escreva mais aqui</string>
+    <string name="write_your_diary">querido diário </string>
+</resources>

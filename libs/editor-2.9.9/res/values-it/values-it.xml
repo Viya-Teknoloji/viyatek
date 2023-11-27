@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_photo">Aggiungi Foto</string>
+    <string name="app_name">Daynote</string>
+    <string name="audio_permision_denied_text">Poiché non hai concesso l\'autorizzazione, la funzione di sintesi vocale dell\'applicazione non funzionerà</string>
+    <string name="audio_recording_permision_denied_text">Poiché non hai concesso l\'autorizzazione, la funzione di registrazione audio dell\'applicazione non funzionerà</string>
+    <string name="choose_from_gallery">Scegli dalla galleria</string>
+    <string name="permission_denied">Permesso negato</string>
+    <string name="recording">Registrazione audio</string>
+    <string name="recording_time">Tempo di registrazione</string>
+    <string name="save_the_record">Vuoi salvare la registrazione audio?</string>
+    <string name="say_something">Di \'qualcosa…</string>
+    <string name="take_photo">Fare Foto</string>
+    <string name="tap_to_start_recording">Tocca per avviare la registrazione</string>
+    <string name="the_delete_button">Elimina</string>
+    <string name="the_save_button">Salva</string>
+    <string name="title">Titolo</string>
+    <string name="write_more">Scrivi di più qui</string>
+    <string name="write_your_diary">Scrivi il Tuo Diario</string>
+</resources>

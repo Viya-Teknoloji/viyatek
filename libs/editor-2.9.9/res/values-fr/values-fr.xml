@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_photo">Ajouter une photo</string>
+    <string name="app_name">Note du Jour</string>
+    <string name="audio_permision_denied_text">Puisque vous n\'avez pas accordé l\'autorisation, la fonction de synthèse vocale de l\'application ne fonctionnera pas</string>
+    <string name="audio_recording_permision_denied_text">Puisque vous n\'avez pas accordé l\'autorisation, la fonction d\'enregistrement audio de l\'application ne fonctionnera pas</string>
+    <string name="choose_from_gallery">Choisir depuis la galerie</string>
+    <string name="permission_denied">Permission refusée</string>
+    <string name="recording">Enregistrement audio</string>
+    <string name="recording_time">Temps d\'enregistrement</string>
+    <string name="save_the_record">Voulez-vous enregistrer l\'enregistrement audio ?</string>
+    <string name="say_something">Dis quelquechose…</string>
+    <string name="take_photo">Prendre une Photo</string>
+    <string name="tap_to_start_recording">Appuyez pour commencer l\'enregistrement</string>
+    <string name="the_delete_button">Supprimer</string>
+    <string name="the_save_button">Sauver</string>
+    <string name="title">Titre</string>
+    <string name="write_more">Écrivez plus ici</string>
+    <string name="write_your_diary">Ecrivez votre journal</string>
+</resources>

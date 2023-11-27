@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_photo">Добавете снимка</string>
+    <string name="app_name">Daynote.</string>
+    <string name="audio_permision_denied_text">Тъй като не сте дали разрешение, функцията говорът към текст на приложението няма да работи</string>
+    <string name="audio_recording_permision_denied_text">Тъй като не сте дали разрешение, функцията за аудио запис на приложението няма да работи</string>
+    <string name="choose_from_gallery">Изберете снимка от галерията</string>
+    <string name="permission_denied">Разрешението е отказано</string>
+    <string name="recording">Аудио запис </string>
+    <string name="recording_time">Време за запис</string>
+    <string name="save_the_record">Искате ли да запишете записа?</string>
+    <string name="say_something">Кажете нещо…</string>
+    <string name="take_photo">Направете снимка</string>
+    <string name="tap_to_start_recording">Докоснете, за да започнете запис</string>
+    <string name="the_delete_button">Изтриване</string>
+    <string name="the_save_button">Запазване</string>
+    <string name="title">Заглавие</string>
+    <string name="write_more">Напишете повече тук</string>
+    <string name="write_your_diary">Скъпо дневниче…</string>
+</resources>

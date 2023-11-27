@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="?colorPrimary"
+    android:focusable="true"
+    android:clickable="true"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/watermark_view"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginBottom="16dp"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/content_wrapper"
+                app:layout_constraintStart_toStartOf="@+id/content_wrapper"
+                app:layout_constraintTop_toBottomOf="@+id/content_wrapper"
+                tools:visibility="visible">
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/app_name"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/entry_photo_list_rv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+
+                tools:listitem="@layout/entry_image"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="@+id/entry_title_et"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/entry_title_et"
+                app:layout_constraintTop_toBottomOf="@+id/view2"
+                tools:visibility="visible" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/mood_picker"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@null"
+                android:src="@drawable/ic_emoticons"
+                android:textColor="?attr/colorOnPrimary"
+                android:visibility="gone"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toEndOf="@+id/view2"
+                app:layout_constraintTop_toBottomOf="@+id/entry_photo_list_rv"
+                app:layout_constraintWidth_percent=".1" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/top_cl"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toStartOf="@+id/guideline5"
+                app:layout_constraintStart_toStartOf="@+id/guideline4"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/date_group"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/day_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        tools:text="Sunday"
+                        android:textColor="?colorOnPrimary"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/date_picker"
+                        app:layout_constraintStart_toStartOf="@+id/date_picker"
+                        app:layout_constraintTop_toBottomOf="@+id/date_picker" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/date_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/day_name"
+                        app:layout_constraintStart_toEndOf="@+id/day_name"
+                        app:layout_constraintTop_toTopOf="@+id/date_picker"
+                        app:srcCompat="@drawable/ic_calendar"
+                        app:tint="?colorOnPrimary" />
+
+                    <TextView
+                        android:id="@+id/date_picker"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="8dp"
+                        android:gravity="center"
+                        tools:text="18 Oct 2020"
+                        android:textColor="?colorOnPrimary"
+                        android:textSize="18sp"
+                        app:drawableTint="?colorOnPrimary"
+                        app:layout_constraintBottom_toTopOf="@+id/day_name"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <TextView
+                    android:id="@+id/time_picker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="8dp"
+                    android:gravity="center"
+                    tools:text="00:01"
+                    android:textColor="?colorOnPrimary"
+                    android:textSize="18sp"
+                    app:drawableEndCompat="@drawable/ic_time"
+                    app:drawableTint="?attr/colorOnPrimary"
+                    app:layout_constraintBottom_toBottomOf="@+id/date_group"
+                    app:layout_constraintEnd_toStartOf="@+id/mood_picker_toolbar"
+                    app:layout_constraintHorizontal_bias="0.1"
+                    app:layout_constraintStart_toEndOf="@+id/date_group"
+                    app:layout_constraintTop_toTopOf="@+id/date_group" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/mood_picker_toolbar"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintWidth_percent=".08"
+                    android:padding="4dp"
+                    android:background="@drawable/black_scrim"
+                    app:layout_constraintBottom_toBottomOf="@+id/time_picker"
+                    app:layout_constraintDimensionRatio="h,1:1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/time_picker"
+                    app:srcCompat="@drawable/ic_emoticons" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <View
+                android:id="@+id/view2"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/gradient"
+                app:layout_constraintEnd_toEndOf="@id/guideline5"
+                app:layout_constraintStart_toStartOf="@id/guideline4"
+                app:layout_constraintTop_toBottomOf="@id/top_cl" />
+
+            <com.ertech.editor.CustomViews.DayNoteEditorView
+                android:id="@+id/entry_title_et"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@null"
+                android:gravity="center|start"
+                android:hint="@string/title"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:endIconMode="clear_text"
+                app:layout_constraintEnd_toEndOf="@+id/top_cl"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@+id/guideline4"
+                app:layout_constraintTop_toBottomOf="@+id/mood_picker" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/content_wrapper"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:minHeight="200dp"
+                app:layout_constraintEnd_toEndOf="@id/guideline5"
+                app:layout_constraintStart_toStartOf="@id/guideline4"
+                app:layout_constraintTop_toBottomOf="@id/entry_title_et">
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.04" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.96" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

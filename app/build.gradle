@@ -31,6 +31,7 @@ android {
     }
     buildToolsVersion '30.0.3'
     ndkVersion '22.0.7026061'
+    namespace 'com.viyatek.libraries'
 }
 
 dependencies {

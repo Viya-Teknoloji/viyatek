@@ -153,8 +153,6 @@ class StandAloneAdsHandler(
         articleAdView.articleAdLayout.callToActionView = articleAdView.lockScreenAdButton
         articleAdView.articleAdLayout.headlineView = articleAdView.lockScreenAdHeadline
 
-
-
         articleAdView.lockScreenAdHeadline.text = nativeAd?.headline
 
         // These assets aren't guaranteed to be in every UnifiedNativeAd, so it's important to
@@ -214,6 +212,13 @@ class StandAloneAdsHandler(
         } else {
             if(showCTA) secondVersionAdmobStandAloneFeedBinding.cta.visibility = View.VISIBLE
             secondVersionAdmobStandAloneFeedBinding.cta.text = nativeAd.callToAction
+        }
+
+        if (nativeAd?.icon == null) {
+            secondVersionAdmobStandAloneFeedBinding.icon.visibility = View.GONE
+        } else {
+            secondVersionAdmobStandAloneFeedBinding.icon.visibility = View.VISIBLE
+            secondVersionAdmobStandAloneFeedBinding.icon.setImageDrawable(nativeAd.icon?.drawable)
         }
 
         nativeAd?.let { secondVersionAdmobStandAloneFeedBinding.nativeAdView.setNativeAd(it) }

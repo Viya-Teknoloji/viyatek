@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_photo">הוסף תמונה</string>
+    <string name="app_name">Daynote</string>
+    <string name="audio_permision_denied_text">מכיוון שלא הענקת את ההרשאה, פונקציית ההכתבה של האפליקציה לא תעבוד</string>
+    <string name="audio_recording_permision_denied_text">מכיוון שלא הענקת את ההרשאה, פונקציית הקלטת השמע של האפליקציה לא תעבוד</string>
+    <string name="choose_from_gallery">בחר תמונה מתוך גלריה</string>
+    <string name="permission_denied">ההרשאה נדחתה</string>
+    <string name="recording">הקלטת אודיו</string>
+    <string name="recording_time">זמן הקלטה</string>
+    <string name="save_the_record">האם ברצונך לשמור את הרשומה?</string>
+    <string name="say_something">תגיד משהו…</string>
+    <string name="take_photo">צלם תמונה</string>
+    <string name="tap_to_start_recording">הקש כדי להתחיל בהקלטה</string>
+    <string name="the_delete_button">מחק</string>
+    <string name="the_save_button">שמור</string>
+    <string name="title">כותרת</string>
+    <string name="write_more">כתוב עוד כאן</string>
+    <string name="write_your_diary">יומני היקר…</string>
+</resources>

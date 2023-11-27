@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_photo">Legg til bildet</string>
+    <string name="app_name">Daynote</string>
+    <string name="audio_permision_denied_text">Siden du ikke ga tillatelsen, fungerer ikke tale til tekst-funksjonen i applikasjonen</string>
+    <string name="audio_recording_permision_denied_text">Siden du ikke ga tillatelse, vil ikke lydopptaksfunksjonen til applikasjonen fungere</string>
+    <string name="choose_from_gallery">Velg fra galleri</string>
+    <string name="permission_denied">Tillatelse avslått</string>
+    <string name="recording">Lydopptak</string>
+    <string name="recording_time">Opptakstid</string>
+    <string name="save_the_record">Vil du lagre lydopptaket?</string>
+    <string name="say_something">Si noe…</string>
+    <string name="take_photo">Ta bilde</string>
+    <string name="tap_to_start_recording">Trykk for å starte innspillingen</string>
+    <string name="the_delete_button">Slett</string>
+    <string name="the_save_button">Lagre</string>
+    <string name="title">Tittel</string>
+    <string name="write_more">Skriv mer her</string>
+    <string name="write_your_diary">Skriv din dagbok</string>
+</resources>
