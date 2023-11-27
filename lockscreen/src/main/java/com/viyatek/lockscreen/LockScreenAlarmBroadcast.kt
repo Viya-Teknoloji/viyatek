@@ -1,14 +1,17 @@
 package com.viyatek.lockscreen
 
+import android.Manifest
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat
 import com.viyatek.lockscreen.Statics.IS_LOCK_SCREEN_NOTIFICATION_OK
 import com.viyatek.lockscreen.Statics.IS_LOCK_SCREEN_OK
 import com.viyatek.lockscreen.Statics.LAST_DAY_OPENED
@@ -37,7 +40,7 @@ abstract class LockScreenAlarmBroadcast : BroadcastReceiver() {
 
         this.context = context
 
-            Log.d(LOG_TAG, "Alarm Received New ${intent?.action} ")
+        Log.d(LOG_TAG, "Alarm Received New ${intent?.action} ")
 
             this.intent = intent
 
@@ -85,6 +88,10 @@ abstract class LockScreenAlarmBroadcast : BroadcastReceiver() {
 
             notification?.let {
                 val notificationManager = NotificationManagerCompat.from(context)
+
+                if (!notificationManager.areNotificationsEnabled())
+                    return
+
                 notificationManager.notify(
                     Statics.NOTIFICATION_ID,
                     it

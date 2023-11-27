@@ -1,6 +1,6 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
-    ext.kotlin_version = "1.6.10"
+    ext.kotlin_version = '1.6.21'
     repositories {
         google()
         jcenter()
@@ -8,7 +8,7 @@ buildscript {
         maven { url 'https://artifacts.applovin.com/android' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.1.0'
+        classpath 'com.android.tools.build:gradle:7.4.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "io.realm:realm-gradle-plugin:10.9.0"
         classpath "com.applovin.quality:AppLovinQualityServiceGradlePlugin:4.3.1"
@@ -26,7 +26,7 @@ allprojects {
             url = uri("https://maven.pkg.github.com/Viya-Teknoloji/viyatek")
             credentials {
                 username = '57030280'
-                password = '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'
+                password = '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'
             }
         }
     }

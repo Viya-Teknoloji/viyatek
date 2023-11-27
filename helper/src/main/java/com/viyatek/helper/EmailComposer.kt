@@ -8,12 +8,13 @@ import android.net.Uri
 Created By Eren Tüfekçi
 */class EmailComposer(val activity: Activity) {
 
-    fun composeEmail(subject: String?, addresses: Array<String>) {
+    fun composeEmail(subject: String?, addresses: Array<String>, extra: String? = null) {
 
         val intent = Intent(Intent.ACTION_SENDTO)
         intent.data = Uri.parse("mailto:") // only email apps should handle this
         intent.putExtra(Intent.EXTRA_EMAIL, addresses)
         intent.putExtra(Intent.EXTRA_SUBJECT, subject)
+        intent.putExtra(Intent.EXTRA_TEXT, extra )
         if (intent.resolveActivity(activity.packageManager) != null) {
             activity.startActivity(intent)
         }

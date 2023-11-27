@@ -1,6 +1,7 @@
 package com.viyatek.lockscreen
 
 import android.content.Context
+import android.os.Build
 import com.viyatek.preferences.ViyatekSharedPrefsHandler
 
 class LockScreenPreferencesHandler(val context: Context) {
@@ -12,7 +13,9 @@ class LockScreenPreferencesHandler(val context: Context) {
     fun isLockScreenOk():Boolean = lockPrefsManager.getBooleanValue(Statics.IS_LOCK_SCREEN_OK, true)
     fun setLockScreenOk(isOk : Boolean) = lockPrefsManager.applyPrefs(Statics.IS_LOCK_SCREEN_OK, isOk)
 
-    fun isLockScreenNotificationOk():Boolean = lockPrefsManager.getBooleanValue(Statics.IS_LOCK_SCREEN_NOTIFICATION_OK, true)
+    fun isLockScreenNotificationOk():Boolean = lockPrefsManager.getBooleanValue(
+        Statics.IS_LOCK_SCREEN_NOTIFICATION_OK, Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU
+    )
     fun setLockScreenNotificationOk(isOk : Boolean) = lockPrefsManager.applyPrefs(Statics.IS_LOCK_SCREEN_NOTIFICATION_OK, isOk)
 
     fun isNightOk():Boolean = lockPrefsManager.getBooleanValue(Statics.IS_NIGHT_OK, true)
@@ -27,7 +30,7 @@ class LockScreenPreferencesHandler(val context: Context) {
     fun isEveningOk():Boolean = lockPrefsManager.getBooleanValue(Statics.IS_EVENING_OK, true)
     fun setEveningOk(isOk : Boolean) = lockPrefsManager.applyPrefs(Statics.IS_EVENING_OK, isOk)
 
-    fun getMustShowFactCount() : Int = lockPrefsManager.getIntegerValue(Statics.SHOW_FACT_COUNT, 15)
+    fun getMustShowFactCount() : Int = lockPrefsManager.getIntegerValue(Statics.SHOW_FACT_COUNT, 10)
     fun setMustShowFactCount(factCount : Int) = lockPrefsManager.applyPrefs(Statics.SHOW_FACT_COUNT, factCount)
 
     fun getSeenFactCount() : Int = lockPrefsManager.getIntegerValue(Statics.SEEN_FACTS_SUM_SO_FAR, 0)

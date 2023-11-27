@@ -12,7 +12,7 @@ import android.provider.Settings
 import android.util.Log
 import com.viyatek.preferences.ViyatekSharedPrefsHandler
 
-abstract class LockScreenService : Service(){
+abstract class LockScreenService : Service() {
 
     lateinit var theClass: Class<out Activity>
     var broadCastType: ActivityBroadCastType = ActivityBroadCastType.SCREEN_OFF
@@ -103,13 +103,12 @@ abstract class LockScreenService : Service(){
 
         Log.d(LOG_TAG, "What the hell unregistered")
 
-        mScreenBroadcastReceiver = ScreenBroadcastReceiver(ActivityBroadCastType.SCREEN_OFF, theClass).apply {
+        mScreenBroadcastReceiver =
+            ScreenBroadcastReceiver(ActivityBroadCastType.SCREEN_OFF, theClass).apply {
                 Log.d(this@LockScreenService.LOG_TAG, "Receiver registered")
-                try{
+                try {
                     receiverManager?.registerReceiver(this, filter)
-                }
-                catch (e:Exception)
-                {
+                } catch (e: Exception) {
                     Log.d(this@LockScreenService.LOG_TAG, "Receiver register Error")
                 }
 
@@ -121,7 +120,7 @@ abstract class LockScreenService : Service(){
 
     }
 
-    abstract fun showNotificationFor10Below(CHANNEL_ID: String) : Notification
+    abstract fun showNotificationFor10Below(CHANNEL_ID: String): Notification
 
     fun toReduceLatencyOpenActivity() {
         val pm: PowerManager? = getSystemService(Context.POWER_SERVICE) as PowerManager?
@@ -132,15 +131,15 @@ abstract class LockScreenService : Service(){
 
     fun createLockScreenAndMoveItBack() {
         val lockScreenIntent: Intent = Intent(this, theClass)
-            lockScreenIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            lockScreenIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            lockScreenIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-            lockScreenIntent.putExtra("camefromScreenOff", true)
-            startActivity(lockScreenIntent)
-            ScreenBroadcastReceiver.isScreenOfCalled = true
+        lockScreenIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        lockScreenIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        lockScreenIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        lockScreenIntent.putExtra("camefromScreenOff", true)
+        startActivity(lockScreenIntent)
+        ScreenBroadcastReceiver.isScreenOfCalled = true
     }
 
-    abstract fun showNotificationFor10Plus(CHANNEL_ID: String)  : Notification
+    abstract fun showNotificationFor10Plus(CHANNEL_ID: String): Notification
 
     private fun createNotificationChannel() {
 
@@ -152,7 +151,7 @@ abstract class LockScreenService : Service(){
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && !lockScreenPreferencesHandler.isLockScreenOk() && lockScreenPreferencesHandler.isLockScreenNotificationOk() -> {
                 createNotificationChannelOPlus(NotificationManager.IMPORTANCE_HIGH)
             }
-            else-> {
+            else -> {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     createNotificationChannelOPlus(
                         NotificationManager.IMPORTANCE_DEFAULT

@@ -9,7 +9,7 @@ githubProperties.load(new FileInputStream(rootProject.file("github.properties"))
 
 
 def getVersionName = { ->
-    return "2.1.6" // Replace with version Name
+    return "2.3.2" // Replace with version Name
 }
 
 def getArtifactId = { ->
@@ -56,7 +56,7 @@ publishing {
     repositories {
         maven {
             name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/tfkci/viyatek")
+            url = uri("https://maven.pkg.github.com/Viya-Teknoloji/viyatek")
             credentials {
                 /** Create github.properties in root project folder file with
                  ** gpr.usr=GITHUB_USER_ID & gpr.key=PERSONAL_ACCESS_TOKEN

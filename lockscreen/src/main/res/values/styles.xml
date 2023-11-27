@@ -23,7 +23,7 @@
     <style name="OnBoardingActionButton" parent="Widget.MaterialComponents.Button">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">0dp</item>
-        <item name="android:fontFamily">@font/proximanovaregular</item>
+        <item name="android:fontFamily">@font/nunitosans_regular_lockscreen</item>
         <item name="android:textColor">?attr/colorOnPrimary</item>
         <item name="android:textSize">@dimen/lock_screen_preferences_button</item>
         <item name="textAllCaps">false</item>

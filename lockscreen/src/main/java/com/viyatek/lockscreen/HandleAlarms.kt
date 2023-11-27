@@ -56,7 +56,13 @@ class HandleAlarms(private val context: Context, private val intent: Intent) {
 
             showAlarmTimeinLog(alarmTime)
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                if (alarmManager.canScheduleExactAlarms())
+                    alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC, alarmTime, pendingIntent)
+                else
+                    alarmManager.set(AlarmManager.RTC, alarmTime, pendingIntent)
+            }
+            else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC, alarmTime, pendingIntent)
             }
             else {
@@ -117,8 +123,16 @@ class HandleAlarms(private val context: Context, private val intent: Intent) {
     }
 
     fun setSpareAlarm() {
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            if (alarmManager.canScheduleExactAlarms())
+                alarmManager.setExactAndAllowWhileIdle(
+                    AlarmManager.RTC,
+                    System.currentTimeMillis() + AlarmManager.INTERVAL_FIFTEEN_MINUTES, pendingIntent
+                )
+            else
+                alarmManager.set(AlarmManager.RTC, alarmTime, pendingIntent)
+        }
+        else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             alarmManager.setExactAndAllowWhileIdle(
                 AlarmManager.RTC,
                 System.currentTimeMillis() + AlarmManager.INTERVAL_FIFTEEN_MINUTES, pendingIntent

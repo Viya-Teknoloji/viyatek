@@ -28,6 +28,7 @@ abstract class RateUsDialog : DialogFragment() {
     var inAppReviewEnabled = false
     var appName : String = "Quote to Inspire"
     var adresses = arrayOf("viyateknoloji@gmail.com")
+    var extraUserInfo = ""
 
     var _binding: InAppRateUsDialogBinding? = null
     val binding get() = _binding!!
@@ -103,7 +104,8 @@ abstract class RateUsDialog : DialogFragment() {
 
                         emailComposer.composeEmail(
                             appName,
-                            adresses
+                            adresses,
+                            extraUserInfo
                         )
                     }
                 }

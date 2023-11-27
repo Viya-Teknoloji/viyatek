@@ -10,7 +10,7 @@
         android:id="@+id/selectedNumber"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:fontFamily="@font/proximanova_extra_bold"
+        android:fontFamily="@font/nunitosans_extrabold_lockscreen"
         android:gravity="center"
         tools:text="5"
         app:autoSizeMaxTextSize="@dimen/selected_number_text_size"
